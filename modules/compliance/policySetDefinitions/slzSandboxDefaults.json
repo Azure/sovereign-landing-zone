@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "displayName": "SLZ Sandbox Policies",
+    "description": "SLZ Sandbox Policies",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Regulatory Compliance",
+      "version": "0.3.0"
+    },
+    "parameters": {},
+    "policyDefinitions": [],
+    "policyDefinitionGroups": []
+  },
+  "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzSandboxPolicies",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "SlzSandboxPolicies"
+}

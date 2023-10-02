@@ -1,0 +1,178 @@
+{
+  "name": "Deploy-Private-DNS-Zones",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "This policy initiative is a group of policies that ensures private endpoints to Azure PaaS services are integrated with Azure Private DNS zones.",
+    "displayName": "Configure Azure PaaS services to use private DNS zones",
+    "notScopes": [],
+    "parameters": {
+      "effect": {
+        "value": "DeployIfNotExists"
+      },
+      "effect1": {
+        "value": "deployIfNotExists"
+      },
+      "azureFilePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureFilePrivateDnsZoneId]"
+      },
+      "azureAutomationWebhookPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAutomationWebhookPrivateDnsZoneId]"
+      },
+      "azureAutomationDSCHybridPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAutomationDSCHybridPrivateDnsZoneId]"
+      },
+      "azureCosmosSQLPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCosmosSQLPrivateDnsZoneId]"
+      },
+      "azureCosmosMongoPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCosmosMongoPrivateDnsZoneId]"
+      },
+      "azureCosmosCassandraPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCosmosCassandraPrivateDnsZoneId]"
+      },
+      "azureCosmosGremlinPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCosmosGremlinPrivateDnsZoneId]"
+      },
+      "azureCosmosTablePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCosmosTablePrivateDnsZoneId]"
+      },
+      "azureDataFactoryPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureDataFactoryPrivateDnsZoneId]"
+      },
+      "azureDataFactoryPortalPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureDataFactoryPortalPrivateDnsZoneId]"
+      },
+      "azureHDInsightPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureHDInsightPrivateDnsZoneId]"
+      },
+      "azureMigratePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMigratePrivateDnsZoneId]"
+      },
+      "azureStorageBlobPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageBlobPrivateDnsZoneId]"
+      },
+      "azureStorageBlobSecPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageBlobSecPrivateDnsZoneId]"
+      },
+      "azureStorageQueuePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageQueuePrivateDnsZoneId]"
+      },
+      "azureStorageQueueSecPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageQueueSecPrivateDnsZoneId]"
+      },
+      "azureStorageFilePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageFilePrivateDnsZoneId]"
+      },
+      "azureStorageStaticWebPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageStaticWebPrivateDnsZoneId]"
+      },
+      "azureStorageStaticWebSecPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageStaticWebSecPrivateDnsZoneId]"
+      },
+      "azureStorageDFSPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageDFSPrivateDnsZoneId]"
+      },
+      "azureStorageDFSSecPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureStorageDFSSecPrivateDnsZoneId]"
+      },
+      "azureSynapseSQLPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureSynapseSQLPrivateDnsZoneId]"
+      },
+      "azureSynapseSQLODPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureSynapseSQLODPrivateDnsZoneId]"
+      },
+      "azureSynapseDevPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureSynapseDevPrivateDnsZoneId]"
+      },
+      "azureMediaServicesKeyPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMediaServicesKeyPrivateDnsZoneId]"
+      },
+      "azureMediaServicesLivePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMediaServicesLivePrivateDnsZoneId]"
+      },
+      "azureMediaServicesStreamPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMediaServicesStreamPrivateDnsZoneId]"
+      },
+      "azureMonitorPrivateDnsZoneId1": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMonitorPrivateDnsZoneId1]"
+      },
+      "azureMonitorPrivateDnsZoneId2": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMonitorPrivateDnsZoneId2]"
+      },
+      "azureMonitorPrivateDnsZoneId3": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMonitorPrivateDnsZoneId3]"
+      },
+      "azureMonitorPrivateDnsZoneId4": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMonitorPrivateDnsZoneId4]"
+      },
+      "azureMonitorPrivateDnsZoneId5": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMonitorPrivateDnsZoneId5]"
+      },
+      "azureWebPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureWebPrivateDnsZoneId]"
+      },
+      "azureBatchPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureBatchPrivateDnsZoneId]"
+      },
+      "azureAppPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAppPrivateDnsZoneId]"
+      },
+      "azureAsrPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAsrPrivateDnsZoneId]"
+      },
+      "azureIotPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureIotPrivateDnsZoneId]"
+      },
+      "azureKeyVaultPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureKeyVaultPrivateDnsZoneId]"
+      },
+      "azureSignalRPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureSignalRPrivateDnsZoneId]"
+      },
+      "azureAppServicesPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAppServicesPrivateDnsZoneId]"
+      },
+      "azureEventGridTopicsPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureEventGridTopicsPrivateDnsZoneId]"
+      },
+      "azureDiskAccessPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureDiskAccessPrivateDnsZoneId]"
+      },
+      "azureCognitiveServicesPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCognitiveServicesPrivateDnsZoneId]"
+      },
+      "azureIotHubsPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureIotHubsPrivateDnsZoneId]"
+      },
+      "azureEventGridDomainsPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureEventGridDomainsPrivateDnsZoneId]"
+      },
+      "azureRedisCachePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureRedisCachePrivateDnsZoneId]"
+      },
+      "azureAcrPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureAcrPrivateDnsZoneId]"
+      },
+      "azureEventHubNamespacePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureEventHubNamespacePrivateDnsZoneId]"
+      },
+      "azureMachineLearningWorkspacePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureMachineLearningWorkspacePrivateDnsZoneId]"
+      },
+      "azureServiceBusNamespacePrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureServiceBusNamespacePrivateDnsZoneId]"
+      },
+      "azureCognitiveSearchPrivateDnsZoneId": {
+        "value": "${varPrivateDnsZonesFinalResourceIds}.azureCognitiveSearchPrivateDnsZoneId]"
+      }
+    },
+    "policyDefinitionId": "${varTopLevelManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Private-DNS-Zones",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

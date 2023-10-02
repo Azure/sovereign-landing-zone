@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "displayName": "SLZ Global Custom Policies",
+    "description": "SLZ Global Custom Policies",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Regulatory Compliance",
+      "version": "0.3.0"
+    },
+    "parameters": {},
+    "policyDefinitions": [],
+    "policyDefinitionGroups": []
+  },
+  "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzGlobalCustomPolicies",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "SlzGlobalCustomPolicies"
+}
