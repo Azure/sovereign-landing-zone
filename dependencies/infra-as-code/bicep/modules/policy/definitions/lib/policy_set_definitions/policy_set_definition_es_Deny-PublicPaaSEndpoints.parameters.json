@@ -1,0 +1,142 @@
+{
+  "ACRDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('ACRPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AFSDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AFSPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AKSDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AKSPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "ApiManDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('ApiManPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AppConfigDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AppConfigPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AsDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AsPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AseDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AsePublicIpDenyEffect')]"
+      }
+    }
+  },
+  "AutomationDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('AutomationPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "BatchDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('BatchPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "BotServiceDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('BotServicePublicIpDenyEffect')]"
+      }
+    }
+  },
+  "CosmosDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('CosmosPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "FunctionDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('FunctionPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "KeyVaultDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('KeyVaultPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "MariaDbDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('MariaDbPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "MlDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('MlPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "MySQLFlexDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('MySQLFlexPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "PostgreSQLFlexDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('PostgreSQLFlexPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "RedisCacheDenyPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('RedisCachePublicIpDenyEffect')]"
+      }
+    }
+  },
+  "SqlServerDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('SqlServerPublicIpDenyEffect')]"
+      }
+    }
+  },
+  "StorageDenyPaasPublicIP": {
+    "parameters": {
+      "effect": {
+        "value": "[[parameters('StoragePublicIpDenyEffect')]"
+      }
+    }
+  }
+}

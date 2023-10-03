@@ -1,25 +1,27 @@
-# TODO: The maintainer of this repo has not yet edited this file
+# Support 
 
-**REPO OWNER**: Do you want Customer Service & Support (CSS) support for this product/project?
+## SLZ support scope 
 
-- **No CSS support:** Fill out this template with information about how to file issues and get help.
-- **Yes CSS support:** Fill out an intake form at [aka.ms/onboardsupport](https://aka.ms/onboardsupport). CSS will work with/help you to determine next steps.
-- **Not sure?** Fill out an intake as though the answer were "Yes". CSS will help you decide.
+Customers who request support for design guidance or development assistance may be directed to file a GitHub issue. Customers may also have to work with our Microsoft solution architects, Microsoft partners or software vendors directly for scenarios that aren't supported by the Microsoft customer support team. Examples include, but aren't limited to: 
 
-*Then remove this first heading from this SUPPORT.MD file before publishing your repo.*
+* Application development 
+* Cloud deployment architecture 
+* Troubleshooting custom applications 
+* Custom code 
 
-# Support
+The following are some of the scenarios that the Microsoft support team will assist with: 
 
-## How to file issues and get help  
+* Issues that occur during installation or configuration 
+* Deployment errors that occur when customers try to deploy applications to the Azure platform and services 
+* Runtime errors that occur when customers use the Azure platform and services 
+* Performance issues that affect applications that were built by using the supported open-source technologies on the Azure platform and services 
 
-This project uses GitHub Issues to track bugs and feature requests. Please search the existing 
-issues before filing new issues to avoid duplicates.  For new issues, file your bug or 
-feature request as a new Issue.
+Any issues that are deemed outside of the above list by Microsoft support and/or requires bugfix in the Template or Code in the repo, Microsoft support will redirect user to file the issue on GitHub or to contact their Microsoft solution architect or representative (when applicable). 
 
-For help and questions about using this project, please **REPO MAINTAINER: INSERT INSTRUCTIONS HERE 
-FOR HOW TO ENGAGE REPO OWNERS OR COMMUNITY FOR HELP. COULD BE A STACK OVERFLOW TAG OR OTHER
-CHANNEL. WHERE WILL YOU HELP PEOPLE?**.
+## How to file issues and get help 
 
-## Microsoft Support Policy  
+If you have questions or need help, [create a support request](https://ms.portal.azure.com/#view/Microsoft_Azure_Support/HelpAndSupportBlade/~/overview), or file a [GitHub issue](https://github.com/Azure/sovereign-landing-zone/issues). 
 
-Support for this **PROJECT or PRODUCT** is limited to the resources listed above.
+This project uses GitHub issues to track bugs and feature requests. Please search for the existing issues before filing new issues to avoid duplicates. For new issues, file your bug or feature request as a new Issue. Please provide as much information as possible when filing an issue. Include screenshots or correlations IDs if possible (please redact any sensitive information). For instructions on how to get deployments and correlation ID, please follow this link [here](https://learn.microsoft.com/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal#get-deployments-and-correlation-id). 
+
+Project maintainers aim to investigate within 1 business day and provide guidance/workarounds within 3 business days of GitHub issue submission. 

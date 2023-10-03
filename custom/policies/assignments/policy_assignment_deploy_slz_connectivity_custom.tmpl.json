@@ -1,0 +1,18 @@
+{
+  "name": "Deploy-Slz-Custom-Connectivity",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "SLZ Connectivity Custom Policies",
+    "displayName": "SLZ Connectivity Custom Policies",
+    "notScopes": [],
+    "parameters": {},
+    "policyDefinitionId": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzConnectivityCustomPolicies",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

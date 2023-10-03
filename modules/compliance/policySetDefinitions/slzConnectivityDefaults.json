@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "displayName": "SLZ Connectivity Policies",
+    "description": "SLZ Connectivity Policies",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Regulatory Compliance",
+      "version": "0.3.0"
+    },
+    "parameters": {},
+    "policyDefinitions": [],
+    "policyDefinitionGroups": []
+  },
+  "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzConnectivityPolicies",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "SlzConnectivityPolicies"
+}
