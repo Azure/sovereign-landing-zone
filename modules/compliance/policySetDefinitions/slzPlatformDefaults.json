@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "displayName": "SLZ Platform Policies",
+    "description": "SLZ Platform Policies",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Regulatory Compliance",
+      "version": "0.3.0"
+    },
+    "parameters": {},
+    "policyDefinitions": [],
+    "policyDefinitionGroups": []
+  },
+  "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzPlatformPolicies",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "SlzPlatformPolicies"
+}

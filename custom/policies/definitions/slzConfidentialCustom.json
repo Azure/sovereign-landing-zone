@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "displayName": "SLZ Confidential Custom Policies",
+        "description": "SLZ Confidential Custom Policies",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Regulatory Compliance",
+            "version": "0.3.0"
+        },
+        "parameters": {},
+        "policyDefinitions": [],
+        "policyDefinitionGroups": []
+    },
+    "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzConfidentialCustomPolicies",
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "SlzConfidentialCustomPolicies"
+}
