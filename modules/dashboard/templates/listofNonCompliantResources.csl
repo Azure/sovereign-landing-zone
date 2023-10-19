@@ -1,0 +1,23 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| where properties.complianceState in ("NonCompliant", "Exempt")
+| extend complianceState = tostring(properties.complianceState),resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType), policySetDefinitionName = tostring(properties.policySetDefinitionName), subscriptionId = tostring(properties.subscriptionId), policyDefinitionName = tostring(properties.policyDefinitionName)
+| distinct resourceId, policySetDefinitionName, complianceState, resourceType, subscriptionId, policyDefinitionName
+| join kind=leftouter (
+   resources
+   | project resourceId=tolower(id), resourceName=name, resourceGroup
+  ) on resourceId
+| join kind=inner (
+    resourcecontainers
+    | where type == 'microsoft.resources/subscriptions'
+    | project subscriptionId, subscriptionName = name
+  ) on subscriptionId
+|join kind=inner (
+    PolicyResources
+    | where type == "microsoft.authorization/policydefinitions"
+    | extend policyName = tostring(properties.displayName)
+    | project policyName, policyDefinitionName = name
+  ) on policyDefinitionName
+| extend ['Resource name']= iff(resourceName=="", subscriptionName, resourceName)
+| project ['Compliance state']=complianceState, ['Policy initiative']=policySetDefinitionName,['Policy definition']=policyName, ['Resource type']=resourceType, ['Resource name'] , ['Resource group']=resourceGroup,  ['Subscription']=subscriptionName
+| order by ['Compliance state'] desc, ['Resource type'], ['Resource name'] asc

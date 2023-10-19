@@ -1,0 +1,18 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates'
+| extend policyAssignmentScope = tolower(properties.policyAssignmentScope)
+| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId),subscriptionId = tostring(properties.subscriptionId), stateWeight = tolong(properties.stateWeight)
+| summarize max(stateWeight) by resourceId, subscriptionId
+| join kind=inner (
+    resourcecontainers
+    | where type == 'microsoft.resources/subscriptions'
+    | project subscriptionId, subscriptionName = name
+  ) on subscriptionId
+| summarize counts = count() by subscriptionId, subscriptionName, max_stateWeight
+| summarize nonCompliantCount = sumif(counts, max_stateWeight == 300), compliantCount = sumif(counts, max_stateWeight == 200), conflictCount = sumif(counts, max_stateWeight == 100), exemptCount = sumif(counts, max_stateWeight == 50) by subscriptionId, subscriptionName
+| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)
+| extend totalCompliantResources = todouble(compliantCount + exemptCount)
+| extend compliancePercentage = iff(totalResources == 0 or (totalCompliantResources == 0 and nonCompliantCount == 0), todouble(100), 100 * totalCompliantResources / totalResources)
+| project subscriptionName, compliancePercentageEx = toint(round(compliancePercentage, 1))
+| order by compliancePercentageEx asc
