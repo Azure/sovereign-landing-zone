@@ -134,6 +134,7 @@ module modDashboard '../../modules/dashboard/dashboard.bicep' = {
     parDashboardName: varDashboardDisplayName
     parTags: parTags
     parDeploymentPrefix: parDeploymentPrefix
+    parDeploymentSuffix: parDeploymentSuffix
   }
   dependsOn: [
     modDashboardResourceGroup

@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 /*
-  SUMMARY : Deploys the Management Groups and Subscriptions for the Sovereign Landing Zone
+  SUMMARY : Deploys the Management Groups and Subscriptions for the Sovereign Landing Zone not requiring tenant root scope access.
   AUTHOR/S: Cloud for Sovereignty
 */
-targetScope = 'tenant'
+targetScope = 'managementGroup'
 
 @description('The prefix that will be added to all resources created by this deployment.')
 @minLength(2)
@@ -55,7 +55,7 @@ var varPlatformMgChildren = {
 }
 
 //This module deploys management groups and creates a hierarchy of management groups
-module modManagementGroups '../../dependencies/infra-as-code/bicep/modules/managementGroups/managementGroups.bicep' = {
+module modManagementGroups '../../dependencies/infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep' = {
   name: take('${parDeploymentPrefix}-deploy-management-groups${parDeploymentSuffix}', 64)
   params: {
     parTelemetryOptOut: true
@@ -72,7 +72,7 @@ module modManagementGroups '../../dependencies/infra-as-code/bicep/modules/manag
 }
 
 //This module deploys a management subscription and creates an alias for it.
-module modManagementSubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAlias.bicep' = if (empty(parManagementSubscriptionId)) {
+module modManagementSubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAliasScopeEscape.bicep' = if (empty(parManagementSubscriptionId)) {
   name: take('${parDeploymentPrefix}-deploy-management-subscription${parDeploymentSuffix}', 64)
   params: {
     parSubscriptionBillingScope: parSubscriptionBillingScope
@@ -88,7 +88,7 @@ module modManagementSubscription '../../dependencies/infra-as-code/bicep/CRML/su
 }
 
 //This module deploys a connectivity subscription and creates an alias for it
-module modConnectivitySubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAlias.bicep' = if (empty(parConnectivitySubscriptionId)) {
+module modConnectivitySubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAliasScopeEscape.bicep' = if (empty(parConnectivitySubscriptionId)) {
   name: take('${parDeploymentPrefix}-deploy-connectivity-subscription${parDeploymentSuffix}', 64)
   params: {
     parSubscriptionBillingScope: parSubscriptionBillingScope
@@ -104,7 +104,7 @@ module modConnectivitySubscription '../../dependencies/infra-as-code/bicep/CRML/
 }
 
 //This module deploys an identity subscription and creates an alias for it.
-module modIdentitySubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAlias.bicep' = if (empty(parIdentitySubscriptionId)) {
+module modIdentitySubscription '../../dependencies/infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAliasScopeEscape.bicep' = if (empty(parIdentitySubscriptionId)) {
   name: take('${parDeploymentPrefix}-deploy-identity-subscription${parDeploymentSuffix}', 64)
   params: {
     parSubscriptionBillingScope: parSubscriptionBillingScope

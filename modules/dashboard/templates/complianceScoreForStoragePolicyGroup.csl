@@ -1,5 +1,5 @@
 PolicyResources
-|where type == 'microsoft.policyinsights/policystates' and tolower(properties.policyAssignmentScope) has  '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'  
+|where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend  policyDefinitionId = tolower(properties.policyDefinitionId), policyGroups = tolower(properties.policyDefinitionGroupNames)
 | mv-expand parsed_policy_groups = parse_json(policyGroups)
 | where tostring(parsed_policy_groups) == "dashboard-storage security"

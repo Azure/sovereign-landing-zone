@@ -4,6 +4,9 @@
             "enabled": true,
             "verbose": false,
             "rules": {
+              "no-deployments-resources": {
+                "level": "off"
+              },
                 "adminusername-should-not-be-literal": {
                     "level": "warning"
                 },

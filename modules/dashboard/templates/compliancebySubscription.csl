@@ -1,7 +1,7 @@
 PolicyResources
 | where type == 'microsoft.policyinsights/policystates'
 | extend policyAssignmentScope = tolower(properties.policyAssignmentScope)
-| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'
+| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId),subscriptionId = tostring(properties.subscriptionId), stateWeight = tolong(properties.stateWeight)
 | summarize max(stateWeight) by resourceId, subscriptionId
 | join kind=inner (

@@ -6,8 +6,6 @@ This article will walk through the required Azure permissions, setting up local 
 
 The account or service principal used to deploy the SLZ Preview must have both of the following:
 
-**Note** the reduced permission set listed below is pending completion this feature. Documentation is being left as-is to show the current direction. When the feature is finished, this note will be removed and it will be listed in the release notes. For the time being, Global Administrator with elevated Azure permissions are required.
-
 1. Ability to create subscriptions programmatically
    * The [Create Azure subscriptions programmatically](https://learn.microsoft.com/azure/cost-management-billing/manage/programmatically-create-subscription) documentation describes the types of Azure agreements that have REST APIs that will enable automatic subscription creation.
    * This document also provides links to the permissions required each Azure agreement type. The agreement type can be found in the [Cost Management + Billing](https://learn.microsoft.com/azure/cost-management-billing/manage/view-all-accounts#check-the-type-of-your-account) blade in the portal.

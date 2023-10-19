@@ -1,5 +1,5 @@
 PolicyResources
-| where type == 'microsoft.policyinsights/policystates' and tolower(properties.policyAssignmentScope) has '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend policyDefinitionId = tolower(properties.policyDefinitionId), policyGroups = properties.policyDefinitionGroupNames, policySetDefinitionName = tolower(properties.policySetDefinitionName)
 | mv-expand parsed_policy_groups = policyGroups
 | where parsed_policy_groups hasprefix "dashboard-"

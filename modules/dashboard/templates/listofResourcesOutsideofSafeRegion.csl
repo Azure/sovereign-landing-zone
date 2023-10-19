@@ -1,5 +1,5 @@
 policyResources
-| where type == 'microsoft.policyinsights/policystates'  and  tolower(properties.policyAssignmentScope) has  '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'
+| where type == 'microsoft.policyinsights/policystates'  and  properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend  complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType),   resourceLocation = tolower(properties.resourceLocation), policySetDefinitionName = tostring(properties.policySetDefinitionName), policyGroups = tolower(properties.policyDefinitionGroupNames)
 | where (complianceState == 'NonCompliant' or complianceState == 'Exempt')
 | mv-expand parsed_policy_groups = parse_json(policyGroups)
@@ -9,4 +9,4 @@ policyResources
    | project resourceId=tolower(id), resourceName=name, resourceGroup
   ) on resourceId
 | project ['Compliance state']=complianceState, ['Policy initiative']=policySetDefinitionName, ['Resource type']=resourceType, ['Resource name']=resourceName, ['Resource location']=resourceLocation,  ['Resource group']=resourceGroup
-| order by ['Compliance state'] desc, ['Resource type'], ['Resource name'] asc 
+| order by ['Compliance state'] desc, ['Resource type'], ['Resource name'] asc

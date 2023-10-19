@@ -1,7 +1,7 @@
 policyResources
 | where type == 'microsoft.policyinsights/policystates'
 | extend resourceId = tolower(properties.resourceId), policyAssignmentScope = tolower(properties.policyAssignmentScope), complianceState = tostring(properties.complianceState)
-| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and complianceState == 'NonCompliant'
+| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER' and complianceState == 'NonCompliant'
 | mv-expand parsed_policy_groups = parse_json(tolower(properties.policyDefinitionGroupNames))
 | where tostring(parsed_policy_groups) == "dashboard-data residency"
 | join kind=inner  (

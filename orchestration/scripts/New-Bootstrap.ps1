@@ -13,6 +13,7 @@ param (
 
 #variables
 $varBootstrapBicepFilePath = '..\bootstrap\bootstrap.bicep'
+$varBootstrapScopeEscapeBicepFilePath = '..\bootstrap\bootstrapScopeEscape.bicep'
 $varBootstrapRequiredParams = @('parDeploymentPrefix', 'parTopLevelManagementGroupName', 'parSubscriptionBillingScope', 'parDeploymentLocation')
 
 <#
@@ -50,17 +51,37 @@ function New-Bootstrap {
     }
     $varLoopCounter = 0;
     $varRetry = $true
+    $varTopLevelManagementGroupParentName = $null
     while ($varRetry -and $varLoopCounter -lt $varMaxRetryAttemptTransientErrorRetry) {
         $modDeployBootstrap = $null
         try {
             Write-Information ">>> Bootstrap deployment started" -InformationAction Continue
 
-            $modDeployBootstrap = New-AzTenantDeployment `
-                -Name $varDeploymentName `
-                -Location $parDeploymentLocation `
-                -TemplateFile $varBootstrapBicepFilePath `
-                -TemplateParameterObject $varParams `
-                -WarningAction Ignore
+            if ([string]::IsNullOrEmpty($varParams.parTopLevelManagementGroupParentId)) {
+                $modDeployBootstrap = New-AzTenantDeployment `
+                    -Name $varDeploymentName `
+                    -Location $parDeploymentLocation `
+                    -TemplateFile $varBootstrapBicepFilePath `
+                    -TemplateParameterObject $varParams `
+                    -WarningAction Ignore
+            }
+            else {
+                if ($varParams.parTopLevelManagementGroupParentId.ToLower() -like "/providers/microsoft.management/managementGroups/*") {
+                    $varTopLevelManagementGroupParentName = ($varParams.parTopLevelManagementGroupParentId -split '/')[-1]
+                }
+                else {
+                    $varRetry = $false
+                    Write-Error "The value for parTopLevelManagementGroupParentId parameter has incorrect format. Please refer the sample value in the parameter file for more details." -ErrorAction Stop
+                }
+
+                $modDeployBootstrap = New-AzManagementGroupDeployment `
+                    -Name $varDeploymentName `
+                    -ManagementGroupId $varTopLevelManagementGroupParentName `
+                    -Location $parDeploymentLocation `
+                    -TemplateFile $varBootstrapScopeEscapeBicepFilePath `
+                    -TemplateParameterObject $varParams `
+                    -WarningAction Ignore
+            }
 
             if (!$modDeployBootstrap) {
                 $varRetry = $false
@@ -94,7 +115,13 @@ function New-Bootstrap {
                 Write-Error ">>> Error occurred during execution . Please try after addressing the error : $varException \n $varErrorDetails \n $varTrace" -ErrorAction Stop
             }
             else {
-                $varDeploymentErrorCodes = Get-FailedDeploymentErrorCodes $varManagementGroupId $varDeploymentName $varTenantDeployment
+                if ([string]::IsNullOrEmpty($varParams.parTopLevelManagementGroupParentId)) {
+                    $varDeploymentErrorCodes = Get-FailedDeploymentErrorCodes $varManagementGroupId $varDeploymentName $varTenantDeployment
+                }
+                else {
+                    $varDeploymentErrorCodes = Get-FailedDeploymentErrorCodes $varTopLevelManagementGroupParentName $varDeploymentName $varManagementGroupDeployment
+                }
+
                 if ($null -eq $varDeploymentErrorCodes) {
                     $varRetry = $false
                 }

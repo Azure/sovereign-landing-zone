@@ -1,5 +1,5 @@
 PolicyResources
-| where type == 'microsoft.policyinsights/policystates' and tostring(properties.complianceState)  == "Exempt" and tolower(properties.policyAssignmentScope) has  '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'  
+| where type == 'microsoft.policyinsights/policystates' and tostring(properties.complianceState)  == "Exempt" and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend  policyDefinitionId = tolower(properties.policyDefinitionId),complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType), policySetDefinitionName = tostring(properties.policySetDefinitionName),subscriptionId = tostring(properties.subscriptionId), policyGroups = tolower(properties.policyDefinitionGroupNames)
 | mv-expand parsed_policy_groups = parse_json(policyGroups)
 | where tostring(parsed_policy_groups) in ("dashboard-storage security", "dashboard-transport security", "dashboard-confidential computing","dashboard-key management")

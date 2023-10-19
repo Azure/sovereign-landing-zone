@@ -22,8 +22,6 @@ The specific steps vary depending on the Azure Account type you are using. For m
 
 ### Why do I need elevated permissions to deploy the Sovereign Landing Zone Preview?
 
-**Note** the reduced permission set listed below is pending completion this feature. Documentation is being left as-is to show the current direction. When the feature is finished, this note will be removed and it will be listed in the release notes. For the time being, Global Administrator with elevated Azure permissions are required.
-
 This permission is no longer needed, but can be useful for organizations that are getting started with Azure. For more details about permissions review the docs on the [current recommended permissions](./05-Permissions-Tooling.md) or [reduced permission sets required](./scenarios/Piloting-SLZ.md).
 
 ### Why do I get an error when I try to login using `az login` about no subscriptions?

@@ -4,7 +4,7 @@ The numbered getting started docs are intended to overview the steps that would 
 
 ## Reduced Permissions
 
-**Note** the reduced permission set listed below is pending completion this feature. Documentation is being left as-is to show the current direction. When the feature is finished, this note will be removed and it will be listed in the release notes. For the time being, Global Administrator with elevated Azure permissions are required. The `Confirm-SovereignLandingZonePrerequisites.ps1` script will not attempt to automatically elevate Azure permissions when using a child management group as the top-level.
+**Note** The `Confirm-SovereignLandingZonePrerequisites.ps1` script will not attempt to automatically elevate Azure permissions when using a child management group as the top-level.
 
 Reference the production deployment [permission setup](../05-Permissions-Tooling.md) for the recommended steps. For pilot deployments, there are a few additional recommendations.
 

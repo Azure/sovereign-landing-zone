@@ -59,7 +59,6 @@ param (
   $parTempSLZPolicySetDefinitionOutput = "slzTempDefaultandCustomPolicySetDefinitions.bicep",
   [string]
   $parTempALZPolicySetDefinitionOutput = "alzTempPolicySetDefinitions.bicep",
-  [bool]
   $parAttendedLogin = $true
 )
 

@@ -1,6 +1,6 @@
-# ALZ Bicep - Management Groups Module
+# ALZ Bicep - Management Groups Module with Scope Escape
 
-ALZ Bicep Module to set up Management Group structure
+ALZ Bicep Module to set up Management Group structure, using Scope Escaping feature of ARM to allow deployment not requiring tenant root scope access.
 
 ## Parameters
 
@@ -117,7 +117,7 @@ outDecommissionedManagementGroupName | string |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "infra-as-code/bicep/modules/managementGroups/managementGroups.json"
+        "template": "infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.json"
     },
     "parameters": {
         "parTopLevelManagementGroupPrefix": {

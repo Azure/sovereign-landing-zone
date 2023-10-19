@@ -1,6 +1,6 @@
-# ALZ Bicep CRML - Subscription Alias Module
+# ALZ Bicep CRML - Subscription Alias Module with Scope Escape
 
-Module to deploy an Azure Subscription into an existing billing scope that can be from an EA, MCA or MPA
+Module to deploy an Azure Subscription into an existing billing scope that can be from an EA, MCA or MPA, using Scope Escaping feature of ARM to allow deployment not requiring tenant root scope access.
 
 ## Parameters
 
@@ -78,7 +78,7 @@ outSubscriptionId | string |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAlias.json"
+        "template": "infra-as-code/bicep/CRML/subscriptionAlias/subscriptionAliasScopeEscape.json"
     },
     "parameters": {
         "parSubscriptionName": {

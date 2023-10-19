@@ -18,6 +18,10 @@ param parCountryOrAgencyName string
 @maxLength(5)
 param parDeploymentPrefix string
 
+@description('The suffix that will be added to management group suffix name the same way to be added to management group prefix names.')
+@maxLength(5)
+param parDeploymentSuffix string = ''
+
 @description('Tags to be added to deployed resources')
 param parTags object
 
@@ -42,21 +46,21 @@ var varComplianceScoreForTransportPolicyGroupText = loadTextContent('./templates
 var varComplianceScoreForConfidentialComputingPolicyGroupText = loadTextContent('./templates/complianceScoreForConfidentialComputingPolicyGroup.csl')
 
 // Queries
-var varResourceComplianceScoreQuery = replace(varResourceComplianceScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varResourcesbyComplianceStateQuery = replace(varResourcesbyComplianceStateText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varCompliancebyPolicyInitiativeQuery = replace(varCompliancebyPolicyInitiativeText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varCompliancebySubscriptionQuery = replace(varCompliancebySubscriptionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varListofNonCompliantResourcesQuery = replace(varListofNonCompliantResourcesText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varResourcesOutsideofSafeRegionQuery = replace(varResourcesOutsideofSafeRegionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varListofResourcesExemptofDataResidentPolicyQuery = replace(varListofResourcesExemptofDataResidentPolicyText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varListofResourcesOutsideofSafeRegionQuery = replace(varListofResourcesOutsideofSafeRegionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varConfidentialityScoreQuery = replace(varConfidentialityScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varDataResidencyScoreQuery = replace(varDataResidencyScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varListOfResourcesExemptOfConfidentialPoliciesQuery = replace(varListOfResourcesExemptOfConfidentialPoliciesText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varComplianceByPolicyGroupQuery = replace(varComplianceByPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varComplianceScoreForStoragePolicyGroupQuery = replace(varComplianceScoreForStoragePolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varComplianceScoreForTransportPolicyGroupQuery = replace(varComplianceScoreForTransportPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
-var varComplianceScoreForConfidentialComputingPolicyGroupQuery = replace(varComplianceScoreForConfidentialComputingPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix)
+var varResourceComplianceScoreQuery = replace(replace(varResourceComplianceScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varResourcesbyComplianceStateQuery = replace(replace(varResourcesbyComplianceStateText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varCompliancebyPolicyInitiativeQuery = replace(replace(varCompliancebyPolicyInitiativeText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varCompliancebySubscriptionQuery = replace(replace(varCompliancebySubscriptionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varListofNonCompliantResourcesQuery = replace(replace(varListofNonCompliantResourcesText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varResourcesOutsideofSafeRegionQuery = replace(replace(varResourcesOutsideofSafeRegionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varListofResourcesExemptofDataResidentPolicyQuery = replace(replace(varListofResourcesExemptofDataResidentPolicyText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varListofResourcesOutsideofSafeRegionQuery = replace(replace(varListofResourcesOutsideofSafeRegionText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varConfidentialityScoreQuery = replace(replace(varConfidentialityScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varDataResidencyScoreQuery = replace(replace(varDataResidencyScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varListOfResourcesExemptOfConfidentialPoliciesQuery = replace(replace(varListOfResourcesExemptOfConfidentialPoliciesText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varComplianceByPolicyGroupQuery = replace(replace(varComplianceByPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varComplianceScoreForStoragePolicyGroupQuery = replace(replace(varComplianceScoreForStoragePolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varComplianceScoreForTransportPolicyGroupQuery = replace(replace(varComplianceScoreForTransportPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varComplianceScoreForConfidentialComputingPolicyGroupQuery = replace(replace(varComplianceScoreForConfidentialComputingPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
 
 var varDefaultTitles = [
   {

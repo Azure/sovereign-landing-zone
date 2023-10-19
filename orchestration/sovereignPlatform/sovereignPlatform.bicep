@@ -153,7 +153,7 @@ param parSubnets array = [
 ]
 
 @description('The SKU for the Express Route Gateway. Default: standard')
-param parExpressGatewaySku string = 'standard'
+param parExpressGatewaySku string = ''
 
 @description('Express route gateway vpn type. Default:RouteBased')
 param parExpressGatewayVpntype string = 'RouteBased'
@@ -183,7 +183,7 @@ param parExpressGatewayBgpPeeringAddress string = ''
 param parExpressGatewayPeerWeight int = 5
 
 @description('The SKU for the VPN Gateway. Default:VpnGw1')
-param parVpnGatewaySku string = 'VpnGw1'
+param parVpnGatewaySku string = ''
 
 @description('VPN type.  Default: RouteBased')
 param parVpnGatewayVpntype string = 'RouteBased'

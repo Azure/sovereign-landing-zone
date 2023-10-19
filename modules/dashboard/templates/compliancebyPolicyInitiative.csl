@@ -1,5 +1,5 @@
 PolicyResources
-| where type == 'microsoft.policyinsights/policystates' and  tolower(properties.policyAssignmentScope) has '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER'
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend  policySetInitiative = tostring(properties.policySetDefinitionName), resourceId = tolower(properties.resourceId), stateWeight = tolong(properties.stateWeight)
 | summarize max(stateWeight) by resourceId, policySetInitiative
 | summarize counts = count() by policySetInitiative, max_stateWeight
