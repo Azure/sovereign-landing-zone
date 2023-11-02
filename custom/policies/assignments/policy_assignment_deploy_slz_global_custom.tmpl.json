@@ -1,0 +1,18 @@
+{
+  "name": "Deploy-Slz-Custom",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "SLZ Global Custom Policies",
+    "displayName": "SLZ Global Custom Policies",
+    "notScopes": [],
+    "parameters": {},
+    "policyDefinitionId": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzGlobalCustomPolicies",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

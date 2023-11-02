@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "displayName": "SLZ Decommissioned Custom Policies",
+        "description": "SLZ Decommissioned Custom Policies",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Regulatory Compliance",
+            "version": "0.3.0"
+        },
+        "parameters": {},
+        "policyDefinitions": [],
+        "policyDefinitionGroups": []
+    },
+    "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzDecommissionedCustomPolicies",
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "SlzDecommissionedCustomPolicies"
+}

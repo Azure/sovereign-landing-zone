@@ -1,0 +1,55 @@
+//This bicep file includes auto-generated code. Please dont make any changes these file manually.
+
+targetScope = 'managementGroup'
+
+// <!-- slzDefaultandCustomPolicySetDefinitionsReplacementStart --> // DO NOT Remove This Line !!!
+var varCustomPolicySetDefinitionsArray = [
+{
+		name: 'SlzGlobalPolicies'
+		libSetDefinition: loadJsonContent('lib/policy_set_definitions/slzGlobalDefaults.json')
+		libSetChildDefinitions: [
+			{
+				definitionReferenceId: 'AllowedLocations'
+				definitionId: '/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c'
+				definitionParameters: varSlzGlobalDefaultsParameters.AllowedLocations.parameters
+				definitionGroups: ['dashboard-Data Residency']
+			}
+			{
+				definitionReferenceId: 'AllowedLocationsForResourceGroups'
+				definitionId: '/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988'
+				definitionParameters: varSlzGlobalDefaultsParameters.AllowedLocationsForResourceGroups.parameters
+				definitionGroups: ['dashboard-Data Residency']
+			}
+			{
+				definitionReferenceId: 'Azure Cosmos DB allowed locations_1'
+				definitionId: '/providers/Microsoft.Authorization/policyDefinitions/0473574d-2d43-4217-aefe-941fcdf7e684'
+				definitionParameters: varSlzGlobalDefaultsParameters['Azure Cosmos DB allowed locations_1'].parameters
+				definitionGroups: ['dashboard-Data Residency']
+			}
+		]
+	}
+]
+
+// Policy Set/Initiative Definition Parameter Variables
+
+var varSlzGlobalDefaultsParameters = loadJsonContent('lib/policy_set_definitions/slzGlobalDefaults.parameters.json')
+
+// <!-- slzDefaultandCustomPolicySetDefinitionsReplacementEnd --> // DO NOT Remove This Line !!!
+
+resource resPolicySetDefinitions 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = [for policySet in varCustomPolicySetDefinitionsArray: {
+  name: '${policySet.libSetDefinition.name}.v${policySet.libSetDefinition.properties.metadata.version}'
+  properties: {
+    description: '${policySet.libSetDefinition.properties.description} v${policySet.libSetDefinition.properties.metadata.version}'
+    displayName: '${policySet.libSetDefinition.properties.displayName} v${policySet.libSetDefinition.properties.metadata.version}'
+    metadata: policySet.libSetDefinition.properties.metadata
+    parameters: policySet.libSetDefinition.properties.parameters
+    policyType: policySet.libSetDefinition.properties.policyType
+    policyDefinitions: [for policySetDef in policySet.libSetChildDefinitions: {
+      policyDefinitionReferenceId: policySetDef.definitionReferenceId
+      policyDefinitionId: policySetDef.definitionId
+      parameters: policySetDef.definitionParameters
+	  groupNames: policySetDef.definitionGroups
+    }]
+    policyDefinitionGroups: policySet.libSetDefinition.properties.policyDefinitionGroups
+  }
+}]
