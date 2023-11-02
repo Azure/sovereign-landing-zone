@@ -1,0 +1,17 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tolower(properties.resourceType), stateWeight = tolong(properties.stateWeight)
+| summarize maxStateWeight =  max(stateWeight) by resourceId, resourceType
+| project resourceId, resourceType,
+    complianceState = case(
+            maxStateWeight == 300, "NonCompliant",
+            maxStateWeight == 200, "Compliant",
+            maxStateWeight == 100, "Conflict",
+            maxStateWeight == 50, "Exempt",
+             "UnknownResource"
+         )
+| summarize counts = count() by complianceState
+| summarize compliantCount = sumif(counts, complianceState == 'Compliant' or complianceState == 'Exempt'), nonCompliantCount = sumif(counts, complianceState == 'Conflict' or complianceState == 'NonCompliant')
+| extend totalNum = toint(compliantCount + nonCompliantCount)
+| extend compliancePercentageVal = iff(totalNum == 0, todouble(100), 100 * todouble(compliantCount) / totalNum)
+| project ['Compliance percentage (includes compliant and exempt)'] = strcat(tostring(round(compliancePercentageVal, 1)), '% (', tostring(compliantCount),' out of ', tostring(totalNum), ')')
