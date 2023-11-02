@@ -15,7 +15,7 @@ The assigned policies in each of the landing zones are designed to support the b
 
 The SLZ Preview deploys under the [tenant root group](https://learn.microsoft.com/azure/governance/management-groups/overview#root-management-group-for-each-directory) in Azure, so it can support brownfield deployments, greenfield deployments, and multiple SLZ Preview deployments within the same tenant based on customer need. The SLZ Preview can also be deployed to an arbitrary [child management group](scenarios/Piloting-SLZ.md), which is better suited for conducting a proof-of-concept.
 
-![SLZ Preview Architecture Diagram](images/sovereign-scale-architecture.png)
+![SLZ Initial Architecture Diagram](images/slz-initial-architecture.png)
 
 ## Next Step
 

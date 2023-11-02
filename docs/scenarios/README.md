@@ -11,3 +11,4 @@ The following are common scenarios found during initial deployment or through op
 7. [Customizing the compliance dashboard](./Extending-Compliance-Dashboard.md)
 8. [Deploying application or platform landing zones](./Landing-Zone-Vending.md)
 9. [Adding additional landing zone management groups](./Expanding-SLZ-ManagementGroups.md)
+10. [Removing ALZ Policies](./Removing-Policy-Assignments.md)

@@ -12,7 +12,7 @@ For contributing and best practice for receiving updates, follow the steps outli
 git clone https://github.com/Azure/sovereign-landing-zone
 ```
 #### Fork Repository
-  ![Fork Repository screenshot](images/forkgithubrepo.png)
+  ![Fork Repository screenshot](images/fork-github-repo.png)
 
 The version of the SLZ Preview being used can be determined from the [git tag](https://git-scm.com/docs/git-tag) or the [release version](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases) the clone or fork was made from.
 
@@ -20,7 +20,7 @@ The version of the SLZ Preview being used can be determined from the [git tag](h
 
 If you do not plan on contributing or do not intend to receive updates, you can simply download a copy of the [repository](https://github.com/Azure/sovereign-landing-zone) to your local machine, and unzip.
 
-  ![Screenshot of .zip download](images/downloadzipofrepo.png)
+  ![Screenshot of .zip download](images/download-github-repo.png)
 
 The version of the SLZ Preview being used can be determined from the [release version](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases) the zip file was downloaded from. The version number will be in the file name of the zip file.
 

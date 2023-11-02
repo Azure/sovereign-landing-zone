@@ -34,11 +34,11 @@ Elevating permissions is no longer required, but it may be useful for organizati
 
 If elevating permissions is the preferred route for your organization, you may get an error such as:
 
-![AccessError](images/deployerror-vscode.png)
+![AccessError](images/elevate-permissions-error.png)
 
 Navigate to the Azure Active Directory Properties screen and ensure `Access management for Azure resources` is set to `Yes`.
 
-![AzurePermissions](images/access-permissions.png)
+![AzurePermissions](images/access-management-permissions.png)
 
 ### Why am I still getting an error about permissions even after my permissions have been elevated?
 
@@ -172,7 +172,7 @@ While it's recommended to wait for Azure to automatically clean up the deploymen
       }
     }
 
-    #fetch resourcegroups under the subscriptions and for each resource groups get the deployments name and delete the corresponding deployment from deployment history
+    #fetch resource groups under the subscriptions and for each resource groups get the deployments name and delete the corresponding deployment from deployment history
     $subscriptions | ForEach-Object {
       Set-AzContext -SubscriptionName $_.DisplayName
       Get-AzResourceGroup | ForEach-Object {

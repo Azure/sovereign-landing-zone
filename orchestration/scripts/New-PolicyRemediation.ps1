@@ -103,7 +103,7 @@ function New-Remediation {
                     Write-Error "`n Error while executing policy remediation deployment" -ErrorAction Stop
                 }
 
-                Write-Information ">>> Policy remediation $parRemediationName completed." -InformationAction Continue
+                Write-Information ">>> Policy remediation $($parParams.parPolicyRemediationName) completed." -InformationAction Continue
                 return
             }
             else {
@@ -113,16 +113,10 @@ function New-Remediation {
                     -TemplateFile $varPolicyRemediationBicepFilePath `
                     -ManagementGroupId $varManagementGroupId `
                     -TemplateParameterObject $parParams `
-                    -WarningAction Ignore
+                    -WarningAction Ignore `
+                    -AsJob
 
-                if ($modDeployPolicyRemediation) {
-                    Write-Error "`n>>> Error occured in policy remediation" -ErrorAction Stop
-                }
-                if ($modDeployPolicyRemediation.ProvisioningState -eq "Failed") {
-                    Write-Error "`n Error while executing policy remediation deployment" -ErrorAction Stop
-                }
-
-                Write-Information ">>> Policy remediation $parRemediationName scheduled." -InformationAction Continue
+                Write-Information ">>> Policy remediation $($parParams.parPolicyRemediationName) scheduled." -InformationAction Continue
                 return
             }
         }

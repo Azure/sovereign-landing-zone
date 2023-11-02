@@ -8,13 +8,13 @@ When a user creates or updates the SLZ Preview, they will execute the `/orchestr
  
 Any time the user should be informed of a specific log, that log will start with `>>>` including when a deployment step is beginning or ending. When an error occurs, the current deployment step will be the last deployment step printed in the logs. The screenshot below shows an example for the bootstrap deployment step.
 
-![SLZ Preview Deployment Step in Logs](images/ViewDeploymentStep.png)
+![SLZ Preview Deployment Step in Logs](images/determine-deployment-steps.png)
 
 ## Determining Error from the Error Message
 
 When an error occurs, the error message will most often be presented in a human readable format in red text, with the relevant details being contained within the `Status Message` field as seen below or in a generic `Message` field.
 
-![SLZ Preview Erro in Logs](images/ViewErrorFromLog.png)
+![SLZ Preview Error in Logs](images/determine-error-message.png)
 
 ## Bootstrap Errors
 

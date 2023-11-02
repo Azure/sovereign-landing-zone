@@ -18,15 +18,25 @@ Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azur
 
 Update the SLZ Preview parameter file and set `parDeployAlzDefaultPolicies` to `false`. This will prevent the SLZ Preview from deploying the ALZ Policies in the future.
 
-Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ Preview deployment.
+Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ Preview deployment, and then select the **Policy** blade. This will ensure you have the appropriate scope selected
 
-  ![alz-delete-initiative-assignments](../images/alz-update-initiative-with-builtin-04.png)
+  ![alz-initiative-assignments-overview](../images/removing-policy-assignments-01-policy-overview-blade.png)
 
-- For each assignment, click the ellipsis and select Delete Assignment.
-- Once all initiative assignments are deleted, go to the Definitions pane, search for the initiative definition. Once found click the ellipsis and choose Delete Policy Definition.
+Navigate to the **Assignments** blade, then for each policy listed below perform the following:
 
-    ![alz-custom-initiative-def-search](../images/alz-update-initiative-with-builtin-01.png)
-- For implementation details refer to the [ALZ Assignment Deletion](https://github.com/Azure/ALZ-Bicep/blob/da0af7a5a1f21825b497017f52264df2d29aa0a6/docs/wiki/PolicyDeepDive.md) docs, and for design consideration refer to the [ALZ Policies](https://github.com/Azure/Enterprise-Scale/wiki/ALZ-Policies) doc.
+1) Search for the assignment name
+
+  ![alz-find-initiative-assignments](../images/removing-policy-assignments-02-search-filter.png)
+
+2) Select the ellipsis for the assignment
+
+  ![alz-select-initiative-assignments](../images/removing-policy-assignments-03-select-ellipsis.png)
+
+3) Delete the assignment
+
+  ![alz-delete-initiative-assignments](../images/removing-policy-assignments-04-select-delete-assignment.png)
+
+For further details refer to the [ALZ Assignment Deletion](https://github.com/Azure/ALZ-Bicep/blob/da0af7a5a1f21825b497017f52264df2d29aa0a6/docs/wiki/PolicyDeepDive.md) docs, and for design consideration refer to the [ALZ Policies](https://github.com/Azure/Enterprise-Scale/wiki/ALZ-Policies) doc.
 
 ## ALZ Policy Assignments
 

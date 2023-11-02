@@ -7,7 +7,7 @@ Once the SLZ Preview is deployed, the management group structure, subscriptions,
 The SLZ Preview allows for custom policy initiatives to be deployed within the standard management group scopes for each deployment through the following:
 
 1. Navigate to the custom policy definitions located in `/custom/policies/definitions` in your version of the GitHub repository.
-2. Each definition corresponds to one of the default management group scopes deployed as part of the SLZ Preview management group hierarchy ![Custom Policy Folder](../images/custom-policies-folder.png)
+2. Each definition corresponds to one of the default management group scopes deployed as part of the SLZ Preview management group hierarchy:
     * `slzConfidentialCustom.json` -> Confidential Corp and Confidential Online Management Groups
     * `slzConnectivityCustom.json` -> Connectivity Management Group
     * `slzCorpCustom.json` -> Corp and Confidential Corp Management Groups
@@ -21,7 +21,6 @@ The SLZ Preview allows for custom policy initiatives to be deployed within the s
     * `slzSandboxCustom.json` -> Sandbox Management Group
 3. Select the file for management group scope that you want custom policies to apply to and if you want to apply custom policies to all application workloads then select `slzLandingZoneCustom.json`
 4. If custom policies have not been added yet, then the custom policy file will look like the screenshot below. Do NOT edit the `policyType`, `id`, `type`, or `name` fields. You will update the `parameters`, `policyDefinitions`, and `policyDefinitionGroups` as described by the [initiative definition structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure)
-![Empty Policy File](../images/empty-custom-policies.png)
 5. Grouping policies together on the [SLZ Preview dashboard](./Extending-Compliance-Dashboard.md) is accomplished by adding `dashboard-` to the beginning of the policy definition group name, but any name can be used. The documentation for the [policy set definition group structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure#policy-definition-groups) describes the group structure further. A valid policy definition group can be found below:
 ```
     {

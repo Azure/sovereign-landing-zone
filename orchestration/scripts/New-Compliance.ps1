@@ -473,7 +473,7 @@ function Invoke-PolicyEvaluation {
                 $varJob | Wait-Job
             }
             else {
-                Start-AzPolicyComplianceScan
+                Start-AzPolicyComplianceScan -AsJob
             }
         }
         Write-Information "Policy scan completed." -InformationAction Continue

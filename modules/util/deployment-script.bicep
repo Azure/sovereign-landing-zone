@@ -31,7 +31,8 @@ param parTimeout string = 'PT1H'
 @description('Script retention in ISO 8601 format.  Default is 1 hour.')
 param parRetentionInterval string = 'PT1H'
 
-resource resDs 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+#disable-next-line BCP081
+resource resDs 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
   name: parDeploymentScriptName
   location: parLocation
   kind: 'AzureCLI'

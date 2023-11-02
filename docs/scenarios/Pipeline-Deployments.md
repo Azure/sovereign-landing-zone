@@ -57,3 +57,20 @@ These deployment steps also have additional required parameters as the SLZ Previ
 |Dashboard|N/A|
 |Policy Exemptions|N/A|
 |Policy Remediations|N/A|
+
+## Pipeline Templates
+
+There may be some issues invoking the SLZ deployment scripts from a BASH task. Instead, it is recommended to use the `AzurePowerShell@5` task to invoke the scripts such as through the following example:
+
+```
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: ${{ parameters.SERVICE_CONNECTION }}
+    azurePowerShellVersion: LatestVersion
+    ScriptType: inlineScript
+    Inline: |
+       cd orchestration\scripts\
+       ./New-SovereignLandingZone.ps1 -parAttendedLogin 0 -parDeployment all
+```
+
+Where the `SERVICE_CONNECTION` parameter is the previously setup service connection to be used during [pipeline execution](https://learn.microsoft.com/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#use-a-service-connection).
