@@ -525,7 +525,7 @@
         }
       ],
       "value": [],
-      "description": "Toggles deployment of Log Analytics Workspace. True to deploy, otherwise false."
+      "description": "Optional array of customer specified policy assignments to the top-level management group."
     },
     "parTags": {
       "type": "object",
