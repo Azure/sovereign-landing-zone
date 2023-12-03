@@ -673,9 +673,9 @@ function Show-ManagementGroupInfo {
     $parTopLevelManagementGroupName = $parParameters.parTopLevelManagementGroupName.value
     $parDeploymentSuffix = $parParameters.parDeploymentSuffix.value
     $varTenantId = (Get-AzTenant).Id
-    $varMgName = $parTopLevelManagementGroupName -replace ' ', '%20'
     $varManagementGroupLink = "$varAzPortalLink/#view/Microsoft_Azure_ManagementGroups/ManagmentGroupDrilldownMenuBlade/~/overview/tenantId/$varTenantId"
-    $varManagementGroupLink = "$varManagementGroupLink/mgId/$parDeploymentPrefix$parDeploymentSuffix/mgDisplayName/$varMgName/mgCanAddOrMoveSubscription~/true/mgParentAccessLevel/Owner/defaultMenuItemId/overview/drillDownMode~/true"
+    $varManagementGroupLink = "$varManagementGroupLink/mgId/$parDeploymentPrefix$parDeploymentSuffix/mgDisplayName/$parTopLevelManagementGroupName/mgCanAddOrMoveSubscription~/true/mgParentAccessLevel/Owner/defaultMenuItemId/overview/drillDownMode~/true"
+    $varManagementGroupLink = [System.Uri]::EscapeUriString($varManagementGroupLink)
     $varManagementGroupInfo = "If you want to learn more about your management group, please click following link.`n`n"
     $varManagementGroupInfo = "$varManagementGroupInfo$varManagementGroupLink`n`n"
 
