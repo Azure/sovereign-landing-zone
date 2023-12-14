@@ -1,0 +1,22 @@
+{
+  "name": "Deploy-Slz-Custom-LZs",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "SLZ Landing Zones Custom Policies",
+    "displayName": "SLZ Landing Zones Custom Policies",
+    "notScopes": [],
+    "parameters": {
+      "DdosProtectionPlanId": {
+        "value": ""
+      }
+    },
+    "policyDefinitionId": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzLandingZonesCustomPolicies",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}
