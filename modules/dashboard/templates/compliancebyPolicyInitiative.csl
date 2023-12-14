@@ -1,0 +1,11 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend  policySetInitiative = tostring(properties.policySetDefinitionName), resourceId = tolower(properties.resourceId), stateWeight = tolong(properties.stateWeight)
+| summarize max(stateWeight) by resourceId, policySetInitiative
+| summarize counts = count() by policySetInitiative, max_stateWeight
+| summarize nonCompliantCount = sumif(counts, max_stateWeight == 300), compliantCount = sumif(counts, max_stateWeight == 200),  conflictCount = sumif(counts, max_stateWeight == 100), exemptCount = sumif(counts, max_stateWeight == 50) by policySetInitiative
+| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)
+| extend totalCompliantResources = todouble(compliantCount + exemptCount)
+| extend compliancePercentage = iff(totalResources == 0 or (totalCompliantResources == 0 and nonCompliantCount == 0), todouble(100), 100 * totalCompliantResources / totalResources)
+| project policySetInitiative, compliancePercentageEx = toint(round(compliancePercentage, 1))
+| order by compliancePercentageEx asc
