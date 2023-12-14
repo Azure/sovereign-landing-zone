@@ -11,11 +11,17 @@
     "parAzFirewallTier": {
       "value": "Standard"
     },
+    "parAzFirewallIntelMode": {
+      "value": "Alert"
+    },
     "parVirtualHubEnabled": {
       "value": true
     },
     "parAzFirewallDnsProxyEnabled": {
       "value": true
+    },
+    "parAzFirewallDnsServers": {
+      "value": []
     },
     "parVirtualWanName": {
       "value": "alz-vwan-chinaeast2"

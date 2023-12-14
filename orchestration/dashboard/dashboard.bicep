@@ -97,7 +97,7 @@ module modDashboardResourceGroup '../../modules/resourceGroups/dashboardResource
   }
 }
 
-var varDashboardDisplayName = '${parDeploymentPrefix}-Sovereign-Landing-Zone-Dashboard-Preview-${parDeploymentLocation}${parDeploymentSuffix}'
+var varDashboardDisplayName = '${parDeploymentPrefix}-Sovereign-Landing-Zone-Dashboard-${parDeploymentLocation}${parDeploymentSuffix}'
 
 // Deploy dashboard
 module modDashboard '../../modules/dashboard/dashboard.bicep' = {

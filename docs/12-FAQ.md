@@ -1,18 +1,18 @@
-# Sovereign Landing Zone Preview - Frequently Asked Questions
+# Sovereign Landing Zone - Frequently Asked Questions
 
-This document answers the most common questions related to the Sovereign Landing Zone Preview deployment and modules.
+This document answers the most common questions related to the Sovereign Landing Zone deployment and modules.
 
 To report issues or get support, please submit a ticket through [GitHub Issues](https://github.com/Azure/sovereign-landing-zone/issues) or review the [troubleshooting docs](./13-Troubleshooting.md).
 
-## Sovereign Landing Zone Preview
+## Sovereign Landing Zone
 
 ### Why use Bicep over Terraform?
 
-There are a wide variety of deployment technologies available for customers to choose from and Terraform is commonly used to simplify operations especially for organizations that are multi-cloud. Bicep was selected as the first deployment technology to use for the SLZ Preview, and we will endeavor to support additional languages based upon customer need. Submit a [feature request](https://github.com/Azure/sovereign-landing-zone/issues) to let us know which ones are important for you!
+There are a wide variety of deployment technologies available for customers to choose from and Terraform is commonly used to simplify operations especially for organizations that are multi-cloud. Bicep was selected as the first deployment technology to use for the SLZ, and we will endeavor to support additional languages based upon customer need. Submit a [feature request](https://github.com/Azure/sovereign-landing-zone/issues) to let us know which ones are important for you!
 
-### Is SLZ Preview an Application / Workload?
+### Is SLZ an Application / Workload?
 
-The SLZ Preview is not an application, but rather simplifies the process for deploying or migrating an application to Azure. For more details about landing zones and how they support Azure adoption, review the [Cloud Adoption Framework](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/) docs on this subject.
+The SLZ is not an application, but rather simplifies the process for deploying or migrating an application to Azure. For more details about landing zones and how they support Azure adoption, review the [Cloud Adoption Framework](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/) docs on this subject.
 
 ## Permissions and Tooling
 
@@ -20,7 +20,7 @@ The SLZ Preview is not an application, but rather simplifies the process for dep
 
 The specific steps vary depending on the Azure Account type you are using. For more information visit the [Create Azure subscriptions programmatically](https://learn.microsoft.com/azure/cost-management-billing/manage/programmatically-create-subscription), which describes everything required to create subscriptions for each Azure Account type.
 
-### Why do I need elevated permissions to deploy the Sovereign Landing Zone Preview?
+### Why do I need elevated permissions to deploy the Sovereign Landing Zone?
 
 This permission is no longer needed, but can be useful for organizations that are getting started with Azure. For more details about permissions review the docs on the [current recommended permissions](./05-Permissions-Tooling.md) or [reduced permission sets required](./scenarios/Piloting-SLZ.md).
 
@@ -51,9 +51,9 @@ Check [Permissions and Tooling](/docs/05-Permissions-Tooling.md) for more inform
 
 ### Why are the scripts using the wrong user?
 
-For individuals that have multiple accounts, it may happen that an unexpected account is currently active causing the SLZ Preview to use it for deployments. This can be resolved by running `Disconnect-AzAccount` in PowerShell to logout, then running `Connect-AzAccount` to log back in with the right account.
+For individuals that have multiple accounts, it may happen that an unexpected account is currently active causing the SLZ to use it for deployments. This can be resolved by running `Disconnect-AzAccount` in PowerShell to logout, then running `Connect-AzAccount` to log back in with the right account.
 
-## Deploying the Sovereign Landing Zone Preview
+## Deploying the Sovereign Landing Zone
 
 ### Why did my deployment pause in PowerShell?
 
@@ -61,7 +61,7 @@ This could be due to a left mouse click in the PowerShell window, causing the wi
 
 ### Why is the script retrying and failing even after I have confirmed that I have the right permissions?
 
-It may take several hours for billing permissions required to setup or use a billing scope to go into effect, during which point the SLZ Preview will not be deployable. Please run the `Confirm-SovereignLandingZonePrerequisites.ps1` script, and wait around 4 hours before retrying the deployment.
+It may take several hours for billing permissions required to setup or use a billing scope to go into effect, during which point the SLZ will not be deployable. Please run the `Confirm-SovereignLandingZonePrerequisites.ps1` script, and wait around 4 hours before retrying the deployment.
 
 ### When running the deployment script, I get a "DeploymentFailed" error with the description "The aggregated deployment error is too large. Please list deployment operations to get the deployment details. Please see `https://aka.ms/DeployOperations` for usage details." How do I fix this?**
 
@@ -69,7 +69,7 @@ Please re-try running the script to fix this error. Log an Issue if the problem 
 
 ### Why am I getting a "deployment already exists" error?
 
-This commonly because a previous SLZ preview deployment shared the same prefix and suffix. You'll need to clean up the old deployment if you want to reuse the prefix and suffix set.
+This commonly because a previous SLZ deployment shared the same prefix and suffix. You'll need to clean up the old deployment if you want to reuse the prefix and suffix set.
 
 This can be accomplished by running the `Remove-AzDeployment` command in PowerShell. For Azure CLI, use the `az deployment tenant delete -n <deploymentname>` or `az deployment mg delete -management-group-id --name` commands.
 
@@ -77,11 +77,11 @@ This can be accomplished by running the `Remove-AzDeployment` command in PowerSh
 
 ### Why am I getting a "Subscription Alias Already Exist" error?
 
-This commonly because a previous SLZ preview deployment shared the same prefix and suffix. See the `Why am I getting a "deployment already exists" error?` FAQ for resolution steps.
+This commonly because a previous SLZ deployment shared the same prefix and suffix. See the `Why am I getting a "deployment already exists" error?` FAQ for resolution steps.
 
 ### I am getting a 'ReferencedResourceNotProvisioned' error. How do I resolve this?
 
-If you encounter this error, it is likely due to a transient issue with resource availability. The SLZ Preview deployment script has retry logic to resolve these types of issues, but it may be necessary to rerun the SLZ Preview deployment script if the script terminates.
+If you encounter this error, it is likely due to a transient issue with resource availability. The SLZ deployment script has retry logic to resolve these types of issues, but it may be necessary to rerun the SLZ deployment script if the script terminates.
 
 If it is a viable option, you can attempt deployment to a different region.
 
@@ -98,7 +98,7 @@ This error is likely to occur if the subscriptions being created in the Bootstra
 
 ### What are the allowed Azure resource types for confidential management groups (Confidential Corp and Confidential Online)?
 
-For an overview of confidential computing resources in Azure please refer to this [documentation.](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) The list used by the SLZ Preview can be found [here](../modules/compliance/policyAssignments/policy_assignment_deploy_slz_confidential_defaults.tmpl.json), and the list can be customized to meet an organization's needs.
+For an overview of confidential computing resources in Azure please refer to this [documentation.](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) The list used by the SLZ can be found [here](../modules/compliance/policyAssignments/policy_assignment_deploy_slz_confidential_defaults.tmpl.json), and the list can be customized to meet an organization's needs.
 
 ### What information should I consider removing from my failed deployment details logs?
 
@@ -133,7 +133,7 @@ Please reference the Microsoft Learn document that addresses [common Azure deplo
 
 ### Why am I getting an error message stating `Account already exists in another resourcegroup in a subscription`
 
-This commonly happens with Private Preview customers attempting to upgrade to the Public Preview version. For more details look at our [upgrade documentation](./06-Upgrade-Existing-SLZ-Preview.md).
+This commonly happens with Private Preview customers attempting to upgrade to the current release version. For more details look at our [upgrade documentation](./06-Upgrade-Existing-SLZ-Preview.md).
 
 ### Why do I keep getting an error message stating creating the deployment will exceed the quota of '800'?
 
@@ -184,14 +184,14 @@ While it's recommended to wait for Azure to automatically clean up the deploymen
     }
 ```
 
-### Can I Use a Managed Identity / Service Principal to Deploy the SLZ Preview?
+### Can I Use a Managed Identity / Service Principal to Deploy the SLZ?
 
 Yes, provided this identity has been successfully authenticated prior to initiating the deployment such as through an `az login` command. The `New-SovereignLandingZone.ps1` script has two relevant CLI parameters that should be used:
 
 * *parDeployment*: Default `null`. This parameter specifies the deployment type so it doesn't need to be typed in manually.
 * *parAttendedLogin*: Default `$true`. This parameter tells the script to perform various login and validation steps that are not necessary when using a managed identity.
 
-A managed identity with appropriate permissions and running in a context with all necessary modules installed can deploy the SLZ Preview through a command such as this:
+A managed identity with appropriate permissions and running in a context with all necessary modules installed can deploy the SLZ through a command such as this:
 
 ```
 .\New-SovereignLandingZone.ps1 -parDeployment all -parAttendedLogin $false
@@ -201,11 +201,11 @@ Reference our [pipeline deployments](./scenarios/Pipeline-Deployments.md) docume
 
 ### Can I Choose which Parameter File to Use?
 
-Yes, for many organizations with multiple SLZ Preview deployments it is advisable to minimize operational activities by creating a new parameter file for each SLZ Preview deployment. The `New-SovereignLandingZone.ps1` script has one relevant CLI parameter that should be used:
+Yes, for many organizations with multiple SLZ deployments it is advisable to minimize operational activities by creating a new parameter file for each SLZ deployment. The `New-SovereignLandingZone.ps1` script has one relevant CLI parameter that should be used:
 
 * *parParametersFilePath*: Default `.\parameters\sovereignLandingZone.parameters.json`. This is the relative path from the `New-SovereignLandingZone.ps1` script to the parameter file.
 
-An organization with multiple SLZ Preview deployments each with a unique parameter file in the local parameters directory can manage a new deployment through a command such as this:
+An organization with multiple SLZ deployments each with a unique parameter file in the local parameters directory can manage a new deployment through a command such as this:
 
 ```
 .\New-SovereignLandingZone.ps1 -parParametersFilePath .\parameters\testSLZ.parameters.json
@@ -219,4 +219,4 @@ Reference our [pipeline deployments](./scenarios/Pipeline-Deployments.md) docume
 
 You will need to assign an Azure `Reader` role the user at the top-level management group scope. Please follow instructions here on how to add an Azure role: [Azure Role Based Access Control](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal)
 
-## [Preview Notice](./PREVIEW.md)
+## [Microsoft Legal Notice](./NOTICE.md)

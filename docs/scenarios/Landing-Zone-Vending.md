@@ -1,8 +1,8 @@
 # Workload Landing Zones
 
-After the SLZ Preview has been deployed, organizations can begin using it to host workloads. Workloads will need their own landing zones, and for more details about the types of landing zones review the [what is a landing zone](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/#platform-landing-zones-vs-application-landing-zones) documentation.
+After the SLZ has been deployed, organizations can begin using it to host workloads. Workloads will need their own landing zones, and for more details about the types of landing zones review the [what is a landing zone](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/#platform-landing-zones-vs-application-landing-zones) documentation.
 
-In short, the landing zone as deployed by the SLZ Preview provides the governance framework and controls that can simplify the onboarding of workload landing zones within it's management group structure. This means workload landing zones don't need to recreate common infrastructure such as a hub network as they may use the one that already exists, nor do they need to manage policy assignments as they'll inherent the ones already assigned.
+In short, the landing zone as deployed by the SLZ provides the governance framework and controls that can simplify the onboarding of workload landing zones within it's management group structure. This means workload landing zones don't need to recreate common infrastructure such as a hub network as they may use the one that already exists, nor do they need to manage policy assignments as they'll inherent the ones already assigned.
 
 Workload landing zones require the creation of a subscription and placing it within the management group structure. While you may [customize the management groups](Expanding-SLZ-ManagementGroups.md) available, the following exist by default:
 
@@ -20,7 +20,7 @@ Workload landing zones require the creation of a subscription and placing it wit
 
 [Subscription vending](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/subscription-vending) provides a platform mechanism for programmatically issuing subscriptions to application teams that need to deploy workloads. This notion allows for an organization's governance and security teams to build controls and a process around subscription creation, then application teams can request a new subscription for their workload on demand after making a few choices.
 
-[Landing zone vending](https://github.com/Azure/bicep-lz-vending) is a GitHub repository provides the automation to deploy landing zones for workloads within the SLZ Preview. It is recommended for an organization's governance and security teams to review the parameters available in this module and enforce certain values for some, while leaving the others up to the requesting team to fill out. Once all values are added, then a pipeline running with a highly privileged account would create the landing zone and grant reduced permissions to the development team to deploy their workload within.
+[Landing zone vending](https://github.com/Azure/bicep-lz-vending) is a GitHub repository provides the automation to deploy landing zones for workloads within the SLZ. It is recommended for an organization's governance and security teams to review the parameters available in this module and enforce certain values for some, while leaving the others up to the requesting team to fill out. Once all values are added, then a pipeline running with a highly privileged account would create the landing zone and grant reduced permissions to the development team to deploy their workload within.
 
 It is recommended to not allow a development team set the following values:
 
@@ -39,9 +39,9 @@ It is recommended to allow a development to set the following values:
 
 However, organizations may customize these lists further and provide certain allowed values that a development team can request.
 
-# SLZ Preview Logging
+# SLZ Logging
 
-To support usage of the landing zone vending module and [running individual deployment steps](Pipeline-Deployments.md), during every execution of the SLZ Preview key resources will be logged to a CSV file. These log files will be stored in `/orchestration/scripts/outputs` and will be timestamped with the deployment name in the title.
+To support usage of the landing zone vending module and [running individual deployment steps](Pipeline-Deployments.md), during every execution of the SLZ key resources will be logged to a CSV file. These log files will be stored in `/orchestration/scripts/outputs` and will be timestamped with the deployment name in the title.
 
 The CSV file has the following columns:
 * Resource Name - The human readable resource name
@@ -52,4 +52,6 @@ The CSV file has the following columns:
 
 # Workload Templates
 
-Microsoft Cloud for Sovereignty has published a variety of [workload templates](https://github.com/Azure/cloud-for-sovereignty-quickstarts) including a sample application that are designed to be deployed within the SLZ Preview. These are useful resources to reference during the workload migration process.
+Microsoft Cloud for Sovereignty has published a variety of [workload templates](https://github.com/Azure/cloud-for-sovereignty-quickstarts) including a sample application that are designed to be deployed within the SLZ. These are useful resources to reference during the workload migration process.
+
+### [Microsoft Legal Notice](../NOTICE.md)

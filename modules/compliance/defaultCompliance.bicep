@@ -179,6 +179,9 @@ module modPolicyAssignmentSlzGlobalDefaults '../../dependencies/infra-as-code/bi
       listOfAllowedLocations: {
         value: parAllowedLocations
       }
+      effect: {
+        value: parPolicyEffect
+      }
     }
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [

@@ -99,6 +99,10 @@ function New-Bootstrap {
             Write-Information "Registering Microsoft.Network resource provider for subscription id: $varConnectivitySubscriptionId...." -InformationAction Continue
             Set-AzContext -Subscription "$varConnectivitySubscriptionId"
             Register-ResourceProvider "Microsoft.Network"
+            #Move customer provided subscriptions to the slz management group
+            if ($parParameters.parConnectivitySubscriptionId.value -or $parParameters.parIdentitySubscriptionId.value -or $parParameters.parManagementSubscriptionId.value){
+                Move-Subscription $varParameters $modDeployBootstrap
+            }
             # update parameters
             Out-DeploymentParameters "bootstrap" $modDeployBootstrap $varManagementGroupId $parParameters
 

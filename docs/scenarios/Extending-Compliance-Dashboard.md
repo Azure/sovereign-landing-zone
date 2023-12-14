@@ -1,6 +1,6 @@
 # Extending the Compliance Dashboard
 
-The SLZ Preview [Compliance Dashboard](../10-Compliance-Dashboard.md) provides a singular Azure policy compliance view for every resource within the SLZ Preview deployment. While this is a great starting point for viewing the default and built-in policies assigned with the SLZ Preview, many governance teams want to also see their own policies in the same view. This can be achieved through a few ways.
+The SLZ [Compliance Dashboard](../10-Compliance-Dashboard.md) provides a singular Azure policy compliance view for every resource within the SLZ deployment. While this is a great starting point for viewing the default and built-in policies assigned with the SLZ, many governance teams want to also see their own policies in the same view. This can be achieved through a few ways.
 
 ## Overall and Subscription Compliance Views
 
@@ -16,6 +16,8 @@ The confidential computing views are created by filtering by compliance results 
 
 ## Custom Tiles
 
-When one of the above methods is not sufficient, additional tiles can be added to the SLZ Preview Compliance Dashboard by adding these to the [tiles JSON](../../custom/dashboard/compliance/tiles.json) file. This JSON file takes [Azure Portal Dashboard](https://learn.microsoft.com/azure/azure-portal/azure-portal-dashboards) tiles and will append them to the compliance dashboard.
+When one of the above methods is not sufficient, additional tiles can be added to the SLZ Compliance Dashboard by adding these to the [tiles JSON](../../custom/dashboard/compliance/tiles.json) file. This JSON file takes [Azure Portal Dashboard](https://learn.microsoft.com/azure/azure-portal/azure-portal-dashboards) tiles and will append them to the compliance dashboard.
 
 Worth noting that the `position.y` value for tile elements will need to be lower than the y-values already used by the compliance dashboard otherwise tile elements could be missing or moved. Checkout the [tiles sample](../../custom/dashboard/compliance/tiles-sample.json) for an example of this extension.
+
+### [Microsoft Legal Notice](../NOTICE.md)

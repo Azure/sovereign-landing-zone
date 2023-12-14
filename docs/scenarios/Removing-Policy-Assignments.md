@@ -1,24 +1,24 @@
 # Removing Policy Assignments
 
-There are several options for the SLZ Preview to deploy policies. However, the SLZ Preview does not remove policy assignments by design. Policy assignments are the technical guardrails used by governance and security teams, and we want removing of policy assignments to be an intentional effort instead of an accidental one caused by a misconfiguration. To remove a policy assignment, the SLZ Preview parameter file needs to be updated to ensure it does not attempt to recreate the assignment then a secondary or manual process must go through and remove the assignment.
+There are several options for the SLZ to deploy policies. However, the SLZ does not remove policy assignments by design. Policy assignments are the technical guardrails used by governance and security teams, and we want removing of policy assignments to be an intentional effort instead of an accidental one caused by a misconfiguration. To remove a policy assignment, the SLZ parameter file needs to be updated to ensure it does not attempt to recreate the assignment then a secondary or manual process must go through and remove the assignment.
 
-Upgrades to the Sovereignty Policy Baseline or any of the built-in Policy Portfolio initiatives will be automatically addressed without secondary steps or manual intervention.
+Upgrades to the Sovereignty Baseline policy initiatives or any of the built-in Microsoft Cloud for Sovereignty policy portfolio initiatives will be automatically addressed without secondary steps or manual intervention.
 
 ## Removing Old Custom Policies
 
-Update the [custom policy definitions](../../custom/policies/definitions/) by removing the old policies out of the definitions and incrementing the version number before redeploying the SLZ Preview. The SLZ Preview will automatically remove the old definition assignment during the upgrade process.
+Update the [custom policy definitions](../../custom/policies/definitions/) by removing the old policies out of the definitions and incrementing the version number before redeploying the SLZ. The SLZ will automatically remove the old definition assignment during the upgrade process.
 
 ## Removing Old Policy Portfolio Assignments
 
-Update the SLZ Preview parameter file and remove the old assignment out of the `parCustomerPolicySets` parameter. This will prevent the SLZ Preview from deploying the assignment in the future.
+Update the SLZ parameter file and remove the old assignment out of the `parCustomerPolicySets` parameter. This will prevent the SLZ from deploying the assignment in the future.
 
-Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ Preview deployment. In the policies blade, find the assignment with the same name and manually delete it.
+Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ deployment. In the policies blade, find the assignment with the same name and manually delete it.
 
 ## Removing the ALZ Policies
 
-Update the SLZ Preview parameter file and set `parDeployAlzDefaultPolicies` to `false`. This will prevent the SLZ Preview from deploying the ALZ Policies in the future.
+Update the SLZ parameter file and set `parDeployAlzDefaultPolicies` to `false`. This will prevent the SLZ from deploying the ALZ Policies in the future.
 
-Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ Preview deployment, and then select the **Policy** blade. This will ensure you have the appropriate scope selected
+Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azure_ManagementGroups/ManagementGroupBrowseBlade/~/MGBrowse_overview) view and select the top-level management group for the SLZ deployment, and then select the **Policy** blade. This will ensure you have the appropriate scope selected
 
   ![alz-initiative-assignments-overview](../images/removing-policy-assignments-01-policy-overview-blade.png)
 
@@ -74,3 +74,5 @@ For further details refer to the [ALZ Assignment Deletion](https://github.com/Az
 |Configure Azure PaaS services to use private DNS zones |Configure Azure PaaS services to use private DNS zones |
 |Deny the creation of public IP |Not allowed resource types |
 |Deploy-Log-Analytics |Configure Log Analytics workspace and automation account to centralize logs and monitoring |
+
+### [Microsoft Legal Notice](../NOTICE.md)

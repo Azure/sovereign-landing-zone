@@ -1,8 +1,8 @@
-# Sovereign Landing Zone Preview
+# Sovereign Landing Zone
 
-The Sovereign Landing Zone (SLZ) Preview provides opinionated infrastructure-as-code automation for deploying workloads that help meet certain regulatory compliance requirements for the public sector and government agencies around the world. 
+The Sovereign Landing Zone (SLZ) is a [Microsoft Cloud for Sovereignty](https://microsoft.com/sovereignty) offering that provides opinionated infrastructure-as-code automation for deploying workloads to help meet regulatory compliance requirements for the public sector and government agencies around the world. 
 
-You can begin by navigating to the [Overview](/docs/01-Overview.md) document to begin. The documentation will cover the concepts around SLZ Preview, architecture, and deployment paths. Please reference [FAQ's](/docs/12-FAQ.md) for common questions and [Troubleshooting](/docs/13-Troubleshooting.md) for common issues.
+You can begin by navigating to the [Overview](/docs/01-Overview.md) document. The documentation will cover the concepts around SLZ, architecture, and deployment paths. Please reference [FAQ's](/docs/12-FAQ.md) for common questions and [Troubleshooting](/docs/13-Troubleshooting.md) for common issues.
 
 ## Contributing
 
@@ -35,6 +35,6 @@ trademarks or logos is subject to and must follow
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
 
-## Preview Notice
+## Microsoft Legal Notice
 
-**Preview Terms**. The Sovereign Landing Zone Preview (the "PREVIEW") is licensed to you as part of your [Azure subscription](https://azure.microsoft.com/en-us/support/legal/) and subject to terms applicable to "Previews" as detailed in the Universal License Terms for Online Services section of the <u></u>Microsoft Product Terms and the [Microsoft Products and Services Data Protection Addendum ("DPA")](https://www.microsoft.com/licensing/terms/welcome/welcomepage). AS STATED IN THOSE TERMS, PREVIEWS ARE PROVIDED "AS-IS," "WITH ALL FAULTS," AND "AS AVAILABLE," AND ARE EXCLUDED FROM THE SERVICE LEVEL AGREEMENTS AND LIMITED WARRANTY. Previews may employ lesser or different privacy and security measures than those typically present in Azure Services. Unless otherwise noted, you should not use Previews to process Personal Data or other data that is subject to legal or regulatory compliance requirements. The following terms in the [DPA](https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA) do not apply to Previews: Processing of Personal Data; GDPR, Data Security, and HIPAA Business Associate. We may change or discontinue Previews at any time without notice. We also may choose not to release a Preview into General Availability. 
+The **Sovereign Landing Zone** (1) is not designed, intended, or made available as legal services, (2) is not intended to substitute for professional legal counsel or judgment, and (3) should not be used in place of consulting with a qualified professional legal professional for your specific needs. Microsoft makes no warranty that the **Sovereign Landing Zone** is accurate, up-to-date, or complete. You are wholly responsible for ensuring your own compliance with all applicable laws and regulations.

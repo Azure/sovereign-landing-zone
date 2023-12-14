@@ -15,11 +15,22 @@ param parCompanyPrefix string = 'alz'
 ])
 param parAzFirewallTier string = 'Standard'
 
+@sys.description('The Azure Firewall Threat Intelligence Mode. If not set, the default value is Alert.')
+@allowed([
+  'Alert'
+  'Deny'
+  'Off'
+])
+param parAzFirewallIntelMode string = 'Alert'
+
 @sys.description('Switch to enable/disable Virtual Hub deployment.')
 param parVirtualHubEnabled bool = true
 
 @sys.description('Switch to enable/disable Azure Firewall DNS Proxy.')
 param parAzFirewallDnsProxyEnabled bool = true
+
+@sys.description('Array of custom DNS servers used by Azure Firewall')
+param parAzFirewallDnsServers array = []
 
 @sys.description('Prefix Used for Virtual WAN.')
 param parVirtualWanName string = '${parCompanyPrefix}-vwan-${parLocation}'
@@ -105,6 +116,7 @@ param parPrivateDnsZones array = [
   'privatelink.azurecr.io'
   'privatelink.azure-devices.net'
   'privatelink.azure-devices-provisioning.net'
+  'privatelink.azuredatabricks.net'
   'privatelink.azurehdinsight.net'
   'privatelink.azurehealthcareapis.com'
   'privatelink.azurestaticapps.net'
@@ -165,6 +177,9 @@ param parPrivateDnsZoneAutoMergeAzureBackupZone bool = true
 @sys.description('Resource ID of VNet for Private DNS Zone VNet Links')
 param parVirtualNetworkIdToLink string = ''
 
+@sys.description('Resource ID of Failover VNet for Private DNS Zone VNet Failover Links')
+param parVirtualNetworkIdToLinkFailover string = ''
+
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object = {}
 
@@ -177,6 +192,9 @@ var varCuaid = '7f94f23b-7a59-4a5c-9a8d-2a253a566f61'
 // ZTN Telemetry
 var varZtnP1CuaId = '3ab23b1e-c5c5-42d4-b163-1402384ba2db'
 var varZtnP1Trigger = (parDdosEnabled && !(contains(map(parVirtualWanHubs, hub => hub.parAzFirewallEnabled), false)) && (parAzFirewallTier == 'Premium')) ? true : false
+
+// Azure Firewalls in Hubs
+var varAzureFirewallInHubs = filter(parVirtualWanHubs, hub => hub.parAzFirewallEnabled == true)
 
 // Virtual WAN resource
 resource resVwan 'Microsoft.Network/virtualWans@2023-04-01' = {
@@ -286,13 +304,16 @@ resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = i
     sku: {
       tier: parAzFirewallTier
     }
+    threatIntelMode: 'Alert'
   } : {
     dnsSettings: {
       enableProxy: parAzFirewallDnsProxyEnabled
+      servers: parAzFirewallDnsServers
     }
     sku: {
       tier: parAzFirewallTier
     }
+    threatIntelMode: parAzFirewallIntelMode
   }
 }
 
@@ -337,6 +358,7 @@ module modPrivateDnsZones '../privateDnsZones/privateDnsZones.bicep' = if (parPr
     parPrivateDnsZones: parPrivateDnsZones
     parPrivateDnsZoneAutoMergeAzureBackupZone: parPrivateDnsZoneAutoMergeAzureBackupZone
     parVirtualNetworkIdToLink: parVirtualNetworkIdToLink
+    parVirtualNetworkIdToLinkFailover: parVirtualNetworkIdToLinkFailover
   }
 }
 
@@ -364,9 +386,15 @@ output outVirtualHubName array = [for (hub, i) in parVirtualWanHubs: {
 output outVirtualHubId array = [for (hub, i) in parVirtualWanHubs: {
   virtualhubid: resVhub[i].id
 }]
+
 // Output DDoS Plan ID
 output outDdosPlanResourceId string = resDdosProtectionPlan.id
 
 // Output Private DNS Zones
 output outPrivateDnsZones array = (parPrivateDnsZonesEnabled ? modPrivateDnsZones.outputs.outPrivateDnsZones : [])
 output outPrivateDnsZonesNames array = (parPrivateDnsZonesEnabled ? modPrivateDnsZones.outputs.outPrivateDnsZonesNames : [])
+
+// Output Azure Firewall Private IP's
+output outAzFwPrivateIps array = [for (hub, i) in varAzureFirewallInHubs: {
+  '${parVirtualWanHubName}-${hub.parHubLocation}': resAzureFirewall[i].properties.hubIPAddresses.privateIPAddress
+}]

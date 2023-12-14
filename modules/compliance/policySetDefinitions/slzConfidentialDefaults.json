@@ -127,6 +127,9 @@
         "parameters": {
           "listOfAllowedLocations": {
             "value": "[[parameters('listOfAllowedLocations')]"
+          },
+          "policyEffect": {
+            "value": "[[parameters('effect')]"
           }
         },
         "groupNames": ["dashboard-Data Residency"]

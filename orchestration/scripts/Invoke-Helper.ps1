@@ -705,7 +705,7 @@ function Show-DashboardInfo {
     $parDeploymentSuffix = $parParameters.parDeploymentSuffix.value
     $varSignedInUser = Get-SignedInUser
     $varResourceGroupName = "$parDeploymentPrefix-rg-dashboards-$parDeploymentLocation$parDeploymentSuffix"
-    $varDashboardName = "$parDeploymentPrefix-Sovereign-Landing-Zone-Dashboard-Preview-$parDeploymentLocation$parDeploymentSuffix"
+    $varDashboardName = "$parDeploymentPrefix-Sovereign-Landing-Zone-Dashboard-$parDeploymentLocation$parDeploymentSuffix"
     $varUserDomain = $varSignedInUser.Substring($varSignedInUser.IndexOf("@"))
     $varDashboardLink = "$varAzPortalLink/#$varUserDomain/dashboard/arm/subscriptions/$varManagementSubscriptionId"
     $varDashboardLink = "$varDashboardLink/resourceGroups/$varResourceGroupName/providers/Microsoft.Portal/dashboards/$varDashboardName"

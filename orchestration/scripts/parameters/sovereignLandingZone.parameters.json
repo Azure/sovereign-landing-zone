@@ -9,14 +9,14 @@
       "maxLength": 5,
       "defaultValue": "mcfs",
       "value": null,
-      "description": "Prefix added to all Azure resources created by the SLZ Preview."
+      "description": "Prefix added to all Azure resources created by the SLZ."
     },
     "parTopLevelManagementGroupName": {
       "type": "string",
       "usedBy": "all and bootstrap",
       "defaultValue": "Microsoft Cloud for Sovereignty",
       "value": null,
-      "description": "The name of the top-level management group for the SLZ Preview."
+      "description": "The name of the top-level management group for the SLZ."
     },
     "parDeploymentSuffix": {
       "type": "string",
@@ -24,7 +24,7 @@
       "maxLength": 5,
       "defaultValue": null,
       "value": null,
-      "description": "Optional suffix that will be added to all Azure resources created by the the SLZ Preview. Use a '-' at the start of the suffix value if a dash is needed."
+      "description": "Optional suffix that will be added to all Azure resources created by the the SLZ. Use a '-' at the start of the suffix value if a dash is needed."
     },
     "parTopLevelManagementGroupParentId": {
       "type": "string",
@@ -47,7 +47,7 @@
       "usedBy": "all and dashboard",
       "defaultValue": "Country/Region",
       "value": null,
-      "description": "The name of the organization deploying the SLZ Preview to brand the compliance dashboard appropriately."
+      "description": "The name of the organization deploying the SLZ to brand the compliance dashboard appropriately."
     },
     "parDeploymentLocation": {
       "type": "string",
@@ -438,7 +438,7 @@
       ],
       "defaultValue": [],
       "value": [],
-      "description": "Optional array of child management groups to deploy under the SLZ Preview Landing Zones management group."
+      "description": "Optional array of child management groups to deploy under the SLZ Landing Zones management group."
     },
     "parDeployAlzDefaultPolicies": {
       "type": "bool",
@@ -497,13 +497,9 @@
       "allowedValues": [
         "Audit",
         "Deny",
-        "Disabled",
-        "DeployIfNotExists",
-        "Modify",
-        "Append",
-        "AuditIfNotExists"
+        "Disabled"
       ],
-      "description": "The policy effect used in all assignments for the Sovereignty Policy Baseline."
+      "description": "The policy effect used in all assignments for the Sovereignty Baseline policy initiatives."
     },
     "parDeployLogAnalyticsWorkspace": {
       "type": "bool",
@@ -525,7 +521,7 @@
         }
       ],
       "value": [],
-      "description": "Toggles deployment of Log Analytics Workspace. True to deploy, otherwise false."
+      "description": "Optional array of customer specified policy assignments to the top-level management group."
     },
     "parTags": {
       "type": "object",

@@ -71,8 +71,6 @@ switch ($parDeployment) {
     'platform' {
         Confirm-Parameters($varPlatformRequiredParams)
         New-Platform $null $varParameters $null
-        Move-Subscription $varParameters $null
-
     }
 
     'compliance' {
@@ -119,9 +117,6 @@ switch ($parDeployment) {
         if (!$modDeploySovereignPlatformOutputs) {
             Write-Error "Platform deployment script failed." -ErrorAction Stop
         }
-
-        #Move Subscription
-        Move-Subscription $varParameters $modDeployBootstrapOutputs
 
         #Compliance
         New-Compliance $null $varParameters $modDeploySovereignPlatformOutputs

@@ -1,8 +1,8 @@
-# Sovereignty Policy Baseline
+# Sovereignty Baseline Policy Initiatives
 
-The Sovereignty Policy Baseline (baseline) is one of the sets of policies in the [Microsoft Cloud for Sovereignty Portfolio](https://learn.microsoft.com/industry/sovereignty/policy-portfolio-baseline). It comes deployed within every SLZ Preview environment and can be [used outside an SLZ Preview](https://github.com/Azure/cloud-for-sovereignty-policy-portfolio/) environment.
+The Sovereignty Baseline policy initiatives (baseline) is one of the sets of policy initiatives in the [Microsoft Cloud for Sovereignty policy portfolio](https://learn.microsoft.com/industry/sovereignty/policy-portfolio-baseline). It comes deployed within every SLZ environment and can be [used outside an SLZ](https://github.com/Azure/cloud-for-sovereignty-policy-portfolio/) environment.
 
-The baseline is intended to supplement existing security control frameworks used by customers today with Azure policies that are grouped into the sovereignty control objectives listed below. It is not intended to replace a security control framework or fully meet the sovereignty control objectives by themselves. It should be viewed as providing a guardrail starting point for best practices past what traditional control frameworks may require and supports an organization's effort in addressing the listed control objectives.
+The baseline is intended to supplement existing security control frameworks used by customers today with Azure policies that are grouped into the sovereignty control objectives listed below. It is not intended to replace a security control framework or fully meet the sovereignty control objectives by themselves. It should be viewed as providing a starting point for best practices past what traditional control frameworks may require and supports an organization's effort in addressing the listed control objectives.
 
 The baseline does this by introducing the notion of **customer-defined sensitive** data, which is not meant to map to any data classification framework. Instead it is there to differentiate data that an organization denotes as having additional sovereignty requirements. The below sovereignty control objectives are examples of the types of controls that an organization may have for protecting **customer-defined sensitive** data. The related policies to these objectives are only assigned to the confidential scopes while other controls are applied to all resources.
 
@@ -51,4 +51,6 @@ The related policies are in the `dashboard-Key Management` group within these fi
 
 ## Improvement Ideas
 
-The Sovereignty Policy Baseline is exploring a new space and we are eager to hear any suggestions about how they should be structured, other control objectives that should be included, how they should support specific workload architectures, or any other areas. Please submit any [feedback or improvement ideas](https://github.com/Azure/sovereign-landing-zone/issues/new/choose) you may have.
+The Sovereignty Baseline policy initiatives are exploring a new space and we are eager to hear any suggestions about how they should be structured, other control objectives that should be included, how they should support specific workload architectures, or any other areas. Please submit any [feedback or improvement ideas](https://github.com/Azure/sovereign-landing-zone/issues/new/choose) you may have.
+
+### [Microsoft Legal Notice](../NOTICE.md)

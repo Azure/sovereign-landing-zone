@@ -1,4 +1,4 @@
-# Deploy the Sovereign Landing Zone Preview using the PowerShell script
+# Deploy the Sovereign Landing Zone using the PowerShell script
 
 **Prerequisite:** Please be sure to follow the steps in [Permissions and Tooling](05-Permissions-Tooling.md) to ensure latest tools are installed and the right permissions levels are available.
 
@@ -19,4 +19,4 @@ Please reference [Frequently Asked Questions](12-FAQ.md) for commons errors and 
 
 [Deploy Customize Policies](09-Customize-Policies.md)
 
-### [Preview Notice](./PREVIEW.md)
+### [Microsoft Legal Notice](./NOTICE.md)

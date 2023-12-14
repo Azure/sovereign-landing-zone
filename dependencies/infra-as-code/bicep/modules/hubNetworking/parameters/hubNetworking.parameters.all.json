@@ -63,6 +63,9 @@
     "parAzBastionSku": {
       "value": "Standard"
     },
+    "parAzBastionTunneling": {
+      "value": false
+    },
     "parAzBastionNsgName": {
       "value": "nsg-AzureBastionSubnet"
     },
@@ -84,6 +87,9 @@
     "parAzFirewallTier": {
       "value": "Standard"
     },
+    "parAzFirewallIntelMode": {
+      "value": "Alert"
+    },
     "parAzFirewallAvailabilityZones": {
       "value": []
     },
@@ -95,6 +101,9 @@
     },
     "parAzFirewallDnsProxyEnabled": {
       "value": true
+    },
+    "parAzFirewallDnsServers": {
+      "value": []
     },
     "parHubRouteTableName": {
       "value": "alz-hub-routetable"
@@ -122,6 +131,7 @@
         "privatelink.azurecr.io",
         "privatelink.azure-devices.net",
         "privatelink.azure-devices-provisioning.net",
+        "privatelink.azuredatabricks.net",
         "privatelink.azurehdinsight.net",
         "privatelink.azurehealthcareapis.com",
         "privatelink.azurestaticapps.net",
@@ -195,7 +205,8 @@
           "asn": "65515",
           "bgpPeeringAddress": "",
           "peerWeight": "5"
-        }
+        },
+        "vpnClientConfiguration": {}
       }
     },
     "parExpressRouteGatewayConfig": {
