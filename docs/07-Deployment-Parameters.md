@@ -54,10 +54,11 @@ This section contains descriptions and accepted values for all parameters within
  | 35 | parBastionOutboundSshRdpPorts | Array of outbound destination ports and ranges for Azure Bastion. | An array of values (ports)<br />e.g.: ["22", "3389"] | all, platform |
  | 36 | parInvokePolicyScanSync | Toggles executing the policy scan in synchronous mode. True to run policy scan in synchronous mode, False for asynchronous. When set to false, policy remediation needs to be manually triggered once the scan is complete. Note that when policy scan is run asynchronously, there isn't a way to track its progress. | true; false | all, compliance |
  | 37 | parInvokePolicyRemediationSync | Toggles executing the policy scan in synchronous mode. True to run policy remediation in synchronous mode, False for asynchronous. | true; false | all, compliance |
- | 38 | parPolicyEffect | The policy effect used in all assignments for the Sovereignty Baseline policy initiatives. | Choose one: "Audit", "Deny", "Disabled" | all, compliance |
- | 39 | parDeployLogAnalyticsWorkspace | Toggles deployment of Log Analytics Workspace. True to deploy, otherwise false. | true; false | all, platform |
- | 40 | parCustomerPolicySets | Customer specified policy assignments to the top-level management group of the SLZ. No parameters are supported as part of the assignment. | Name field can only be a letter, digit, '-', '.' or '_' and cannot have any trailing special character.<br />See the SLZ parameter file for a sample configuration. | all, compliance |
- | 41 | parTags | Tags that will be assigned to subscription and resources created by this deployment script. | See the SLZ parameter file for a sample configuration. | all, bootstrap, platform, and dashboard |
+ | 38 | parPolicyAssignmentEnforcementMode | The enforcement mode used in all policy and initiative assignments. | Choose one: "Default", "DoNotEnforce" | all, compliance |
+ | 39 | parPolicyEffect | The policy effect used in all assignments for the Sovereignty Baseline policy initiatives. | Choose one: "Audit", "Deny", "Disabled" | all, compliance |
+ | 40 | parDeployLogAnalyticsWorkspace | Toggles deployment of Log Analytics Workspace. True to deploy, otherwise false. | true; false | all, platform |
+ | 41 | parCustomerPolicySets | Customer specified policy assignments to the top-level management group of the SLZ. No parameters are supported as part of the assignment. | Name field can only be a letter, digit, '-', '.' or '_' and cannot have any trailing special character.<br />See the SLZ parameter file for a sample configuration. | all, compliance |
+ | 42 | parTags | Tags that will be assigned to subscription and resources created by this deployment script. | See the SLZ parameter file for a sample configuration. | all, bootstrap, platform, and dashboard |
 
 ## Next step
 
