@@ -52,6 +52,9 @@ param parPrivateDnsResourceGroupId string = ''
 @description('Effect type for all policy definitions')
 param parPolicyEffect string = 'Deny'
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string = 'Default'
+
 var varPolicyAssignmentScopeName = '${parDeploymentPrefix}${parDeploymentSuffix}'
 var varPolicyExemptionConfidentialOnlineManagementGroup = '${parDeploymentPrefix}-landingzones-confidential-online${parDeploymentSuffix}'
 var varPolicyExemptionConfidentialCorpManagementGroup = '${parDeploymentPrefix}-landingzones-confidential-corp${parDeploymentSuffix}'
@@ -65,6 +68,7 @@ module modRegulatoryCompliance '../../modules/compliance/defaultCompliance.bicep
     parAllowedLocations: parAllowedLocations
     parAllowedLocationsForConfidentialComputing: parAllowedLocationsForConfidentialComputing
     parPolicyEffect: parPolicyEffect
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
   }
 }
 
@@ -81,7 +85,7 @@ module modAlzPolicyAssignments '../../dependencies/infra-as-code/bicep/modules/p
     parMsDefenderForCloudEmailSecurityContact: parMsDefenderForCloudEmailSecurityContact
     parDdosProtectionPlanId: parDdosPlanResourceId
     parPrivateDnsResourceGroupId: parPrivateDnsResourceGroupId
-    parDisableAlzDefaultPolicies: !parDeployAlzDefaultPolicies
+    parDisableAlzDefaultPolicies: (parPolicyAssignmentEnforcementMode == 'Default') ? false : true
   }
   dependsOn: [
     modRegulatoryCompliance

@@ -30,6 +30,9 @@ param parPolicySetAssignmentDisplayName string
 @description('descritpion for the policy set assignment')
 param parPolicySetAssignmentDescription string
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string = 'Default'
+
 var varRootManagementGroupId = '${parDeploymentPrefix}${parDeploymentSuffix}'
 var varRbacRoleDefinitionIds = {
   owner: '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
@@ -51,7 +54,7 @@ module modUserPolicyAssignment '../../dependencies/infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }

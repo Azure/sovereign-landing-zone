@@ -24,6 +24,9 @@ param parRequireOwnerRolePermission bool = false
 @description('Customer specified policy assignments to the root management group of SLZ. No parameters are supported as part of the assignment. DEFAULT: []')
 param parCustomerPolicySets array = []
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string = 'Default'
+
 // RBAC Role Definitions Variables - Used For Policy Assignments
 var varRBACRoleDefinitionIDs = {
   owner: '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
@@ -43,6 +46,7 @@ module modRegulatoryCompliance '../../modules/compliance/customCompliance.bicep'
     parRoleDefinitionIds: [
       (parRequireOwnerRolePermission ? varRBACRoleDefinitionIDs.owner : varRBACRoleDefinitionIDs.reader)
     ]
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
   }
 }
 
@@ -56,6 +60,7 @@ module modUserPolicyAssignment '../../modules/compliance/customerPolicySetAssign
     parPolicySetAssignmentName: policy.policySetAssignmentName
     parPolicySetAssignmentDisplayName: policy.policySetAssignmentDisplayName
     parPolicySetAssignmentDescription: policy.policySetAssignmentDescription
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
   }
   dependsOn: [
     modRegulatoryCompliance
