@@ -25,6 +25,9 @@ param parTimestamp string = utcNow()
 @description('Effect type for all policy definitions')
 param parPolicyEffect string = 'Deny'
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string = 'Default'
+
 // **Variables**
 // Orchestration Module Variables
 var varDeploymentNameWrappers = {
@@ -187,7 +190,7 @@ module modPolicyAssignmentSlzGlobalDefaults '../../dependencies/infra-as-code/bi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -211,7 +214,7 @@ module modPolicyAssignmentSlzDecommissionedDefaults '../../dependencies/infra-as
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -230,7 +233,7 @@ module modPolicyAssignmentSlzLandingZoneDefaults '../../dependencies/infra-as-co
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -257,7 +260,7 @@ module modPolicyAssignmentSlzConfidentialCorpDefaults_Confidential '../../depend
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -280,7 +283,7 @@ module modPolicyAssignmentSlzConfidentialCorpDefaults_Corp '../../dependencies/i
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -307,7 +310,7 @@ module modPolicyAssignmentSlzConfidentialOnlineDefaults_Confidential '../../depe
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -331,7 +334,7 @@ module modPolicyAssignmentSlzConfidentialOnlineDefaults_Online '../../dependenci
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -355,7 +358,7 @@ module modPolicyAssignmentSlzCorpDefaults '../../dependencies/infra-as-code/bice
         value: parPolicyEffect
       }
     }
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -379,7 +382,7 @@ module modPolicyAssignmentSlzOnlineDefaults '../../dependencies/infra-as-code/bi
         value: parPolicyEffect
       }
     }
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -398,7 +401,7 @@ module modPolicyAssignmentSlzPlatformDefaults '../../dependencies/infra-as-code/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -414,7 +417,7 @@ module modPolicyAssignmentSlzConnectivityDefaults '../../dependencies/infra-as-c
     parPolicyAssignmentDescription: '${varSlzConnectivityDefaults.libAssignment.properties.description} ${varSlzConnectivityDefaults.version}'
     parPolicyAssignmentParameters: varSlzConnectivityDefaults.libAssignment.properties.parameters
     parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.networkContributor
     ]
@@ -446,7 +449,7 @@ module modPolicyAssignmentIdentityDefaults '../../dependencies/infra-as-code/bic
         value: parPolicyEffect
       }
     }
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -470,7 +473,7 @@ module modPolicyAssignmentSlzManagementDefaults '../../dependencies/infra-as-cod
         value: parPolicyEffect
       }
     }
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }
@@ -494,7 +497,7 @@ module modPolicyAssignmentSlzSandboxDefaults '../../dependencies/infra-as-code/b
         value: parPolicyEffect
       }
     }
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }

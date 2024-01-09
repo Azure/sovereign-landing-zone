@@ -489,6 +489,17 @@
       "value": null,
       "description": "Toggles executing the policy scan in synchronous mode. True to run policy remediation in synchronous mode, False for asynchronous."
     },
+    "parPolicyAssignmentEnforcementMode": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": "Default",
+      "value": null,
+      "allowedValues": [
+        "Default",
+        "DoNotEnforce"
+      ],
+      "description": "The enforcement mode used in all policy and initiative assignments."
+    },
     "parPolicyEffect": {
       "type": "string",
       "usedBy": "all and compliance",

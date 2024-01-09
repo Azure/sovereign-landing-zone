@@ -232,10 +232,11 @@ function New-CustomCompliance {
     $parDeploymentLocation = $parParameters.parDeploymentLocation.value
     $varCustomerPolicySets = Convert-ToArray($parParameters.parCustomerPolicySets.value)
     $varParams = @{
-        parDeploymentPrefix           = $parDeploymentPrefix
-        parDeploymentSuffix           = $parDeploymentSuffix
-        parRequireOwnerRolePermission = $parParameters.parRequireOwnerRolePermission.value
-        parCustomerPolicySets         = $varCustomerPolicySets
+        parDeploymentPrefix                 = $parDeploymentPrefix
+        parDeploymentSuffix                 = $parDeploymentSuffix
+        parRequireOwnerRolePermission       = $parParameters.parRequireOwnerRolePermission.value
+        parCustomerPolicySets               = $varCustomerPolicySets
+        parPolicyAssignmentEnforcementMode  = $parParameters.parPolicyAssignmentEnforcementMode.value
     }
 
     $varDeploymentName = "deploy-customcompliance-$vartimeStamp"
@@ -337,6 +338,7 @@ function New-DefaultCompliance {
         parLogAnalyticsWorkspaceLogRetentionInDays           = ($parParameters.parLogRetentionInDays.value).ToString()
         parMsDefenderForCloudEmailSecurityContact            = $parParameters.parMsDefenderForCloudEmailSecurityContact.value
         parPolicyEffect                                      = $parParameters.parPolicyEffect.value
+        parPolicyAssignmentEnforcementMode                   = $parParameters.parPolicyAssignmentEnforcementMode.value
     }
 
     $varDeploymentName = "deploy-defaultcompliance-$vartimeStamp"
