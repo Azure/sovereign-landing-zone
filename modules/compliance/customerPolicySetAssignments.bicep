@@ -17,6 +17,9 @@ param parDeploymentPrefix string
 @maxLength(5)
 param parDeploymentSuffix string
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string
+
 @description('Deployed policy set definition id ')
 param parPolicySetDefinitionId string
 
@@ -30,7 +33,14 @@ param parPolicySetAssignmentDisplayName string
 @description('descritpion for the policy set assignment')
 param parPolicySetAssignmentDescription string
 
-var varRootManagementGroupId = '${parDeploymentPrefix}${parDeploymentSuffix}'
+@description('An object containing the parameter values for the policy to be assigned.')
+param parPolicyAssignmentParameters object = {}
+
+@description('Management group scope for the policy assignment')
+param parPolicySetManagementGroupAssignmentScope string = ''
+
+var varManagementGroupId = empty(parPolicySetManagementGroupAssignmentScope) ? '${parDeploymentPrefix}${parDeploymentSuffix}' : contains(toLower(parPolicySetManagementGroupAssignmentScope), '/providers/microsoft.management/managementgroups/') ? replace(toLower(parPolicySetManagementGroupAssignmentScope), '/providers/microsoft.management/managementgroups/', '') : parPolicySetManagementGroupAssignmentScope
+
 var varRbacRoleDefinitionIds = {
   owner: '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
   contributor: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -40,18 +50,19 @@ var varRbacRoleDefinitionIds = {
 
 // Module - Policy Assignments - Root Management Group
 module modUserPolicyAssignment '../../dependencies/infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  scope: managementGroup(varRootManagementGroupId)
+  scope: managementGroup(varManagementGroupId)
   name: take('${parDeploymentPrefix}-polAssi-CustomerPolicySet-intRoot-${parPolicySetAssignmentName}${parDeploymentSuffix}', 64)
   params: {
     parPolicyAssignmentDefinitionId: parPolicySetDefinitionId
     parPolicyAssignmentName: take('${parPolicySetAssignmentName}', 24)
     parPolicyAssignmentDisplayName: parPolicySetAssignmentDisplayName
     parPolicyAssignmentDescription: parPolicySetAssignmentDescription
+    parPolicyAssignmentParameters: parPolicyAssignmentParameters
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       varRbacRoleDefinitionIds.owner
     ]
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parTelemetryOptOut: true
   }
 }

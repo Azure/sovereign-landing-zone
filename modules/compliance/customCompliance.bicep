@@ -14,6 +14,9 @@ param parDeploymentPrefix string
 @maxLength(5)
 param parDeploymentSuffix string
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string
+
 @description('An array containing a list of Subscription IDs that the System-assigned Managed Identity associated to the policy assignment will be assigned to in addition to the Management Group the policy is deployed/assigned to.')
 param parIdentityRoleAssignmentsSubs array
 
@@ -163,7 +166,7 @@ module modPolicyAssignmentGlobalCustom '../../dependencies/infra-as-code/bicep/m
     parPolicyAssignmentDescription: '${varGlobalCustomPolicies.libAssignment.properties.description} ${varGlobalCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varGlobalCustomPolicies.libAssignment.properties.displayName} ${varGlobalCustomPolicies.version}'
     parPolicyAssignmentName: take('${varGlobalCustomPolicies.libAssignment.name}${varGlobalCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -180,7 +183,7 @@ module modPolicyAssignmentDecommissionedCustom '../../dependencies/infra-as-code
     parPolicyAssignmentDescription: '${varDecommissionedCustomPolicies.libAssignment.properties.description} ${varDecommissionedCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varDecommissionedCustomPolicies.libAssignment.properties.displayName} ${varDecommissionedCustomPolicies.version}'
     parPolicyAssignmentName: take('${varDecommissionedCustomPolicies.libAssignment.name}${varDecommissionedCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -197,7 +200,7 @@ module modPolicyAssignmentLandingZoneCustom '../../dependencies/infra-as-code/bi
     parPolicyAssignmentDescription: '${varLandingZonesPolicies.libAssignment.properties.description} ${varLandingZonesPolicies.version}'
     parPolicyAssignmentDisplayName: '${varLandingZonesPolicies.libAssignment.properties.displayName} ${varLandingZonesPolicies.version}'
     parPolicyAssignmentName: take('${varLandingZonesPolicies.libAssignment.name}${varLandingZonesPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -214,7 +217,7 @@ module modPolicyAssignmentConfidentialCorpCustom_Confidential '../../dependencie
     parPolicyAssignmentDescription: '${varConfidentialCustomPolicies.libAssignment.properties.description} ${varConfidentialCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varConfidentialCustomPolicies.libAssignment.properties.displayName} ${varConfidentialCustomPolicies.version}'
     parPolicyAssignmentName: take('${varConfidentialCustomPolicies.libAssignment.name}${varConfidentialCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -233,7 +236,7 @@ module modPolicyAssignmentConfidentialCorpCustom_Corp '../../dependencies/infra-
     parPolicyAssignmentDescription: '${varCorpCustomPolicies.libAssignment.properties.description} ${varCorpCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varCorpCustomPolicies.libAssignment.properties.displayName} ${varCorpCustomPolicies.version}'
     parPolicyAssignmentName: take('${varCorpCustomPolicies.libAssignment.name}${varCorpCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -253,7 +256,7 @@ module modPolicyAssignmentConfidentialOnlineCustom_Confidential '../../dependenc
     parPolicyAssignmentDescription: '${varConfidentialCustomPolicies.libAssignment.properties.description} ${varConfidentialCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varConfidentialCustomPolicies.libAssignment.properties.displayName} ${varConfidentialCustomPolicies.version}'
     parPolicyAssignmentName: take('${varConfidentialCustomPolicies.libAssignment.name}${varConfidentialCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -273,7 +276,7 @@ module modPolicyAssignmentConfidentialOnlineCustom_Online '../../dependencies/in
     parPolicyAssignmentDescription: '${varOnlineCustomPolicies.libAssignment.properties.description} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varOnlineCustomPolicies.libAssignment.properties.displayName} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentName: take('${varOnlineCustomPolicies.libAssignment.name}${varOnlineCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -293,7 +296,7 @@ module modPolicyAssignmentCorpCustom '../../dependencies/infra-as-code/bicep/mod
     parPolicyAssignmentDescription: '${varCorpCustomPolicies.libAssignment.properties.description} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varCorpCustomPolicies.libAssignment.properties.displayName} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentName: take('${varCorpCustomPolicies.libAssignment.name}${varOnlineCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -313,7 +316,7 @@ module modPolicyAssignmentOnlineCustom '../../dependencies/infra-as-code/bicep/m
     parPolicyAssignmentDescription: '${varOnlineCustomPolicies.libAssignment.properties.description} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varOnlineCustomPolicies.libAssignment.properties.displayName} ${varOnlineCustomPolicies.version}'
     parPolicyAssignmentName: take('${varOnlineCustomPolicies.libAssignment.name}${varOnlineCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -333,7 +336,7 @@ module modPolicyAssignmentPlatformCustom '../../dependencies/infra-as-code/bicep
     parPolicyAssignmentDescription: '${varPlatformCustomPolicies.libAssignment.properties.description} ${varPlatformCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varPlatformCustomPolicies.libAssignment.properties.displayName} ${varPlatformCustomPolicies.version}'
     parPolicyAssignmentName: take('${varPlatformCustomPolicies.libAssignment.name}${varPlatformCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -353,7 +356,7 @@ module modPolicyAssignmentConnectivityCustom '../../dependencies/infra-as-code/b
     parPolicyAssignmentDescription: '${varConnectivityCustomPolicies.libAssignment.properties.description} ${varConnectivityCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varConnectivityCustomPolicies.libAssignment.properties.displayName} ${varConnectivityCustomPolicies.version}'
     parPolicyAssignmentName: take('${varConnectivityCustomPolicies.libAssignment.name}${varConnectivityCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -373,7 +376,7 @@ module modPolicyAssignmentIdentityCustom '../../dependencies/infra-as-code/bicep
     parPolicyAssignmentDescription: '${varIdentityCustomPolicies.libAssignment.properties.description} ${varIdentityCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varIdentityCustomPolicies.libAssignment.properties.displayName} ${varIdentityCustomPolicies.version}'
     parPolicyAssignmentName: take('${varIdentityCustomPolicies.libAssignment.name}${varIdentityCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -393,7 +396,7 @@ module modPolicyAssignmentManagementCustom '../../dependencies/infra-as-code/bic
     parPolicyAssignmentDescription: '${varManagementCustomPolicies.libAssignment.properties.description} ${varManagementCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varManagementCustomPolicies.libAssignment.properties.displayName} ${varManagementCustomPolicies.version}'
     parPolicyAssignmentName: take('${varManagementCustomPolicies.libAssignment.name}${varManagementCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds
@@ -413,7 +416,7 @@ module modPolicyAssignmentSandboxCustom '../../dependencies/infra-as-code/bicep/
     parPolicyAssignmentDescription: '${varSandboxCustomPolicies.libAssignment.properties.description} ${varSandboxCustomPolicies.version}'
     parPolicyAssignmentDisplayName: '${varSandboxCustomPolicies.libAssignment.properties.displayName} ${varSandboxCustomPolicies.version}'
     parPolicyAssignmentName: take('${varSandboxCustomPolicies.libAssignment.name}${varSandboxCustomPolicies.version}', 24)
-    parPolicyAssignmentEnforcementMode: 'Default'
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicyAssignmentIdentityRoleAssignmentsAdditionalMgs: []
     parPolicyAssignmentIdentityRoleAssignmentsSubs: parIdentityRoleAssignmentsSubs
     parPolicyAssignmentIdentityRoleDefinitionIds: parRoleDefinitionIds

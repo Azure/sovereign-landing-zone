@@ -18,6 +18,9 @@ param parDeploymentPrefix string
 @maxLength(5)
 param parDeploymentSuffix string = ''
 
+@description('Enforcement mode for all policy assignments.')
+param parPolicyAssignmentEnforcementMode string
+
 @description('Set this to true if any policies in the initiative include a modify effect.')
 param parRequireOwnerRolePermission bool = false
 
@@ -39,6 +42,7 @@ module modRegulatoryCompliance '../../modules/compliance/customCompliance.bicep'
   params: {
     parDeploymentPrefix: parDeploymentPrefix
     parDeploymentSuffix: parDeploymentSuffix
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parIdentityRoleAssignmentsSubs: []
     parRoleDefinitionIds: [
       (parRequireOwnerRolePermission ? varRBACRoleDefinitionIDs.owner : varRBACRoleDefinitionIDs.reader)
@@ -52,10 +56,13 @@ module modUserPolicyAssignment '../../modules/compliance/customerPolicySetAssign
   params: {
     parDeploymentPrefix: parDeploymentPrefix
     parDeploymentSuffix: parDeploymentSuffix
+    parPolicyAssignmentEnforcementMode: parPolicyAssignmentEnforcementMode
     parPolicySetDefinitionId: policy.policySetDefinitionId
     parPolicySetAssignmentName: policy.policySetAssignmentName
     parPolicySetAssignmentDisplayName: policy.policySetAssignmentDisplayName
     parPolicySetAssignmentDescription: policy.policySetAssignmentDescription
+    parPolicySetManagementGroupAssignmentScope: policy.policySetManagementGroupAssignmentScope
+    parPolicyAssignmentParameters: json(policy.policyAssignmentParameters)
   }
   dependsOn: [
     modRegulatoryCompliance

@@ -44,7 +44,12 @@ function Get-PolicyAssignmentsandExemptions {
             Write-Information ">>> For deployed SLZ Policy Sets, checking if there's a version update" -InformationAction Continue
             [System.Collections.ArrayList]$varListOfUpdatedPolicySetDefinitionIds = @()
 
-            $varPolicySetDefinitions = Get-AzPolicySetDefinition -ManagementGroupName $varManagementGroupId -WarningAction Ignore
+            if (Confirm-AzResourceVersion) {
+                $varPolicySetDefinitions = Get-AzPolicySetDefinition -ManagementGroupName $varManagementGroupId -BackwardCompatible -WarningAction Ignore
+            }
+            else {
+                $varPolicySetDefinitions = Get-AzPolicySetDefinition -ManagementGroupName $varManagementGroupId -WarningAction Ignore
+            }
             foreach ($varUpcomingPolicySet in $varPolicySetDefinitionDict.GetEnumerator()) {
                 $varPolicySetDefinition = $varPolicySetDefinitions | Where-Object { $_.Name -eq $varUpcomingPolicySet.Key -or $_.Name -match "$($varUpcomingPolicySet.Key).v" }
                 $varPolicySetDefinitionVersion = $varUpcomingPolicySet.Value
@@ -231,11 +236,22 @@ function New-CustomCompliance {
     $varManagementGroupId = "$parDeploymentPrefix$parDeploymentSuffix"
     $parDeploymentLocation = $parParameters.parDeploymentLocation.value
     $varCustomerPolicySets = Convert-ToArray($parParameters.parCustomerPolicySets.value)
+
+    $varCustomerPolicySets.foreach({
+            if ($null -ne $_.policyParameterFilePath -and $_.policyParameterFilePath -ne "") {
+                $_.policyAssignmentParameters = (Get-Content -Path $_.policyParameterFilePath -Raw) -replace '\r?\n', ''
+            }
+            else {
+                $_.policyAssignmentParameters = '{}'
+            }
+        })
+
     $varParams = @{
-        parDeploymentPrefix           = $parDeploymentPrefix
-        parDeploymentSuffix           = $parDeploymentSuffix
-        parRequireOwnerRolePermission = $parParameters.parRequireOwnerRolePermission.value
-        parCustomerPolicySets         = $varCustomerPolicySets
+        parDeploymentPrefix                = $parDeploymentPrefix
+        parDeploymentSuffix                = $parDeploymentSuffix
+        parRequireOwnerRolePermission      = $parParameters.parRequireOwnerRolePermission.value
+        parCustomerPolicySets              = $varCustomerPolicySets
+        parPolicyAssignmentEnforcementMode = $parParameters.parPolicyAssignmentEnforcementMode.value
     }
 
     $varDeploymentName = "deploy-customcompliance-$vartimeStamp"
@@ -337,63 +353,61 @@ function New-DefaultCompliance {
         parLogAnalyticsWorkspaceLogRetentionInDays           = ($parParameters.parLogRetentionInDays.value).ToString()
         parMsDefenderForCloudEmailSecurityContact            = $parParameters.parMsDefenderForCloudEmailSecurityContact.value
         parPolicyEffect                                      = $parParameters.parPolicyEffect.value
+        parPolicyAssignmentEnforcementMode                   = $parParameters.parPolicyAssignmentEnforcementMode.value
     }
 
     $varDeploymentName = "deploy-defaultcompliance-$vartimeStamp"
-    $varDefaultPolicySetExists = Confirm-PolicySetExists $varManagementGroupId "default"
-    if ($varDefaultPolicySetExists -eq $true) {
-        $varRetry = $true
-        while ($varRetry -and $varLoopCounter -lt $varMaxRetryAttemptTransientErrorRetry) {
-            $modDeployDefaultCompliance = $null;
-            try {
-                Write-Information ">>> Default compliance deployment started" -InformationAction Continue
+    $varRetry = $true
+    while ($varRetry -and $varLoopCounter -lt $varMaxRetryAttemptTransientErrorRetry) {
+        $modDeployDefaultCompliance = $null;
+        try {
+            Write-Information ">>> Default compliance deployment started" -InformationAction Continue
 
-                $modDeployDefaultCompliance = New-AzManagementGroupDeployment `
-                    -Name $varDeploymentName `
-                    -Location $parDeploymentLocation `
-                    -TemplateFile $varDefaultComplianceBicepFilePath `
-                    -ManagementGroupId $varManagementGroupId `
-                    -TemplateParameterObject $varParams `
-                    -WarningAction Ignore
+            $modDeployDefaultCompliance = New-AzManagementGroupDeployment `
+                -Name $varDeploymentName `
+                -Location $parDeploymentLocation `
+                -TemplateFile $varDefaultComplianceBicepFilePath `
+                -ManagementGroupId $varManagementGroupId `
+                -TemplateParameterObject $varParams `
+                -WarningAction Ignore
 
-                if (!$modDeployDefaultCompliance) {
-                    $varRetry = $false
-                    Write-Error "`n>>> Error occurred in default policy set assignment." -ErrorAction Stop
-                }
-
-                if ($modDeployDefaultCompliance.ProvisioningState -eq "Failed") {
-                    Write-Error "Error occurred during default compliance deployment." -ErrorAction Stop
-                }
-
-                Write-Information ">>> Default compliance completed" -InformationAction Continue
-                return $modDeployDefaultCompliance
+            if (!$modDeployDefaultCompliance) {
+                $varRetry = $false
+                Write-Error "`n>>> Error occurred in default policy set assignment." -ErrorAction Stop
             }
-            catch {
-                $varException = $_.Exception
-                $varErrorDetails = $_.ErrorDetails
-                $varTrace = $_.ScriptStackTrace
-                if (!$varRetry) {
-                    Write-Error ">>> Validation error occurred during execution . Please try after addressing the error : $varException \n $varErrorDetails \n $varTrace" -ErrorAction Stop
-                }
-                if (!$modDeployDefaultCompliance) {
-                    Write-Error ">>> Error occurred during execution . Please try after addressing the error : $varException \n $varErrorDetails \n $varTrace" -ErrorAction Stop
+
+            if ($modDeployDefaultCompliance.ProvisioningState -eq "Failed") {
+                Write-Error "Error occurred during default compliance deployment." -ErrorAction Stop
+            }
+
+            Write-Information ">>> Default compliance completed" -InformationAction Continue
+            return $modDeployDefaultCompliance
+        }
+        catch {
+            $varException = $_.Exception
+            $varErrorDetails = $_.ErrorDetails
+            $varTrace = $_.ScriptStackTrace
+            if (!$varRetry) {
+                Write-Error ">>> Validation error occurred during execution . Please try after addressing the error : $varException \n $varErrorDetails \n $varTrace" -ErrorAction Stop
+            }
+            if (!$modDeployDefaultCompliance) {
+                Write-Error ">>> Error occurred during execution . Please try after addressing the error : $varException \n $varErrorDetails \n $varTrace" -ErrorAction Stop
+            }
+            else {
+                $varDeploymentErrorCodes = Get-FailedDeploymentErrorCodes $varManagementGroupId $varDeploymentName $varManagementGroupDeployment
+                if ($null -eq $varDeploymentErrorCodes) {
+                    $varRetry = $false
                 }
                 else {
-                    $varDeploymentErrorCodes = Get-FailedDeploymentErrorCodes $varManagementGroupId $varDeploymentName $varManagementGroupDeployment
-                    if ($null -eq $varDeploymentErrorCodes) {
-                        $varRetry = $false
+                    $varLoopCounter++
+                    $varRetry = Confirm-Retry $varDeploymentErrorCodes
+                    if ($varRetry -and $varLoopCounter -lt $varMaxRetryAttemptTransientErrorRetry) {
+                        Write-Information ">>> Retrying deployment after waiting for $varRetryWaitTimeTransientErrorRetry secs" -InformationAction Continue
+                        Start-Sleep -Seconds $varRetryWaitTimeTransientErrorRetry
                     }
                     else {
-                        $varLoopCounter++
-                        $varRetry = Confirm-Retry $varDeploymentErrorCodes
-                        if ($varRetry -and $varLoopCounter -lt $varMaxRetryAttemptTransientErrorRetry) {
-                            Write-Information ">>> Retrying deployment after waiting for $varRetryWaitTimeTransientErrorRetry secs" -InformationAction Continue
-                            Start-Sleep -Seconds $varRetryWaitTimeTransientErrorRetry
-                        }
-                        else {
-                            $varRetry = $false
-                            Write-Error ">>> Error occurred in default compliance deployment. Please try after addressing the above error." -ErrorAction Stop
-                        }
+                        $varRetry = $false
+                        Write-Error ">>> Error occurred in default compliance deployment. Please try after addressing the above error." -ErrorAction Stop
                     }
                 }
             }
@@ -494,8 +508,8 @@ function Invoke-PolicyGeneration {
 
         Write-Information ">>> Initiating Policy generation script" -InformationAction Continue
 
-        $varInvokeSLZDefaultandCustomPolicy = '.\Invoke-SlzDefaultandCustomPolicyToBicep.ps1'
-        & $varInvokeSLZDefaultandCustomPolicy -parAttendedLogin $parAttendedLogin -ErrorAction Stop
+        $varInvokeSLZCustomPolicy = '.\Invoke-SlzCustomPolicyToBicep.ps1'
+        & $varInvokeSLZCustomPolicy -parAttendedLogin $parAttendedLogin -ErrorAction Stop
 
         Write-Information ">>> Policy generation complete" -InformationAction Continue
         return
@@ -511,7 +525,7 @@ function Invoke-PolicyGeneration {
     Gets the default and custom policy set definition name and versions.
 #>
 function Get-PolicySetDefinitionVersion {
-    $varTargetDirectories = "../../modules/compliance/policySetDefinitions", "../../custom/policies/definitions"
+    $varTargetDirectories = "../../custom/policies/definitions"
     $varPolicySetDefinitionDict = @{}
     foreach ($varDirectory in $varTargetDirectories) {
         $varSlzPolicySetDefinitionFiles = Get-ChildItem -Path "$varDirectory/*.json"

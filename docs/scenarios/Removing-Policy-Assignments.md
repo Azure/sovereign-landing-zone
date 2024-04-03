@@ -75,4 +75,18 @@ For further details refer to the [ALZ Assignment Deletion](https://github.com/Az
 |Deny the creation of public IP |Not allowed resource types |
 |Deploy-Log-Analytics |Configure Log Analytics workspace and automation account to centralize logs and monitoring |
 
+## Removing the Custom Sovereignty Baseline Policy Initiatives
+
+Starting with v1.1.0 of the SLZ, the delivery mechanism for the Sovereignty Baseline Policy initiatives has changed. Prior to this version they were delivered by the SLZ orchestration as custom initiatives, but starting with this version and going forward the orchestration will use the builtin Azure Policy definitions.
+
+This is only a change to the delivery mechanism, functionally the initiatives are identical but by leveraging the builtin Azure Policy definitions, it becomes easier to deliver and consume of updates to the baseline.
+
+However, after upgrading an existing SLZ deployment to v1.1.0, the old assignments and definitions will need to be manually removed. The above process described for removing ALZ policy assignments should be followed with these assignments:
+
+| **Assignment Name**      | **Scope**                 | **Definition Name**           |
+|--------------------------|---------------------------|-------------------------------|
+|SLZ Global Policies|Top-Level Management Group|Default Sovereign Landing Zone (SLZ) policies|
+|SLZ Confidential Policies|Confidential Corp|Policies to enforce confidential computing|
+|SLZ Confidential Policies|Confidential Online|Policies to enforce confidential computing|
+
 ### [Microsoft Legal Notice](../NOTICE.md)

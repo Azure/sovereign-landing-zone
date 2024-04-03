@@ -2,9 +2,27 @@
 
 Once the SLZ is deployed, the management group structure, subscriptions, and the [Sovereignty Baseline policy initiatives](Sovereignty-Baseline-Policy-Initiatives.md) will be in place. While the baseline can be configured, it may be necessary to apply additional policies to address local laws and regulations. Review the [Microsoft Cloud for Sovereignty policy portfolio](https://github.com/Azure/cloud-for-sovereignty-policy-portfolio) for policies that support specific regulations, or follow the below steps to deploy your own policies alongside the SLZ.
 
+## Assigning existing initiatives
+
+The SLZ allows for both builtin and custom initiatives to be assigned during deployment at a specified scope and with custom parameters. This option is most useful for the following cases:
+
+1. When the policy initiative definitions are common across multiple SLZ deployments and need to be created at the tenant root group.
+2. When the policy initiative definition needs to be tested and validated before an SLZ deployment.
+3. When there are variable parameters could be needed during assignment.
+
+Many users may find this option to be the most flexible.
+
+This capability can be used in a deployment by setting the `parCustomerPolicySets` value in the parameter file. Review the parameter file or the [Deployment Parameters](../07-Deployment-Parameters.md) for additional details about the structure for this object.
+
 ## Customization step by step
 
-The SLZ allows for custom policy initiatives to be deployed within the standard management group scopes for each deployment through the following:
+The SLZ allows for custom policy initiatives to be deployed and within the standard management group scopes. This option is most useful for the following cases:
+
+1. When the policy initiative definitions are unique to an individual SLZ deployment.
+2. When the policy initiative definition lifecycle should be the same as the SLZ deployment.
+3. When there are no variable parameters needed during assignment.
+
+This capability can be used in a deployment through the following:
 
 1. Navigate to the custom policy definitions located in `/custom/policies/definitions` in your version of the GitHub repository.
 2. Each definition corresponds to one of the default management group scopes deployed as part of the SLZ management group hierarchy:
@@ -35,8 +53,25 @@ The SLZ allows for custom policy initiatives to be deployed within the standard 
 
 **Note** Custom policies will need to fit with the [Azure policy and policy rule limits](https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-policy-limits) otherwise Azure will not create the definitions.
 
-## Next step
+## Using Compliance Outside an SLZ Deployment
 
-[View your compliance dashboard.](../10-Compliance-Dashboard.md)
+For ALZ customers, it is recommended to deploy the relevant Azure Policy and Initiative definitions and assignments using the [ALZ recommended path](https://github.com/Azure/ALZ-Bicep/wiki/PolicyDeepDive).
+
+For customers that aren't using the ALZ or the SLZ, they may still use the SLZ compliance modules to deploy the relevant policies. To use these modules, the customer landing zone must still have the same management group structure and IDs as an SLZ deployment would create. Specifically, the Management Group parent and child IDs must be:
+
+* `[PREFIX][SUFFIX]`
+  * `[PREFIX]`-decommissioned`[SUFFIX]`
+  * `[PREFIX]`-landingzones`[SUFFIX]`
+    * `[PREFIX]`-landingzones-confidentialcorp`[SUFFIX]`
+    * `[PREFIX]`-landingzones-confidentialonline`[SUFFIX]`
+    * `[PREFIX]`-landingzones-corp`[SUFFIX]`
+    * `[PREFIX]`-landingzones-online`[SUFFIX]`
+  * `[PREFIX]`-platform`[SUFFIX]`
+    * `[PREFIX]`-platform-connectivity`[SUFFIX]`
+    * `[PREFIX]`-platform-identity`[SUFFIX]`
+    * `[PREFIX]`-platform-management`[SUFFIX]`
+  * `[PREFIX]`-sandbox`[SUFFIX]`
+
+Then the [compliance deployment step](./Pipeline-Deployments.md#individual-deployment-steps) can be executed directly to create the relevant definitions and assignments.
 
 ### [Microsoft Legal Notice](../NOTICE.md)

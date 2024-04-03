@@ -126,7 +126,7 @@ function New-Platform {
                 Write-Error "`n Error while executing platform deployment" -ErrorAction Stop
             }
 
-            Write-Information ">>> Platform deployment completed" -InformationAction Continue
+            Write-Information ">>> Platform deployment completed`n" -InformationAction Continue
             # update parameters
             Out-DeploymentParameters "platform" $modDeploySovereignPlatform $varManagementGroupId $parParameters
             return $modDeploySovereignPlatform

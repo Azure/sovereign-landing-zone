@@ -60,16 +60,16 @@ $defaultConfig = @{
 # File locations from Enterprise-scale repository for
 # resources, organised by type
 $policyDefinitionFilePaths = (
-  Get-ChildItem -Path "$SourcePath/src/resources/Microsoft.Authorization/policyDefinitions/*" `
-    -File `
-    -Include "*.json", "*.AzureChinaCloud.json" `
-    -Exclude "*.AzureUSGovernment.json"
+    Get-ChildItem -Path "$SourcePath/src/resources/Microsoft.Authorization/policyDefinitions/*" `
+        -File `
+        -Include "*.json", "*.AzureChinaCloud.json" `
+        -Exclude "*.AzureUSGovernment.json"
 ).FullName
 $policySetDefinitionFilePaths = (
-  Get-ChildItem -Path "$SourcePath/src/resources/Microsoft.Authorization/policySetDefinitions/*" `
-    -File `
-    -Include "*.json", "*.AzureChinaCloud.json" `
-    -Exclude "*.AzureUSGovernment.json"
+    Get-ChildItem -Path "$SourcePath/src/resources/Microsoft.Authorization/policySetDefinitions/*" `
+        -File `
+        -Include "*.json", "*.AzureChinaCloud.json" `
+        -Exclude "*.AzureUSGovernment.json"
 ).FullName
 # The exportConfig array controls the foreach loop used to run
 # Export-LibraryArtifact. Each object provides a set of values

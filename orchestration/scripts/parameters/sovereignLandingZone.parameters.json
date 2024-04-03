@@ -494,12 +494,16 @@
       "usedBy": "all and compliance",
       "defaultValue": "Deny",
       "value": null,
-      "allowedValues": [
-        "Audit",
-        "Deny",
-        "Disabled"
-      ],
+      "allowedValues": ["Audit", "Deny", "Disabled"],
       "description": "The policy effect used in all assignments for the Sovereignty Baseline policy initiatives."
+    },
+    "parPolicyAssignmentEnforcementMode": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": "Default",
+      "value": null,
+      "allowedValues": ["Default", "DoNotEnforce"],
+      "description": "The enforcement mode used in all policy and initiative assignments."
     },
     "parDeployLogAnalyticsWorkspace": {
       "type": "bool",
@@ -517,11 +521,13 @@
           "policySetDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/179d1daa-458f-4e47-8086-2a68d0d6c38f",
           "policySetAssignmentName": "NIST-SP-800-53-Rev.-5",
           "policySetAssignmentDisplayName": "NIST 800-53 Initiative",
-          "policySetAssignmentDescription": "NIST 800-53 Initiative"
+          "policySetAssignmentDescription": "NIST 800-53 Initiative",
+          "policySetManagementGroupAssignmentScope": "/providers/Microsoft.Management/managementGroups/REPLACE_WITH_MANAGEMENT_GROUP_ID",
+          "policyParameterFilePath": "./parameters/policyParameters/nist800Parameter.json"
         }
       ],
       "value": [],
-      "description": "Optional array of customer specified policy assignments to the top-level management group."
+      "description": "Optional array of customer specified policy assignments to the mentioned scope with the optional input parameter file. If scope is empty assigned at root."
     },
     "parTags": {
       "type": "object",

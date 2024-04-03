@@ -52,6 +52,10 @@ This error means that the SLZ Global Defaults policy assignment has been configu
 
 Once a valid value is provided, run the SLZ compliance deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
 
+### Put on Firewall Policy [AFW POLICY] Failed with 1 faulted referenced firewalls
+
+This error occurs when the SLZ orchestration is ran a second time after post-deployment modifications have been made to the AFW Policy. While we are working on a resolution, users can mitigate this by setting the `parEnableFirewall` to `false` in the parameter file. This will not cause the SLZ orchestration to delete any firewall resources, but will instead instruct the orchestration to not modify any existing firewall resources.
+
 ## Dashboard Errors
 
 ### Resource [DASHBOARD RESOURCE GROUP NAME] was disallowed by policy.

@@ -4,7 +4,7 @@ targetScope = 'managementGroup'
 
 // This variable contains a number of objects that load in the custom Azure Policy Defintions that are provided as part of the ESLZ/ALZ reference implementation - this is automatically created in the file 'infra-as-code\bicep\modules\policy\lib\policy_definitions\_policyDefinitionsBicepInput.txt' via a GitHub action, that runs on a daily schedule, and is then manually copied into this variable.
 var varCustomPolicyDefinitionsArray = [
-// <!-- slzDefaultandCustomPolicyDefinitionsReplacementStart --> // DO NOT Remove This Line !!!
+// <!-- alzCustomPolicyDefinitionsReplacementStart --> // DO NOT Remove This Line !!!
 {
 	name: 'Append-AppService-httpsonly'
 	libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Append-AppService-httpsonly.json')
@@ -429,7 +429,7 @@ var varCustomPolicyDefinitionsArray = [
 	name: 'Deploy-Windows-DomainJoin'
 	libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deploy-Windows-DomainJoin.json')
 }
-// <!-- slzDefaultandCustomPolicyDefinitionsReplacementEnd --> // DO NOT Remove This Line !!!
+// <!-- alzCustomPolicyDefinitionsReplacementEnd --> // DO NOT Remove This Line !!!
 ]
 
 resource resPolicyDefinitions 'Microsoft.Authorization/policyDefinitions@2021-06-01' = [for policy in varCustomPolicyDefinitionsArray: {

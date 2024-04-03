@@ -213,6 +213,12 @@ An organization with multiple SLZ deployments each with a unique parameter file 
 
 Reference our [pipeline deployments](./scenarios/Pipeline-Deployments.md) document for additional details.
 
+### Why are my Route Tables and NSGs Being Removed?
+
+It is common for customers to make changes to resources deployed by the SLZ orchestration as post-deployment steps. However, when the SLZ orchestration is executed a second time it will attempt to reset these resources back to the original state inadvertently changing routing and network security groups. 
+
+While we are working on a resolution, users can mitigate this by setting the `parDeployHubNetwork` to `false` in the parameter file. This will not cause the SLZ orchestration to delete any networking resources, but will instead instruct the orchestration to not modify any existing networking resources.
+
 ## Compliance Dashboard
 
 ### How can I give 'read only' access to a user in my organization to the dashboard?

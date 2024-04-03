@@ -44,19 +44,13 @@ param (
   [string]
   $parSlzCustomPolicyDefinitionSetFilePattern = "slz$parSlzPolicyPattern" + "Custom",
   [string]
-  $parSlzDefaultPolicyDefinitionSetFilePattern = "slz$parSlzPolicyPattern" + "Defaults",
-  [string]
-  $parSlzGlobalPolicySetDefinitonTxtFile = "$parDefinitionsSetLongPath/_slzGlobalPolicySetDefinitionsBicepInput.txt",
-  [string]
   $parSlzPolicySetDefinitonTxtFile = "$parDefinitionsSetLongPath/_slzPolicySetDefinitionsBicepInput.txt",
   [string]
   $parAlzPolicySetDefinitonTxtFile = "$parDefinitionsSetLongPath/_alzPolicySetDefinitionsBicepInput.txt",
   [string]
-  $parTempPolicyDefinitionOutput = "tempDefaultandCustomPolicyDefinitions.bicep",
+  $parTempPolicyDefinitionOutput = "tempCustomPolicyDefinitions.bicep",
   [string]
-  $parTempSLZGlobalPolicySetDefinitionOutput = "slzTempGlobalDefaultandCustomPolicySetDefinitions.bicep",
-  [string]
-  $parTempSLZPolicySetDefinitionOutput = "slzTempDefaultandCustomPolicySetDefinitions.bicep",
+  $parTempSLZPolicySetDefinitionOutput = "slzTempCustomPolicySetDefinitions.bicep",
   [string]
   $parTempALZPolicySetDefinitionOutput = "alzTempPolicySetDefinitions.bicep",
   $parAttendedLogin = $true
@@ -70,8 +64,8 @@ function Move-PolicySetDefinitions {
   [CmdletBinding(SupportsShouldProcess)]
   param([string] $parRootPath)
 
-  $varDefaultDefinitionFiles = Get-ChildItem -Path "$parRootPath/*.json"
-  foreach ($varFile in $varDefaultDefinitionFiles) {
+  $varPolicySetDefinitionFiles = Get-ChildItem -Path "$parRootPath/*.json"
+  foreach ($varFile in $varPolicySetDefinitionFiles) {
     Write-Debug "Processing $varFile.Name"
 
     $varFilePath = $parRootPath + "/" + $varFile.Name
@@ -91,17 +85,16 @@ function Move-PolicySetDefinitions {
 .Description
  Copy files to destination path
 #>
-function Copy-SlzDefaultandCustomPolicyDefinitionsBicep {
+function Copy-SlzCustomPolicyDefinitionsBicep {
   [CmdletBinding(SupportsShouldProcess)]
   param()
 
   $varDestinationFolder = "$parDestRootPath/definitions/"
-  Write-Information ">>> Initiating copy of slz-defaultandCustomPolicyDefinitions.bicep, slz-defaultandCustomGlobalPolicySetDefinitions.bicep, slz-defaultandCustomPolicySetDefinitions.bicep and alzPolicySetDefinitions.bicep to $varDestinationFolder" -InformationAction Continue
-  Copy-Item "../policyInstallation/slz-DefaultandCustomPolicyDefinitions.txt" -Destination "$varDestinationFolder\slz-defaultandCustomPolicyDefinitions.bicep"
-  Copy-Item "../policyInstallation/slz-DefaultandCustomSLZGlobalPolicySetDefinitions.txt" -Destination "$varDestinationFolder\slz-defaultandCustomGlobalPolicySetDefinitions.bicep"
-  Copy-Item "../policyInstallation/slz-DefaultandCustomSLZPolicySetDefinitions.txt" -Destination "$varDestinationFolder\slz-defaultandCustomPolicySetDefinitions.bicep"
+  Write-Information ">>> Initiating copy of alz-PolicyDefinitions.bicep, slz-CustomPolicySetDefinitions.bicep and alzPolicySetDefinitions.bicep to $varDestinationFolder" -InformationAction Continue
+  Copy-Item "../policyInstallation/alz-PolicyDefinitions.txt" -Destination "$varDestinationFolder\alz-PolicyDefinitions.bicep"
+  Copy-Item "../policyInstallation/slz-CustomSLZPolicySetDefinitions.txt" -Destination "$varDestinationFolder\slz-CustomPolicySetDefinitions.bicep"
   Copy-Item "../policyInstallation/alz-DefaultPolicySetDefinitions.txt" -Destination "$varDestinationFolder\alzPolicySetDefinitions.bicep"
-  Write-Information ">>> copied slz-defaultandCustomPolicyDefinitions.bicep, slz-defaultandCustomGlobalPolicySetDefinitions.bicep, slz-defaultandCustomPolicySetDefinitions.bicep and alzPolicySetDefinitions.bicep to $varDestinationFolder" -InformationAction Continue
+  Write-Information ">>> copied alz-PolicyDefinitions.bicep, slz-CustomPolicySetDefinitions.bicep and alzPolicySetDefinitions.bicep to $varDestinationFolder" -InformationAction Continue
 }
 
 <#
@@ -111,11 +104,6 @@ Remove existing policy set files.
 function Remove-ExistingPolicySetFiles {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-
-  <# For slz default policies #>
-  Write-Information ">>> filtering slz default policy sets using $parSlzDefaultPolicyDefinitionSetFilePattern" -InformationAction Continue
-  Get-ChildItem -Path "$parDefinitionsSetLongPath" -Filter *.json | Where-Object { $_.Name -match $parSlzDefaultPolicyDefinitionSetFilePattern } | Remove-Item
-  Write-Information ">>> removed $parDefinitionsSetLongPath/slz*Defaults*" -InformationAction Continue
 
   <# For slz custom policies #>
   Write-Information ">>> filtering custom policy using $parSlzCustomPolicyDefinitionSetFilePattern" -InformationAction Continue
@@ -138,12 +126,12 @@ function Invoke-ALZScript {
 .Description
 Create new policy definition bicep file.
 #>
-function New-DefaultandCustomPolicyDefinitionsBicepFile {
+function New-AlzPolicyDefinitionsBicepFile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
 
   $varPolicyDefinitionsBicepInput = "$parDefinitionsLongPath/_policyDefinitionsBicepInput.txt"
-  $varDefaultandCustomPolicyDefinitionsBicepFile = "$parDestRootPath/definitions/slz-defaultandCustomPolicyDefinitions.bicep"
+  $varCustomPolicyDefinitionsBicepFile = "$parDestRootPath/definitions/alz-PolicyDefinitions.bicep"
   $varKeepCopying = $true
 
   # processing animation for attended run
@@ -158,8 +146,8 @@ function New-DefaultandCustomPolicyDefinitionsBicepFile {
 
   try {
     Set-Content -Path $parTempPolicyDefinitionOutput -Value "//`r`n// auto-generated-slz-policy-bicep-file by Cloud for Sovereignty team`r`n//"
-    Get-Content $varDefaultandCustomPolicyDefinitionsBicepFile | ForEach-Object {
-      if ($_ -match '<!--\s*slzDefaultandCustomPolicyDefinitionsReplacement([Ss]tart|[Ee]nd)\s*-->') {
+    Get-Content $varCustomPolicyDefinitionsBicepFile | ForEach-Object {
+      if ($_ -match '<!--\s*alzCustomPolicyDefinitionsReplacement([Ss]tart|[Ee]nd)\s*-->') {
         if ($_ -match '.+([Ss]tart)\s*-->') {
           $varKeepCopying = $false
 
@@ -196,8 +184,8 @@ function New-DefaultandCustomPolicyDefinitionsBicepFile {
   catch {
     Write-Error "Error in merging new policy/policy-set: $_.Exception.Message"
   }
-  #replace $varDefaultandCustomPolicyDefinitionsBicepFile with $parTempPolicyDefinitionOutput
-  Copy-Item $parTempPolicyDefinitionOutput -Destination $varDefaultandCustomPolicyDefinitionsBicepFile -force
+  #replace $varCustomPolicyDefinitionsBicepFile with $parTempPolicyDefinitionOutput
+  Copy-Item $parTempPolicyDefinitionOutput -Destination $varCustomPolicyDefinitionsBicepFile -force
 }
 <#
 .Description
@@ -236,7 +224,6 @@ function New-SLZPolicySetDefinitonsBicepInputFiles {
     <#line matching 'varCustomPolicySetDefinitionsArray' represents start of the json.
     Append this line to policyset defintion text files, as it will contain the jsons#>
     if ($varLine -match 'varCustomPolicySetDefinitionsArray') {
-      Set-Content $parSlzGlobalPolicySetDefinitonTxtFile $varLine
       Set-Content $parSlzPolicySetDefinitonTxtFile $varLine
       Set-Content $parAlzPolicySetDefinitonTxtFile $varLine
       continue
@@ -245,21 +232,22 @@ function New-SLZPolicySetDefinitonsBicepInputFiles {
     <# line matching the var 'policySetDefVarComment' indicates end of json.
     The arrayList containing json can be added to corresponding policyset defintion text files #>
     if ($varLine -match $varPolicySetDefVarComment) {
+      if ($varSlzPolicySet.Count -gt 0) {
+        $varPolicyParamVarName = Get-PolicySetParamVariableName $varSlzPolicySet
+        [void]$varSlzPolicyParams.Add($varPolicyParamVarName)
+        [void]$varSlzPolicySetList.Add($varSlzPolicySet)
+        $varSlzPolicySet = @()
+      }
+      else {
+        $varPolicyParamVarName = Get-PolicySetParamVariableName $varAlzPolicySet
+        [void]$varAlzPolicyParams.Add($varPolicyParamVarName)
+        [void]$varAlzPolicySetList.Add($varAlzPolicySet)
+        $varAlzPolicySet = @()
+      }
       #fetch the var name of the last parsed slz policy set and add the polic set to the slz policy set list
-      $varPolicyParamVarName = Get-PolicySetParamVariableName $varSlzPolicySet
-      [void]$varSlzPolicyParams.Add($varPolicyParamVarName)
-      [void]$varSlzPolicySetList.Add($varSlzPolicySet)
-      $varSlzPolicySet = @()
 
       #create the set definition text files, with the slz policy sets
       Add-SlzPolicySetDefinitionTxtFiles $varLine $varSlzPolicySetList
-
-      if (Confirm-AddEndBracket $parSlzGlobalPolicySetDefinitonTxtFile) {
-        Add-Content $parSlzGlobalPolicySetDefinitonTxtFile "]`r`n$varLine"
-      }
-      else {
-        Add-Content $parSlzGlobalPolicySetDefinitonTxtFile "`r`n$varLine"
-      }
 
       if (Confirm-AddEndBracket $parSlzPolicySetDefinitonTxtFile) {
         Add-Content $parSlzPolicySetDefinitonTxtFile "]`r`n$varLine"
@@ -282,15 +270,9 @@ function New-SLZPolicySetDefinitonsBicepInputFiles {
     <# check for line containing Policy Set Parameter Variables staring with 'var'
     and compare with vars in list 'slzPolicyParams' and 'alzPolicyParams', to add to the final bicep file #>
     if ($varLine -match 'var ()') {
-      $varSlzGlobalPolicyParam = 'varSlzGlobal'
       $varSlzPolicyParams | ForEach-Object {
-        if ($varLine -match $_) {
-          if ($_ -match $varSlzGlobalPolicyParam) {
-            Add-Content $parSlzGlobalPolicySetDefinitonTxtFile $varLine
-          }
-          else {
-            Add-Content $parSlzPolicySetDefinitonTxtFile $varLine
-          }
+        if ($_ -ne $null -and $varLine -match $_) {
+          Add-Content $parSlzPolicySetDefinitonTxtFile $varLine
         }
       }
       $varAlzPolicyParams | ForEach-Object {
@@ -385,9 +367,16 @@ Checks whether to add an end bracket to the policy set definition file
 function Confirm-AddEndBracket {
   param ($parPolicySetfilePath)
   $varPolicySetFileContent = Get-Content $parPolicySetfilePath
-
+  #for the sceanario where there are no slz custom policies
   $varIterationCounter = $varPolicySetFileContent.Count
-
+  if ($varIterationCounter -eq 1) {
+    if ($varPolicySetFileContent[$varIterationCounter][-1] -eq "]") {
+      return $false
+    }
+    else {
+      return $true
+    }
+  }
   do {
     if ($varPolicySetFileContent[$varIterationCounter] -match '}') {
       return $true
@@ -407,18 +396,10 @@ Add slz policy set definition to slz policy set definition text file
 #>
 function Add-SlzPolicySetDefinitionTxtFiles {
   param ($parLine, $parSlzPolicySetList)
-
-  $varSlzGlobalPolicySet = 'SlzGlobal'
   $varSlzPolicySets = @()
 
   foreach ($varPolicySet in $parSlzPolicySetList) {
-    if ($varPolicySet[1] -match $varSlzGlobalPolicySet) {
-      #adding SLZGlobalPolicy to a separate policy set definition file
-      Add-Content $parSlzGlobalPolicySetDefinitonTxtFile $varPolicySet
-    }
-    else {
-      $varSlzPolicySets += $varPolicySet
-    }
+    $varSlzPolicySets += $varPolicySet
   }
   #add other slz policy sets to a different policy set definition file
   Add-Content $parSlzPolicySetDefinitonTxtFile $varSlzPolicySets
@@ -426,76 +407,9 @@ function Add-SlzPolicySetDefinitionTxtFiles {
 
 <#
 .Description
-Creating slz global policyset defintion bicep file
-#>
-function New-DefaultandCustomSlzGlobalPolicySetDefinitionBicepFile {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-
-  # processing animation for attended run
-  if ($parAttendedLogin) {
-    $varDelay = 1000
-    $varStartLeft = [Console]::CursorLeft
-    $varStartTop = [Console]::CursorTop
-    $varOriginalColor = [Console]::ForegroundColor
-    $varLoadingChars = @('-', '\', '|', '/')
-    $varPos = 0
-  }
-
-  $varSlzGlobalPolicyDefinitionsSetBicepInput = "$parSlzGlobalPolicySetDefinitonTxtFile"
-  $varDefaultandCustomSLZGlobalPolicyDefinitionsBicepFile = "$parDestRootPath/definitions/slz-defaultandCustomGlobalPolicySetDefinitions.bicep"
-  $varKeepCopying = $true
-
-  try {
-    Set-Content -Path $parTempSLZGlobalPolicySetDefinitionOutput -Value "//`r`n// auto-generated-slz-policy-bicep-file by Cloud for Sovereignty team`r`n//"
-    Get-Content $varDefaultandCustomSLZGlobalPolicyDefinitionsBicepFile | ForEach-Object {
-      if ($_ -match '<!--\s*slzDefaultandCustomPolicySetDefinitionsReplacement(Start|End)\s*-->') {
-        if ($_ -match '.+([Ss]tart)\s*-->') {
-          $varKeepCopying = $false
-
-          Add-Content -Path $parTempSLZGlobalPolicySetDefinitionOutput -Value "// start"
-          # copy $varSlzGlobalPolicyDefinitionsSetBicepInput
-          Get-Content $varSlzGlobalPolicyDefinitionsSetBicepInput | Add-Content -Path $parTempSLZGlobalPolicySetDefinitionOutput
-          Add-Content -Path $parTempSLZGlobalPolicySetDefinitionOutput -Value "// end"
-
-          if ($parAttendedLogin) {
-            Flush_Output "[*] loading from auto-gen file..." $varDelay $varStartLeft $varStartTop $varOriginalColor
-          }
-        }
-        elseif ($_ -match ".+([Ee]nd)\s*-->") {
-          $varKeepCopying = $true
-        }
-      }
-      else {
-        # write line to $parTempSLZGlobalPolicySetDefinitionOutput
-        if ($varKeepCopying) {
-          Add-Content -Path $parTempSLZGlobalPolicySetDefinitionOutput -Value $_
-
-          if ($parAttendedLogin) {
-            $varPos = $varPos + 1
-            $varLoadingCh = $varLoadingChars[$($varPos % $varLoadingChars.Length)]
-            Flush_Output "[$varLoadingCh] loading from original file..." 0 $varStartLeft $varStartTop Blue
-          }
-        }
-      }
-    } #end of Foreach
-    if ($parAttendedLogin) {
-      [Console]::ForegroundColor = $varOriginalColor
-    }
-  }
-  catch {
-    Write-Error "Error in creating new policy/policy-set: $_.Exception.Message"
-  }
-
-  #replace $varDefaultandCustomSLZGlobalPolicyDefinitionsBicepFile with $parTempSLZGlobalPolicySetDefinitionOutput
-  Copy-Item $parTempSLZGlobalPolicySetDefinitionOutput -Destination $varDefaultandCustomSLZGlobalPolicyDefinitionsBicepFile -force
-}
-
-<#
-.Description
 Creating slz policy set defintion bicep file
 #>
-function New-DefaultandCustomSlzPolicySetDefinitionBicepFile {
+function New-CustomSlzPolicySetDefinitionBicepFile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
 
@@ -510,13 +424,13 @@ function New-DefaultandCustomSlzPolicySetDefinitionBicepFile {
   }
 
   $varSlzPolicyDefinitionsSetBicepInput = "$parSlzPolicySetDefinitonTxtFile"
-  $varDefaultandCustomSLZPolicyDefinitionsBicepFile = "$parDestRootPath/definitions/slz-defaultandCustomPolicySetDefinitions.bicep"
+  $varCustomSLZPolicyDefinitionsBicepFile = "$parDestRootPath/definitions/slz-CustomPolicySetDefinitions.bicep"
   $varKeepCopying = $true
 
   try {
     Set-Content -Path $parTempSLZPolicySetDefinitionOutput -Value "//`r`n// auto-generated-slz-policy-bicep-file by Cloud for Sovereignty team`r`n//"
-    Get-Content $varDefaultandCustomSLZPolicyDefinitionsBicepFile | ForEach-Object {
-      if ($_ -match '<!--\s*slzDefaultandCustomPolicySetDefinitionsReplacement(Start|End)\s*-->') {
+    Get-Content $varCustomSLZPolicyDefinitionsBicepFile | ForEach-Object {
+      if ($_ -match '<!--\s*slzCustomPolicySetDefinitionsReplacement(Start|End)\s*-->') {
         if ($_ -match '.+([Ss]tart)\s*-->') {
           $varKeepCopying = $false
 
@@ -555,7 +469,7 @@ function New-DefaultandCustomSlzPolicySetDefinitionBicepFile {
   }
 
   #replace $varDefaultandCustomSLZPolicyDefinitionsBicepFile with $parTempSLZPolicySetDefinitionOutput
-  Copy-Item $parTempSLZPolicySetDefinitionOutput -Destination $varDefaultandCustomSLZPolicyDefinitionsBicepFile -force
+  Copy-Item $parTempSLZPolicySetDefinitionOutput -Destination $varCustomSLZPolicyDefinitionsBicepFile -force
 }
 
 <#
@@ -587,7 +501,7 @@ function New-AlzPolicySetDefinitionBicepFile {
         if ($_ -match '.+([Ss]tart)\s*-->') {
           $varKeepCopying = $false
 
-          Add-Content -Path $parTempSLZPolicySetDefinitionOutput -Value "// start"
+          Add-Content -Path $parTempALZPolicySetDefinitionOutput -Value "// start"
           # copy $alzPolicyDefinitionsSetBicepInput
           Get-Content $alzPolicyDefinitionsSetBicepInput | Add-Content -Path $parTempALZPolicySetDefinitionOutput
           Add-Content -Path $parTempALZPolicySetDefinitionOutput -Value "// end"
@@ -634,12 +548,11 @@ function Remove-TempFile {
   [CmdletBinding(SupportsShouldProcess)]
   param()
 
-  Write-Information "Removing tempDefaultandCustomPolicyDefinitions.bicep, slzTempGlobalDefaultandCustomPolicySetDefinitions.bicep and slzTempDefaultandCustomPolicySetDefinitions.bicep files" -InformationAction Continue
-  Get-Item -Path ".\tempDefaultandCustomPolicyDefinitions.bicep" | Remove-Item
-  Get-Item -Path ".\slzTempGlobalDefaultandCustomPolicySetDefinitions.bicep" | Remove-Item
-  Get-Item -Path ".\slzTempDefaultandCustomPolicySetDefinitions.bicep" | Remove-Item
+  Write-Information "Removing tempCustomPolicyDefinitions.bicep and slzTempCustomPolicySetDefinitions.bicep files" -InformationAction Continue
+  Get-Item -Path ".\tempCustomPolicyDefinitions.bicep" | Remove-Item
+  Get-Item -Path ".\slzTempCustomPolicySetDefinitions.bicep" | Remove-Item
   Get-Item -Path ".\alzTempPolicySetDefinitions.bicep" | Remove-Item
-  Write-Information "Removed tempDefaultandCustomPolicyDefinitions.bicep, slzTempGlobalDefaultandCustomPolicySetDefinitions.bicep and slzTempDefaultandCustomPolicySetDefinitions.bicep files" -InformationAction Continue
+  Write-Information "Removed tempCustomPolicyDefinitions.bicep and slzTempCustomPolicySetDefinitions.bicep files" -InformationAction Continue
 }
 
 <#
@@ -668,25 +581,19 @@ function Flush_Output {
 }
 
 Remove-ExistingPolicySetFiles
-Copy-SlzDefaultandCustomPolicyDefinitionsBicep
-<# For slz default policies #>
-Write-Information ">>> Processing default policy set definitions" -InformationAction Continue
-Move-PolicySetDefinitions $parDefaultPoliciesRootPath
-Write-Information ">>> Processed and copied SLZ default policy definition sets" -InformationAction Continue
-<# For custom policies #>
+Copy-SlzCustomPolicyDefinitionsBicep
+<# For slz custom policies #>
 Write-Information ">>> Processing custom policy set definitions" -InformationAction Continue
 Move-PolicySetDefinitions $parCustomPoliciesRootPath
 Write-Information ">>> Processed and copied custom policy definition sets" -InformationAction Continue
 <# Invoke ALZ Script - InvokePolicyToBicep to create files containing policy definition and policy set definition #>
 Invoke-ALZScript
 <# The function will create alz policy definition bicep file #>
-New-DefaultandCustomPolicyDefinitionsBicepFile
-<# The function will create a file containing slz global policy set, file containing remainder of the slz policies and a file for alz policies #>
+New-AlzPolicyDefinitionsBicepFile
+<# The function will create a file containing slz policies and a file for alz policies #>
 New-SLZPolicySetDefinitonsBicepInputFiles
-<# The function will create SLZ global policy set definition bicep file #>
-New-DefaultandCustomSlzGlobalPolicySetDefinitionBicepFile
 <# The function will create SLZ policy set definition bicep file #>
-New-DefaultandCustomSlzPolicySetDefinitionBicepFile
+New-CustomSlzPolicySetDefinitionBicepFile
 <# The function will create ALZ policy set definition bicep file #>
 New-AlzPolicySetDefinitionBicepFile
 Remove-TempFile

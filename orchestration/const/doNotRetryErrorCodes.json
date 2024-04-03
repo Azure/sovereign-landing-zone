@@ -27,7 +27,11 @@
     },
     {
       "code": "InvalidRequestContent",
-      "errorDescription": " The request content was invalid and could not be deserialized"
+      "errorDescription": "The request content was invalid and could not be deserialized"
+    },
+    {
+      "code": "MissingPolicyParameter",
+      "errorDescription": "The policy assignment is missing the parameter(s) as defined in the policy definition."
     }
   ]
 }

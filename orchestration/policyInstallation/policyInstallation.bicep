@@ -83,7 +83,7 @@ param parTimestamp string = utcNow()
 var varManagementGroupId = '${parDeploymentPrefix}${parDeploymentSuffix}'
 
 // Module - create alz default Policy Definitions
-module modAlzDefaultPolicyDefinitions '../../dependencies/infra-as-code/bicep/modules/policy/definitions/slz-defaultandCustomPolicyDefinitions.bicep' = {
+module modAlzDefaultPolicyDefinitions '../../dependencies/infra-as-code/bicep/modules/policy/definitions/alz-PolicyDefinitions.bicep' = {
   scope: managementGroup(varManagementGroupId)
   name: take('${parDeploymentPrefix}-polDefs-${parDeploymentLocation}-${parTimestamp}${parDeploymentSuffix}', 64)
 }
@@ -101,13 +101,7 @@ module modAlzPolicySetDefinitions '../../dependencies/infra-as-code/bicep/module
 }
 
 // Module - create default and custom SLZ Policy Set Initiatives
-module modDefaultandCustomSlzPolicySetDefinitions '../../dependencies/infra-as-code/bicep/modules/policy/definitions/slz-defaultandCustomPolicySetDefinitions.bicep' = {
+module modDefaultandCustomSlzPolicySetDefinitions '../../dependencies/infra-as-code/bicep/modules/policy/definitions/slz-CustomPolicySetDefinitions.bicep' = {
   scope: managementGroup(varManagementGroupId)
   name: take('${parDeploymentPrefix}-slzPolSetDefs-${parDeploymentLocation}-${parTimestamp}${parDeploymentSuffix}', 64)
-}
-
-// Module - create default and custom SLZ Global Policy Set Initiatives
-module modDefaultandCustomSlzGlobalPolicySetDefinitions '../../dependencies/infra-as-code/bicep/modules/policy/definitions/slz-defaultandCustomGlobalPolicySetDefinitions.bicep' = {
-  scope: managementGroup(varManagementGroupId)
-  name: take('${parDeploymentPrefix}-slzglobalPolSetDefs-${parDeploymentLocation}-${parTimestamp}${parDeploymentSuffix}', 64)
 }

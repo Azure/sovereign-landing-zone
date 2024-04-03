@@ -58,10 +58,10 @@
             ModuleName    = 'Az.Accounts'
             ModuleVersion = '2.9.0'
         }
-        @{
+        <#@{
             ModuleName    = 'Az.Resources'
             ModuleVersion = '5.6.0'
-        }
+        }#>
     )
 
     # Assemblies that must be loaded prior to importing this module
