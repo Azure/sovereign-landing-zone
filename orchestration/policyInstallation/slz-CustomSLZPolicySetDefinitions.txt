@@ -1,0 +1,34 @@
+//This bicep file includes auto-generated code. Please dont make any changes these file manually.
+
+targetScope = 'managementGroup'
+
+/* reserved customer usage attribution
+@description('Set Parameter to true to Opt-out of deployment telemetry')
+param parTelemetryOptOut bool = false
+*/
+
+// <!-- slzCustomPolicySetDefinitionsReplacementStart --> // DO NOT Remove This Line !!!
+var varCustomPolicySetDefinitionsArray = [
+]
+
+// Policy Set/Initiative Definition Parameter Variables
+
+// <!-- slzCustomPolicySetDefinitionsReplacementEnd --> // DO NOT Remove This Line !!!
+
+resource resPolicySetDefinitions 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = [for policySet in varCustomPolicySetDefinitionsArray: {
+  name: '${policySet.libSetDefinition.name}.v${policySet.libSetDefinition.properties.metadata.version}'
+  properties: {
+    description: '${policySet.libSetDefinition.properties.description} v${policySet.libSetDefinition.properties.metadata.version}'
+    displayName: '${policySet.libSetDefinition.properties.displayName} v${policySet.libSetDefinition.properties.metadata.version}'
+    metadata: policySet.libSetDefinition.properties.metadata
+    parameters: policySet.libSetDefinition.properties.parameters
+    policyType: policySet.libSetDefinition.properties.policyType
+    policyDefinitions: [for policySetDef in policySet.libSetChildDefinitions: {
+      policyDefinitionReferenceId: policySetDef.definitionReferenceId
+      policyDefinitionId: policySetDef.definitionId
+      parameters: policySetDef.definitionParameters
+	  groupNames: policySetDef.definitionGroups
+    }]
+    policyDefinitionGroups: policySet.libSetDefinition.properties.policyDefinitionGroups
+  }
+}]

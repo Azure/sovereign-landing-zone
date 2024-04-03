@@ -1,0 +1,37 @@
+{
+  "description": "This file contains all the error codes for while the retry logic would not be triggered",
+  "errorCodes": [
+    {
+      "code": "RequestDisallowedByPolicy",
+      "errorDescription": "A resource deployment was disallowed by policy"
+    },
+    {
+      "code": "MissingSubscriptionRegistration",
+      "errorDescription": "The subscription must be registered to use the namespace."
+    },
+    {
+      "code": "InvalidPolicySetParameterUpdate",
+      "errorDescription": "The policy contains new parameter(s) which are not present in the existing policy and have no default value. New parameters may be added to a policy only if they have a default value."
+    },
+    {
+      "code": "UndefinedPolicyParameter",
+      "errorDescription": "The policy assignment has the parameter(s) which are not defined in the policy definition"
+    },
+    {
+      "code": "ReferencedResourceNotProvisioned",
+      "errorDescription": "Cannot proceed with operation because the resource is not in Succeeded state."
+    },
+    {
+      "code": "UserNotAuthorized",
+      "errorDescription": "User is not authorized to create a particular resource/subscription"
+    },
+    {
+      "code": "InvalidRequestContent",
+      "errorDescription": "The request content was invalid and could not be deserialized"
+    },
+    {
+      "code": "MissingPolicyParameter",
+      "errorDescription": "The policy assignment is missing the parameter(s) as defined in the policy definition."
+    }
+  ]
+}

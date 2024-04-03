@@ -1,0 +1,18 @@
+{
+  "name": "Deploy-Slz-Custom-Plat",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "SLZ Platform Custom Policies",
+    "displayName": "SLZ Platform Custom Policies",
+    "notScopes": [],
+    "parameters": {},
+    "policyDefinitionId": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzPlatformCustomPolicies",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}
