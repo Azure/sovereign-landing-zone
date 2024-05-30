@@ -1,0 +1,17 @@
+{
+    "properties": {
+        "displayName": "SLZ Online Custom Policies",
+        "description": "SLZ Online Custom Policies",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Regulatory Compliance",
+            "version": "0.3.0"
+        },
+        "parameters": {},
+        "policyDefinitions": [],
+        "policyDefinitionGroups": []
+    },
+    "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzOnlineCustomPolicies",
+    "type": "Microsoft.Authorization/policySetDefinitions",
+    "name": "SlzOnlineCustomPolicies"
+}

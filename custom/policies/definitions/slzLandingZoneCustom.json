@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "displayName": "SLZ Landing Zone Custom Policies",
+    "description": "SLZ Landing Zone Custom Policies",
+    "policyType": "Custom",
+    "metadata": {
+      "category": "Regulatory Compliance",
+      "version": "0.3.0"
+    },
+    "parameters": {},
+    "policyDefinitions": [],
+    "policyDefinitionGroups": []
+  },
+  "id": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzLandingZonesCustomPolicies",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "name": "SlzLandingZonesCustomPolicies"
+}

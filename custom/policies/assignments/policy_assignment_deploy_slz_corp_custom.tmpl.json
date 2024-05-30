@@ -1,0 +1,18 @@
+{
+  "name": "Deploy-Slz-Custom-Corp",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2019-09-01",
+  "properties": {
+    "description": "SLZ Corp Custom Policies",
+    "displayName": "SLZ Corp Custom Policies",
+    "notScopes": [],
+    "parameters": {},
+    "policyDefinitionId": "${varTargetManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/SlzCorpCustomPolicies",
+    "scope": null,
+    "enforcementMode": "Default"
+  },
+  "location": null,
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}
