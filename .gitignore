@@ -1,0 +1,29 @@
+# Ignore bicep build output files and keep required json in other locations
+slz-build-log.txt
+
+# Ignore Visual Studio Code user folder
+.vs
+.vscode
+
+# Ignore NuGet packages folder
+packages/*
+
+# Ignore bicep build output json and keep required json in other locations
+modules/**/*.json
+!modules/**/dashboard/templates/*
+!modules/**/parameters/*.parameters.json
+!modules/**/policyAssignments/*
+!modules/**/policySetDefinitions/*
+orchestration/**/*.json
+!orchestration/const/*.json
+!orchestration/**/parameters/*.parameters.json
+!orchestration/**/parameters/policyParameters/*.json
+orchestration/scripts/outputs/*
+# ignore all files added or modified by Invoke-SlzDefaultandCustomPolicyToBicep.ps1
+dependencies/infra-as-code/bicep/modules/policy/assignments/lib/policy_assignments/_*.txt
+dependencies/infra-as-code/bicep/modules/policy/definitions/alzPolicySetDefinitions.bicep
+dependencies/infra-as-code/bicep/modules/policy/definitions/alz-PolicyDefinitions.bicep
+dependencies/infra-as-code/bicep/modules/policy/definitions/slz-*.bicep
+dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_definitions/_*.txt
+dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_set_definitions/_*.txt
+dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_set_definitions/slz*.json
