@@ -187,6 +187,9 @@ param parVpnGatewayBgpPeeringAddress string = ''
 @description('Bgp peer weight. Default: 5')
 param parVpnGatewayPeerWeight int = 5
 
+@description('Vpn Client Configuration. Default: {}')
+param parVpnGatewayClientConfiguration object = {}
+
 @description('Enable Firewall. Default:True')
 param parEnableFirewall bool = true
 
@@ -412,6 +415,7 @@ module modHubNetworking '../../dependencies/infra-as-code/bicep/modules/hubNetwo
         bgpPeeringAddress: parVpnGatewayBgpPeeringAddress
         peerWeight: parVpnGatewayPeerWeight
       }
+      vpnClientConfiguration: parVpnGatewayClientConfiguration
     }
   }
   dependsOn: [

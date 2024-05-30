@@ -22,8 +22,8 @@ The following parameters are useful for configuring the policy baseline:
 
 The related policies are in the `dashboard-Data Residency` group within these files:
 
-* [SLZ Global Defaults](../../modules/compliance/policySetDefinitions/slzGlobalDefaults.json)
-* [SLZ Confidential Defaults](../../modules/compliance/policySetDefinitions/slzConfidentialDefaults.json)
+* [SLZ Global Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-global#so1---data-residency)
+* [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so1---data-residency)
 
 ### SO-2
 
@@ -37,9 +37,9 @@ There is no policy in the baseline that supports this and it is intended to be a
 
 The related policies are in the `dashboard-Confidential Computing` group within these files:
 
-* [SLZ Confidential Defaults](../../modules/compliance/policySetDefinitions/slzConfidentialDefaults.json)
+* [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so3---customer-managed-keys)
 
-**Note** The resources are intended to be restricted to only those that have SKUs backed by confidential computing or do not process customer data. If this list is too restrictive, users are recommended to add other approved resources to the [allowed resources list](../../modules/compliance/policyAssignments/policy_assignment_deploy_slz_confidential_defaults.tmpl.json) in the assignment definition.
+**Note** The resources are intended to be restricted to only those that have SKUs backed by confidential computing or do not process customer data. If this list is too restrictive, users are recommended to add other approved resources to the [allowed resources list](../../dependencies/infra-as-code/bicep/modules/policy/assignments/lib/policy_assignments/policy_assignment_es_enforce_sovereignty_baseline_conf.tmpl.json) in the assignment definition.
 
 ### SO-4
 
@@ -47,7 +47,7 @@ The related policies are in the `dashboard-Confidential Computing` group within 
 
 The related policies are in the `dashboard-Key Management` group within these files:
 
-* [SLZ Confidential Defaults](../../modules/compliance/policySetDefinitions/slzConfidentialDefaults.json)
+* [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so4---azure-confidential-computing)
 
 ## Improvement Ideas
 

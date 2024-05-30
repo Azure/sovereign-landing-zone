@@ -21,4 +21,4 @@ The SLZ deploys under the [tenant root group](https://learn.microsoft.com/azure/
 
 [Overview of the Sovereign Landing Zone deployment](03-Deployment-Overview.md)
 
-### [Legal Notice](./NOTICE.md)
+### [Microsoft Legal Notice](./NOTICE.md)

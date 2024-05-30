@@ -8,4 +8,4 @@ You can now improve upon on your [compliance policies](09-Customize-Policies.md)
 
 Visit our [Frequently Asked Questions](12-FAQ.md) page for common queries or [Scenarios](scenarios/README.md) for common post-deployment operations. Log a [GitHub Issue](https://github.com/Azure/sovereign-landing-zone/issues) for any problems you are encountering getting started with or managing your SLZ deployment.
 
-## [Microsoft Legal Notice](./NOTICE.md)
+### [Microsoft Legal Notice](./NOTICE.md)

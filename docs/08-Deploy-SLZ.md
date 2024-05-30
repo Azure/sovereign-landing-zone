@@ -17,6 +17,6 @@ Please reference [Frequently Asked Questions](12-FAQ.md) for commons errors and 
 
 ## Next step
 
-[Deploy Customize Policies](09-Customize-Policies.md)
+[Deploy Customized Policies](09-Customize-Policies.md)
 
 ### [Microsoft Legal Notice](./NOTICE.md)

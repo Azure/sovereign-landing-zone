@@ -98,7 +98,7 @@ This error is likely to occur if the subscriptions being created in the Bootstra
 
 ### What are the allowed Azure resource types for confidential management groups (Confidential Corp and Confidential Online)?
 
-For an overview of confidential computing resources in Azure please refer to this [documentation.](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) The list used by the SLZ can be found [here](../modules/compliance/policyAssignments/policy_assignment_deploy_slz_confidential_defaults.tmpl.json), and the list can be customized to meet an organization's needs.
+For an overview of confidential computing resources in Azure please refer to this [documentation.](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) The list used by the SLZ can be found [here](../../dependencies/infra-as-code/bicep/modules/policy/assignments/lib/policy_assignments/policy_assignment_es_enforce_sovereignty_baseline_conf.tmpl.json), and the list can be customized to meet an organization's needs.
 
 ### What information should I consider removing from my failed deployment details logs?
 
@@ -225,4 +225,4 @@ While we are working on a resolution, users can mitigate this by setting the `pa
 
 You will need to assign an Azure `Reader` role the user at the top-level management group scope. Please follow instructions here on how to add an Azure role: [Azure Role Based Access Control](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal)
 
-## [Microsoft Legal Notice](./NOTICE.md)
+### [Microsoft Legal Notice](./NOTICE.md)

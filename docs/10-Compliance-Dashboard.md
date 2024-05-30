@@ -34,4 +34,4 @@ The compliance dashboard is customizable and [can be extended](scenarios/Extendi
 
 [Conclusion](11-Conclusion.md)
 
-## [Microsoft Legal Notice](./NOTICE.md)
+### [Microsoft Legal Notice](./NOTICE.md)

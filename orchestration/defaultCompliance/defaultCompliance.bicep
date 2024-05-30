@@ -156,7 +156,7 @@ module modAlzPolicyAssignments '../../dependencies/infra-as-code/bicep/modules/p
 }
 
 // The following module is used to deploy the policy exemptions
-module modPolicyExemptionsConfidentialOnline '../../modules/compliance/policyExemptions.bicep' = {
+module modPolicyExemptionsConfidentialOnline '../../modules/compliance/policyExemptions.bicep' = if (varDeploySlzBuiltInPolicies) {
   scope: managementGroup(varPolicyExemptionConfidentialOnlineManagementGroup)
   name: take('${parDeploymentPrefix}-deploy-policy-exemptions${parDeploymentSuffix}', 64)
   params: {
@@ -171,7 +171,7 @@ module modPolicyExemptionsConfidentialOnline '../../modules/compliance/policyExe
 }
 
 // The following module is used to deploy the policy exemptions
-module modPolicyExemptionsConfidentialCorp '../../modules/compliance/policyExemptions.bicep' = {
+module modPolicyExemptionsConfidentialCorp '../../modules/compliance/policyExemptions.bicep' = if (varDeploySlzBuiltInPolicies) {
   scope: managementGroup(varPolicyExemptionConfidentialCorpManagementGroup)
   name: take('${parDeploymentPrefix}-deploy-policy-exemptions${parDeploymentSuffix}', 64)
   params: {

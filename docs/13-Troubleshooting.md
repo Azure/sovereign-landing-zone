@@ -16,6 +16,19 @@ When an error occurs, the error message will most often be presented in a human 
 
 ![SLZ Error in Logs](images/determine-error-message.png)
 
+## Bicep Errors
+
+### Using a type union declaration requires enabling EXPERIMENTAL feature "UserDefinedTypes".
+
+Commonly, this is caused by having 2 versions of Bicep installed where one version is not being updated. This can be checked by running:
+
+```
+az bicep version
+bicep --version
+```
+
+Make sure both installs have the [required minimal version.](./05-Permissions-Tooling.md#tooling-required)
+
 ## Bootstrap Errors
 
 ### User is not authorized to create subscriptions on this enrollment account.
@@ -64,4 +77,4 @@ This error means that the SLZ Global Defaults policy assignment has been configu
 
 Once a valid value is provided, run the SLZ compliance deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
 
-## [Microsoft Legal Notice](./NOTICE.md)
+### [Microsoft Legal Notice](./NOTICE.md)

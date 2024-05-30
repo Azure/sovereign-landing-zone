@@ -84,6 +84,7 @@ var varDefaultTitles = [
           }
         }
       }
+      partHeader: {}
     }
   }
   {
@@ -254,6 +255,7 @@ var varDefaultTitles = [
           }
         }
       }
+      partHeader: {}
     }
   }
   {
@@ -526,6 +528,7 @@ var varDefaultTitles = [
           }
         }
       }
+      partHeader: {}
     }
   }
   {
@@ -697,6 +700,7 @@ var varDefaultTitles = [
           }
         }
       }
+      partHeader: {}
     }
   }
   {
@@ -915,7 +919,7 @@ resource resDashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
             colSpan: part.position.colSpan
             rowSpan: part.position.rowSpan
           }
-          #disable-next-line BCP037
+          #disable-next-line BCP036 BCP037
           metadata: contains(part.metadata.type, 'MarkdownPart') ? {
             inputs: part.metadata.inputs
             type: part.metadata.type

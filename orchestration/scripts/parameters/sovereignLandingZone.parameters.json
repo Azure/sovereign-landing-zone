@@ -411,7 +411,8 @@
         "enableDnsForwarding": false,
         "asn": 65515,
         "bgpPeeringAddress": "",
-        "peerWeight": 5
+        "peerWeight": 5,
+        "vpnClientConfiguration": null
       },
       "value": null,
       "description": "Optional configuration options for the VPN Gateway."

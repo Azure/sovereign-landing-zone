@@ -98,6 +98,7 @@ function New-Platform {
         parVpnGatewayAsn                                 = [string]::IsNullOrEmpty($parParameters.parVpnGatewayConfig.value.asn) ? 65515 : $parParameters.parVpnGatewayConfig.value.asn
         parVpnGatewayBgpPeeringAddress                   = $parParameters.parVpnGatewayConfig.value.bgpPeeringAddress
         parVpnGatewayPeerWeight                          = [string]::IsNullOrEmpty($parParameters.parVpnGatewayConfig.value.peerWeight) ? 5 : $parParameters.parVpnGatewayConfig.value.peerWeight
+        parVpnGatewayClientConfiguration                 = $parParameters.parVpnGatewayConfig.value.vpnClientConfiguration
         parBastionOutboundSshRdpPorts                    = $parParameters.parBastionOutboundSshRdpPorts.value
         parDeployLogAnalyticsWorkspace                   = $parParameters.parDeployLogAnalyticsWorkspace.value
         parTags                                          = Convert-ToHashTable($parParameters.parTags.value)
