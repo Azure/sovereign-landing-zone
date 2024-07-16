@@ -2,7 +2,7 @@
 
 ## Congratulations
 
-You have successfully deployed the Sovereign Landing Zone.
+You have successfully deployed the Sovereign Landing Zone!
 
 You can now improve upon on your [compliance policies](09-Customize-Policies.md) as needed and view the results in your [dashboard](10-Compliance-Dashboard.md). View how to [deploy platform or application landing zones](scenarios/Landing-Zone-Vending.md) to host your workloads within the SLZ for common next steps.
 

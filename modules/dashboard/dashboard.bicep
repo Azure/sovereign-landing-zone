@@ -41,9 +41,8 @@ var varConfidentialityScoreText = loadTextContent('./templates/confidentialitySc
 var varDataResidencyScoreText = loadTextContent('./templates/dataResidencyScore.csl')
 var varListOfResourcesExemptOfConfidentialPoliciesText = loadTextContent('./templates/listOfResourcesExemptOfConfidentialPolicies.csl')
 var varComplianceByPolicyGroupText = loadTextContent('./templates/complianceByPolicyGroup.csl')
-var varComplianceScoreForStoragePolicyGroupText = loadTextContent('./templates/complianceScoreForStoragePolicyGroup.csl')
-var varComplianceScoreForTransportPolicyGroupText = loadTextContent('./templates/complianceScoreForTransportPolicyGroup.csl')
 var varComplianceScoreForConfidentialComputingPolicyGroupText = loadTextContent('./templates/complianceScoreForConfidentialComputingPolicyGroup.csl')
+var varComplianceScoreForCustomerManagedKeysPolicyGroupText = loadTextContent('./templates/complianceScoreForCustomerManagedKeysPolicyGroup.csl')
 
 // Queries
 var varResourceComplianceScoreQuery = replace(replace(varResourceComplianceScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
@@ -58,9 +57,8 @@ var varConfidentialityScoreQuery = replace(replace(varConfidentialityScoreText, 
 var varDataResidencyScoreQuery = replace(replace(varDataResidencyScoreText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
 var varListOfResourcesExemptOfConfidentialPoliciesQuery = replace(replace(varListOfResourcesExemptOfConfidentialPoliciesText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
 var varComplianceByPolicyGroupQuery = replace(replace(varComplianceByPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
-var varComplianceScoreForStoragePolicyGroupQuery = replace(replace(varComplianceScoreForStoragePolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
-var varComplianceScoreForTransportPolicyGroupQuery = replace(replace(varComplianceScoreForTransportPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
 var varComplianceScoreForConfidentialComputingPolicyGroupQuery = replace(replace(varComplianceScoreForConfidentialComputingPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
+var varComplianceScoreForCustomerManagedKeysPolicyGroupQuery = replace(replace(varComplianceScoreForCustomerManagedKeysPolicyGroupText, 'RootPrefix_PLACEHOLDER', parDeploymentPrefix), 'RootSuffix_PLACEHOLDER', parDeploymentSuffix)
 
 var varDefaultTitles = [
   {
@@ -707,7 +705,7 @@ var varDefaultTitles = [
     position: {
       x: 0
       y: 34
-      colSpan: 5
+      colSpan: 8
       rowSpan: 2
     }
     metadata: {
@@ -726,12 +724,12 @@ var varDefaultTitles = [
         }
         {
           name: 'partTitle'
-          value: 'Resource compliance score for encryption at rest policies'
+          value: 'Resource compliance score for Customer-Managed Keys policies'
           isOptional: true
         }
         {
           name: 'query'
-          value: varComplianceScoreForStoragePolicyGroupQuery
+          value: varComplianceScoreForCustomerManagedKeysPolicyGroupQuery
           isOptional: true
         }
         {
@@ -747,65 +745,16 @@ var varDefaultTitles = [
       type: 'Extension/HubsExtension/PartType/ArgQuerySingleValueTile'
       settings: {}
       partHeader: {
-        title: 'Resource compliance score for encryption at rest policies'
-        subtitle: 'Percent of resources compliant with encryption at rest policies in the SLZ'
+        title: 'Resource compliance score for Customer-Managed Keys policies'
+        subtitle: 'Percent of resources compliant with Customer-Managed Keys policies in the SLZ'
       }
     }
   }
   {
     position: {
-      x: 5
+      x: 8
       y: 34
-      colSpan: 5
-      rowSpan: 2
-    }
-    metadata: {
-      inputs: [
-        {
-          name: 'chartType'
-          isOptional: true
-        }
-        {
-          name: 'isShared'
-          isOptional: true
-        }
-        {
-          name: 'queryId'
-          isOptional: true
-        }
-        {
-          name: 'partTitle'
-          value: 'Resource compliance score for encryption in transit policies'
-          isOptional: true
-        }
-        {
-          name: 'query'
-          value: varComplianceScoreForTransportPolicyGroupQuery
-          isOptional: true
-        }
-        {
-          name: 'queryScope'
-          value: {
-            scope: 0
-            values: []
-          }
-          isOptional: true
-        }
-      ]
-      #disable-next-line BCP036
-      type: 'Extension/HubsExtension/PartType/ArgQuerySingleValueTile'
-      settings: {}
-      partHeader: {
-        title: 'Resource compliance score for encryption in transit policies'
-        subtitle: 'Percent of resources compliant with encryption in transit policies in the SLZ'
-      }
-    }
-  }
-  {
-    position: {
-      x: 10
-      y: 34
-      colSpan: 6
+      colSpan: 8
       rowSpan: 2
     }
     metadata: {

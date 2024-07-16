@@ -23,9 +23,9 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 To ensure your data is secure and your privacy controls are addressed, we recommend that you follow a set of best practices when deploying into Azure:
 
 - [Azure security best practices and patterns](https://learn.microsoft.com/azure/security/fundamentals/best-practices-and-patterns)
-- [Microsoft Services in Cybersecurity](https://learn.microsoft.com/azure/security/fundamentals/cyber-services)
+- [Microsoft Services in Cybersecurity](https://learn.microsoft.com/azure/security/fundamentals/services-technologies)
   
-Protecting your data also requires that all aspects of your security and compliance program include your cloud infrastructure and data. The following guidance can help you to secure your deployment.
+Protecting your data also requires that all aspects of your security and compliance programs include your cloud infrastructure and data. The above guidance can help you to secure your deployment.
 
 ## Trademarks
 

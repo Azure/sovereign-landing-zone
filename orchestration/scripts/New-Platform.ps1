@@ -56,10 +56,50 @@ function New-Platform {
     $varManagementGroupId = "$parDeploymentPrefix$parDeploymentSuffix"
     $parDeploymentLocation = $parParameters.parDeploymentLocation.value
     $parDeployBastion = $parParameters.parDeployBastion.value
-    $varSubnets = Convert-ToArray($parParameters.parCustomSubnets.value)
-    $varSubnets += Build-SubnetJsonObject("AzureBastionSubnet", $parParameters.parAzureBastionSubnet.value)
-    $varSubnets += Build-SubnetJsonObject("GatewaySubnet", $parParameters.parGatewaySubnet.value)
-    $varSubnets += Build-SubnetJsonObject("AzureFirewallSubnet", $parParameters.parAzureFirewallSubnet.value)
+
+    $varSubnets = @(
+        @{
+            name                   = "AzureBastionSubnet"
+            ipAddressRange         = $parParameters.parAzureBastionSubnet.value
+            networkSecurityGroupId = ""
+            routeTableId           = ""
+        },
+        @{
+            name                   = "GatewaySubnet"
+            ipAddressRange         = $parParameters.parGatewaySubnet.value
+            networkSecurityGroupId = ""
+            routeTableId           = ""
+        },
+        @{
+            name                   = "AzureFirewallSubnet"
+            ipAddressRange         = $parParameters.parAzureFirewallSubnet.value
+            networkSecurityGroupId = ""
+            routeTableId           = ""
+        }
+    )
+
+    $varCustomSubnets = Convert-ToArray($parParameters.parCustomSubnets.value)
+    foreach ($subnet in $varCustomSubnets) {
+        if ($varSubnets.name.Contains($subnet.name)) {
+            for ($i = 0; $i -lt $varSubnets.Length; $i++) {
+                if ($varSubnets[$i]["name"] -ne $subnet.name) { continue }
+                $varSubnets[$i]["ipAddressRange"] = $subnet.ipAddressRange
+                $varSubnets[$i]["networkSecurityGroupId"] = $subnet.networkSecurityGroupId
+                $varSubnets[$i]["routeTableId"] = $subnet.routeTableId
+            }
+        }
+        else {
+
+            $varSubnet = @{
+                name                   = $subnet.name
+                ipAddressRange         = $subnet.ipAddressRange
+                networkSecurityGroupId = $subnet.networkSecurityGroupId
+                routeTableId           = $subnet.routeTableId
+            }
+
+            $varSubnets += $varSubnet
+        }
+    }
 
     Confirm-BastionRequiredValue $parDeployBastion $varSubnets
     $deploymentName = "deploy-platform-$vartimeStamp"
@@ -73,6 +113,8 @@ function New-Platform {
         parDeployHubNetwork                              = $parParameters.parDeployHubNetwork.value
         parUsePremiumFirewall                            = $parParameters.parUsePremiumFirewall.value
         parEnableFirewall                                = $parParameters.parEnableFirewall.value
+        parAzFirewallPoliciesEnabled                     = $parParameters.parAzFirewallPoliciesEnabled.value
+        parAzFirewallCustomPublicIps                     = $parParameters.parAzFirewallCustomPublicIps.value
         parLogRetentionInDays                            = $parParameters.parLogRetentionInDays.value
         parDeploymentLocation                            = $parParameters.parDeploymentLocation.value
         parHubNetworkAddressPrefix                       = $parParameters.parHubNetworkAddressPrefix.value

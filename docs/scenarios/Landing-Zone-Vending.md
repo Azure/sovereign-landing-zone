@@ -2,7 +2,7 @@
 
 After the SLZ has been deployed, organizations can begin using it to host workloads. Workloads will need their own landing zones, and for more details about the types of landing zones review the [what is a landing zone](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/#platform-landing-zones-vs-application-landing-zones) documentation.
 
-In short, the landing zone as deployed by the SLZ provides the governance framework and controls that can simplify the onboarding of workload landing zones within it's management group structure. This means workload landing zones don't need to recreate common infrastructure such as a hub network as they may use the one that already exists, nor do they need to manage policy assignments as they'll inherent the ones already assigned.
+In short, the landing zone as deployed by the SLZ provides the governance framework and controls that can simplify the onboarding of workload landing zones within its management group structure. This means workload landing zones don't need to recreate common infrastructure such as a hub network as they may use the one that already exists, nor do they need to manage policy assignments as they'll inherent the ones already assigned.
 
 Workload landing zones require the creation of a subscription and placing it within the management group structure. While you may [customize the management groups](Expanding-SLZ-ManagementGroups.md) available, the following exist by default:
 
@@ -20,22 +20,28 @@ Workload landing zones require the creation of a subscription and placing it wit
 
 [Subscription vending](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/subscription-vending) provides a platform mechanism for programmatically issuing subscriptions to application teams that need to deploy workloads. This notion allows for an organization's governance and security teams to build controls and a process around subscription creation, then application teams can request a new subscription for their workload on demand after making a few choices.
 
-[Landing zone vending](https://github.com/Azure/bicep-lz-vending) is a GitHub repository provides the automation to deploy landing zones for workloads within the SLZ. It is recommended for an organization's governance and security teams to review the parameters available in this module and enforce certain values for some, while leaving the others up to the requesting team to fill out. Once all values are added, then a pipeline running with a highly privileged account would create the landing zone and grant reduced permissions to the development team to deploy their workload within.
+[Landing zone vending](https://github.com/Azure/bicep-registry-modules/tree/main/avm/ptn/lz/sub-vending) is a GitHub repository that provides the automation to deploy landing zones for workloads within the SLZ. It is recommended for an organization's governance and security teams to review the parameters available in this module and enforce certain values for some, while leaving the others up to the requesting team to fill out. Once all values are added, then a pipeline running with a highly privileged account would create the landing zone and grant reduced permissions to the development team to deploy their workload within.
 
 It is recommended to not allow a development team set the following values:
 
-* subscriptionBillingScope
-* subscriptionTenantId
-* virtualNetworkDdosPlanId
-* virtualNetworkLocation
+* deploymentScript*
 * hubNetworkResourceId
+* resourceProviders
+* roleAssignmentEnabled
+* roleAssignments
+* subscriptionAliasEnabled
+* subscriptionBillingScope
+* subscriptionManagementGroupAssociationEnabled
+* subscriptionTenantId
+* virtualNetwork*
 
-It is recommended to allow a development to set the following values:
+It is recommended to allow a development team to set the following values (with custom business logic as is needed):
 
 * subscriptionDisplayName
 * subscriptionAliasName
 * subscriptionWorkload
 * subscriptionManagementGroupId
+* subscriptionTags
 
 However, organizations may customize these lists further and provide certain allowed values that a development team can request.
 

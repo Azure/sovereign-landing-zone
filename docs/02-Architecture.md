@@ -2,7 +2,7 @@
 
 ## Overview
 
-The SLZ architecture is derived from the Azure Landing Zone architecture. For detailed information about the Azure Landing Zone please visit [here.](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/)
+The SLZ architecture is derived from the Azure Landing Zone architecture. For detailed information about the Azure Landing Zone please visit the [What is an Azure landing zone?](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/) doc.
 
 The SLZ is composed of a management group hierarchy along with common platform resources to facilitate networking, logging, and managed service identities. Application workloads can be deployed into a SLZ environment in 1 of the 4 default landing zones:
 

@@ -78,6 +78,12 @@ switch ($parDeployment) {
         if ($parDeployAlzDefaultPolicies) {
             $varComplianceRequiredParams = $varComplianceRequiredParams + $varAlzDefaultPolicyRequiredParams
         }
+
+        $varCustomerPolicySets = $varParameters.parCustomerPolicySets.value
+        if ($varCustomerPolicySets) {
+            $varComplianceRequiredParams = $varComplianceRequiredParams + @("parCustomerPolicySets")
+        }
+
         Confirm-Parameters($varComplianceRequiredParams)
         New-Compliance $null $varParameters $null
     }
@@ -103,6 +109,11 @@ switch ($parDeployment) {
     }
 
     'all' {
+        $varCustomerPolicySets = $varParameters.parCustomerPolicySets.value
+        if ($varCustomerPolicySets) {
+            $varAllRequiredParams = $varAllRequiredParams + @("parCustomerPolicySets")
+        }
+
         #Validate Parameters
         Confirm-Parameters($varAllRequiredParams)
 

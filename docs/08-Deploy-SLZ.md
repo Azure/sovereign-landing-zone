@@ -15,6 +15,10 @@
 
 Please reference [Frequently Asked Questions](12-FAQ.md) for commons errors and resolutions, or reference [Deployment Scenarios](scenarios/README.md) for common operations.
 
+## Upgrade Steps
+
+If you are upgrading an existing SLZ deployment to a new version, the above deployment steps are still valid but you may find our [upgrade guidance](./upgrades/README.md) a useful resource to reference.
+
 ## Next step
 
 [Deploy Customized Policies](09-Customize-Policies.md)

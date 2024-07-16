@@ -4,7 +4,7 @@
 
 The [Sovereign Landing Zone](https://learn.microsoft.com/industry/sovereignty/slz-overview) is a [Microsoft Cloud for Sovereignty](https://microsoft.com/sovereignty) offering that is an opinionated variant of the [Azure Landing Zone](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/), which provides an enterprise scale cloud infrastructure designed to help an organization meet their sovereignty requirements such as those related to operational control of data at rest, in transit, and in use.
 
-With the SLZ a customer can create a cloud architecture that provides controls for service location management, [customer managed keys](https://learn.microsoft.com/azure/security/fundamentals/key-management) and [confidential computing](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) as core components of the architecture. This enterprise scale cloud architecture bundled with policies and compliance reporting enables customers to create a platform for the secure and sovereign deployment of their workloads.
+With the SLZ a customer can create a cloud architecture that provides controls for [service location](https://azure.microsoft.com/explore/global-infrastructure/data-residency/) management, [customer managed keys](https://learn.microsoft.com/azure/security/fundamentals/key-management) and [confidential computing](https://learn.microsoft.com/azure/confidential-computing/overview-azure-products) as core components of the architecture. This enterprise scale cloud architecture bundled with policies and compliance reporting enables customers to create a platform for the secure and sovereign deployment of their workloads.
 
 ## Differences between the Sovereign Landing Zone and an Azure Landing Zone
 

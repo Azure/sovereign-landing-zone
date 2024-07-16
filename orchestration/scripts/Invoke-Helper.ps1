@@ -429,7 +429,7 @@ function Confirm-Parameters($parParameters) {
                 $varParameters.$varParameter.value = $varArray.Split(',')
             }
         }
-        elseif (($null -eq $varParameters.$varParameter.value) -or [string]::IsNullOrEmpty($varParameters.$varParameter.value) -or ($varParameters.$varParameter.value -eq "{}")) {
+        elseif (($null -eq $varParameters.$varParameter.value) -or [string]::IsNullOrEmpty($varParameters.$varParameter.value.ToString()) -or ($varParameters.$varParameter.value -eq "{}")) {
             $varParameters.$varParameter.value = $null
             if (!$parAttendedLogin) {
                 $varMissingParameters.add($varParameter)
@@ -480,6 +480,9 @@ function Confirm-Parameters($parParameters) {
     if (($null -ne $varAzureFirewallSubnet) -and ($true -eq $varIsFirewallReservedIpAddress)) {
         Show-IpAddressError("The Azure Firewall Subnet Ip", $varAzureFirewallSubnet)
     }
+
+     # Check parCustomerPolicySets.
+     Confirm-CustomerPolicySets($varParameters.parCustomerPolicySets.value)
 }
 
 <#
@@ -734,23 +737,6 @@ function Register-ResourceProvider {
 
 <#
 .Description
-    Build Subnet Json object.
-#>
-function Build-SubnetJsonObject {
-    param($parKeyValue)
-    if (![string]::IsNullOrEmpty($parKeyValue[1])) {
-        $varSubnetObject = @(
-            @{
-                name           = $parKeyValue[0]
-                ipAddressRange = $parKeyValue[1]
-            })
-
-        return , $varSubnetObject
-    }
-}
-
-<#
-.Description
     Check the bastion subnet value is provided if the deploy bastion is true.
 #>
 function Confirm-BastionRequiredValue {
@@ -926,4 +912,50 @@ function Confirm-AzResourceVersion {
     $varAzResourcesVersion = (Get-InstalledModule -Name Az.Resources).Version.replace("-preview", "")
     $varVersion = [Version]$varAzResourcesVersion -ge [Version]"7.0.0"
     return $varVersion
+}
+
+<#
+.Description
+    Checks whether the file exists or not.
+#>
+function Confirm-FileExists {
+    param($parFilePath)
+    # Check if the file path exists
+    if (Test-Path $parFilePath) {
+        Write-Host "The file $parFilePath exists."
+    } else {
+        Write-Error ">>> The file $parFilePath does not exist. Please try again after addressing this error." -ErrorAction Stop
+    }
+}
+
+<#
+.Description
+    Checks whether the json file format is valid or not.
+#>
+function Confirm-JsonFileFormat { 
+    param($parFilePath)
+
+    # Try to convert the JSON file to a PowerShell object
+    try {
+        Get-Content $parFilePath -Raw | ConvertFrom-Json
+        Write-Host "The file $parFilePath contains valid JSON format."
+    } catch {
+        Write-Error ">>> The file $parFilePath contains invalid JSON format. Please try again after addressing this error. Error: $_" -ErrorAction Stop
+    }
+}
+
+<#
+.Description
+    Checks whether the json file format is valid or not.
+#>
+function Confirm-CustomerPolicySets { 
+    param($parCustomerPolicySets)
+
+    # Try to convert the JSON file to a PowerShell object
+    foreach($varCustomerPolicySet in $parCustomerPolicySets) {    
+        if ($null -ne $varCustomerPolicySet.policyParameterFilePath -and $varCustomerPolicySet.policyParameterFilePath -ne "") {
+            Confirm-FileExists($varCustomerPolicySet.policyParameterFilePath)
+            Confirm-JsonFileFormat($varCustomerPolicySet.policyParameterFilePath)
+        }
+    }
 }

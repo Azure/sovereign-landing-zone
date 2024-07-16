@@ -354,6 +354,7 @@ function New-DefaultCompliance {
         parMsDefenderForCloudEmailSecurityContact            = $parParameters.parMsDefenderForCloudEmailSecurityContact.value
         parPolicyEffect                                      = $parParameters.parPolicyEffect.value
         parPolicyAssignmentEnforcementMode                   = $parParameters.parPolicyAssignmentEnforcementMode.value
+        parExcludedALZPolicyAssignments                      = Get-ALZPolicyAssignmentNames
     }
 
     $varDeploymentName = "deploy-defaultcompliance-$vartimeStamp"
@@ -416,6 +417,41 @@ function New-DefaultCompliance {
     else {
         Write-Error ">>> The required default policy sets were not found. Please try again after some time." -ErrorAction Stop
         return $false
+    }
+}
+
+<#
+.Description
+    Get the list of all ALZ Policy Assignments.
+#>
+function Get-ALZPolicyAssignmentNames {
+
+    # The SLZ baseline policies
+    $varSLZBaseline = @(
+        "/providers/Microsoft.Authorization/policySetDefinitions/03de05a4-c324-4ccd-882f-a814ea8ab9ea",
+        "/providers/Microsoft.Authorization/policySetDefinitions/c1cbff38-87c0-4b9f-9f70-035c7a3b5523"
+        )
+
+    try {
+        $varALZPolicyAssignmentsRootPath = "../../dependencies/infra-as-code/bicep/modules/policy/assignments/lib/policy_assignments"
+
+        $varPolicySetAssignmentFiles = Get-ChildItem -Path "$varALZPolicyAssignmentsRootPath/*.json"
+        $varObjArray = @()
+        foreach ($varFile in $varPolicySetAssignmentFiles) {
+            Write-Information "Processing $varFile.Name" -InformationAction Continue
+
+            $varFilePath = $varALZPolicyAssignmentsRootPath + "/" + $varFile.Name
+            $varJsonContent = Get-Content $varFilePath | ConvertFrom-Json
+            if ($null -ne $varJsonContent -and !$varSLZBaseline.contains($varJsonContent.properties.policyDefinitionId)) {
+                $varObjArray += $varJsonContent.Name
+            }
+        }
+
+        return , $varObjArray
+    }
+    catch {
+        $varTrace = $_.ScriptStackTrace
+        Write-Error ">>> Error occurred during executing Get-ALZPolicyAssignmentNames. Please try after addressing the below error: $_ $varTrace" -ErrorAction Stop
     }
 }
 

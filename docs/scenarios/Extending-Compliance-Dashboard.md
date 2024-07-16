@@ -8,11 +8,11 @@ For the most part, no customization needs to be done for the overall or subscrip
 
 ## Data Residency Views
 
-The data residency views are created by filtering by compliance results for policies under initiatives in the `dashboard-data residency` group. Custom policy assignments can populate these views by creating the group name `dashboard-data residency` in the custom initiative and grouping relevant policies into it.
+The data residency views are created by filtering by compliance results for policies under initiatives in the `so.1 - data residency` group. Custom policy assignments can populate these views by creating the group name `so.1 - data residency` in the custom initiative and grouping relevant policies into it.
 
-## Confidential Computing Views
+## Customer-Managed Keys and Confidential Computing Views
 
-The confidential computing views are created by filtering by compliance results for policies under initiatives in one of the following groups: `dashboard-storage security`, `dashboard-transport security`, `dashboard-confidential computing`, or `dashboard-key management`. Custom policy assignments can populate these views by creating one or more of the above group names in the custom initiative and grouping relevant policies into it.
+The confidential computing views are created by filtering by compliance results for policies under initiatives in one of the following groups: `so.3 - customer-managed keys` or `so.4 - azure confidential computing`. Custom policy assignments can populate these views by creating one or more of the above group names in the custom initiative and grouping relevant policies into it.
 
 ## Custom Tiles
 

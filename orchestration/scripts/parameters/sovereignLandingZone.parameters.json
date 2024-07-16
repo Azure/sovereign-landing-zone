@@ -257,7 +257,7 @@
       "usedBy": "all and platform",
       "defaultValue": true,
       "value": null,
-      "description": "Toggles deployment of Azure Firewall. True to deploy, otherwise false."
+      "description": "Toggles deployment of Azure Firewall. True to deploy, otherwise false if don't want to change the existing firewall policies."
     },
     "parUsePremiumFirewall": {
       "type": "bool",
@@ -265,6 +265,23 @@
       "defaultValue": true,
       "value": null,
       "description": "Toggles deployment of the Premium SKU for Azure Firewall and only used if parEnableFirewall is enabled. True to use Premium SKU, otherwise false."
+    },
+    "parAzFirewallPoliciesEnabled": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Set this to true for the initial deployment as one firewall policy is required. Set this to false in subsequent deployments if using custom policies."
+    },
+    "parAzFirewallCustomPublicIps": {
+      "type": "array",
+      "usedBy": "all and platform",
+      "sampleValue": [
+        "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/publicIPAddresses/REPLACE_WITH_PUBLIC_IP_ID"
+      ],
+      "defaultValue": [],
+      "value": [],
+      "description": "Optional List resource ids of Custom Public IPs, which are assigned to firewalls ipConfigurations."
     },
     "parHubNetworkAddressPrefix": {
       "type": "string",
@@ -278,33 +295,49 @@
       "usedBy": "all and platform",
       "defaultValue": "10.20.15.0/24",
       "value": null,
-      "description": "CIDR range for the Azure Bastion subnet."
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Azure Bastion subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
     },
     "parGatewaySubnet": {
       "type": "string",
       "usedBy": "all and platform",
       "defaultValue": "10.20.252.0/24",
       "value": null,
-      "description": "CIDR range for the Gateway subnet."
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Gateway subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
     },
     "parAzureFirewallSubnet": {
       "type": "string",
       "usedBy": "all and platform",
       "defaultValue": "10.20.254.0/24",
       "value": null,
-      "description": "CIDR range for the Azure Firewall subnet."
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Azure Firewall subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
     },
     "parCustomSubnets": {
       "type": "array",
       "usedBy": "all and platform",
       "sampleValue": [
         {
-          "name": "CustomSubnet1",
-          "ipAddressRange": "xx.xx.xx.xx/xx"
+          "name": "AzureBastionSubnet",
+          "ipAddressRange": "10.20.15.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
         },
         {
-          "name": "CustomSubnet2",
-          "ipAddressRange": "xxx.xxx.xxx.xxx/xx"
+          "name": "GatewaySubnet",
+          "ipAddressRange": "10.20.252.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        },
+        {
+          "name": "AzureFirewallSubnet",
+          "ipAddressRange": "10.20.254.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        },
+        {
+          "name": "CustomSubnet1",
+          "ipAddressRange": "xx.xx.xx.xx/xx",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
         }
       ],
       "defaultValue": [],

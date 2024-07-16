@@ -58,71 +58,12 @@ var varDeploySlzBuiltInPolicies = true
 @description('Effect type for all policy definitions')
 param parPolicyEffect string
 
+@description('List of all ALZ policy assignment names')
+param parExcludedALZPolicyAssignments array = []
+
 var varDeployPolicies = parPolicyAssignmentEnforcementMode == 'Default' ? true : false
 
-var varExcludedALZPolicyAssignments = [
-  'Audit-AppGW-WAF'
-  'Audit-PeDnsZones'
-  'Audit-Location-Match'
-  'Audit-UnusedResources'
-  'Audit-ZoneResiliency'
-  'Deny-AppGW-Without-WAF'
-  'Deny-Classic-Resources'
-  'Deny-DataB-Pip'
-  'Deny-DataB-Sku'
-  'Deny-DataB-Vnet'
-  'Enforce-AKS-HTTPS'
-  'Deny-HybridNetworking'
-  'Deny-IP-Forwarding'
-  'Deny-MgmtPorts-Internet'
-  'Deny-Priv-Containers-AKS'
-  'Deny-Priv-Escalation-AKS'
-  'Deny-Public-Endpoints'
-  'Deny-Public-IP-On-NIC'
-  'Deny-Public-IP'
-  'Deny-RDP-From-Internet'
-  'Deny-Resource-Locations'
-  'Deny-Resource-Types'
-  'Deny-RSG-Locations'
-  'Deny-Storage-http'
-  'Deny-Subnet-Without-Nsg'
-  'Deny-Subnet-Without-Udr'
-  'Deny-UnmanagedDisk'
-  'Deploy-AKS-Policy'
-  'Deploy-ASC-Monitoring'
-  'Deploy-AzActivity-Log'
-  'Deploy-AzSqlDb-Auditing'
-  'Deploy-Log-Analytics'
-  'Deploy-LX-Arc-Monitoring'
-  'Deploy-MDEndpoints'
-  'Deploy-MDFC-Config'
-  'Deploy-MDFC-OssDb'
-  'Deploy-MDFC-SqlAtp'
-  'Deploy-Private-DNS-Zones'
-  'Deploy-Resource-Diag'
-  'Deploy-SQL-DB-Auditing'
-  'Deploy-SQL-Security'
-  'Deploy-SQL-TDE'
-  'Deploy-SQL-Threat'
-  'Deploy-VM-Backup'
-  'Deploy-VM-Monitoring'
-  'Deploy-VMSS-Monitoring'
-  'Deploy-WS-Arc-Monitoring'
-  'Enable-DDoS-VNET'
-  'Enforce-ACSB'
-  'Enforce-ALZ-Decomm'
-  'Enforce-ALZ-Sandbox'
-  'Enforce-GR-KeyVault'
-  'Enforce-TLS-SSL'
-]
-var varExcludedPolicyAssignments = parDeployAlzDefaultPolicies ? [] : varExcludedALZPolicyAssignments
-
-var varPolicyAssignmentScopeName = '${parDeploymentPrefix}${parDeploymentSuffix}'
-var varPolicyExemptionConfidentialOnlineManagementGroup = '${parDeploymentPrefix}-landingzones-confidential-online${parDeploymentSuffix}'
-var varPolicyExemptionConfidentialCorpManagementGroup = '${parDeploymentPrefix}-landingzones-confidential-corp${parDeploymentSuffix}'
-
-var varSlzGlobalLibDef = loadJsonContent('../../dependencies/infra-as-code/bicep/modules/policy/assignments/lib/policy_assignments/policy_assignment_es_enforce_sovereignty_baseline_global.tmpl.json')
-var varSlzGlobalAssignmentName = toLower(varSlzGlobalLibDef.name)
+var varExcludedPolicyAssignments = parDeployAlzDefaultPolicies ? [] : parExcludedALZPolicyAssignments
 
 // The following module is used to deploy the ALZ default policies
 module modAlzPolicyAssignments '../../dependencies/infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep' = {
@@ -153,34 +94,4 @@ module modAlzPolicyAssignments '../../dependencies/infra-as-code/bicep/modules/p
     }
     parLandingZoneMgConfidentialEnable: varDeploySlzBuiltInPolicies
   }
-}
-
-// The following module is used to deploy the policy exemptions
-module modPolicyExemptionsConfidentialOnline '../../modules/compliance/policyExemptions.bicep' = if (varDeploySlzBuiltInPolicies) {
-  scope: managementGroup(varPolicyExemptionConfidentialOnlineManagementGroup)
-  name: take('${parDeploymentPrefix}-deploy-policy-exemptions${parDeploymentSuffix}', 64)
-  params: {
-    parPolicyAssignmentScopeName: varPolicyAssignmentScopeName
-    parPolicyDefinitionReferenceIds: ['AllowedLocationsForResourceGroups', 'AllowedLocations']
-    parPolicyAssignmentName: varSlzGlobalAssignmentName
-    parExemptionName: 'Confidential-Online-Location-Exemption'
-    parExemptionDisplayName: 'Confidential Online Location Exemption'
-    parDescription: 'Exempt the confidential online management group from the SLZ Global Policies location policies. The confidential management groups have their own location restrictions and this may result in a conflict if both sets are included.'
-  }
-  dependsOn: [modAlzPolicyAssignments]
-}
-
-// The following module is used to deploy the policy exemptions
-module modPolicyExemptionsConfidentialCorp '../../modules/compliance/policyExemptions.bicep' = if (varDeploySlzBuiltInPolicies) {
-  scope: managementGroup(varPolicyExemptionConfidentialCorpManagementGroup)
-  name: take('${parDeploymentPrefix}-deploy-policy-exemptions${parDeploymentSuffix}', 64)
-  params: {
-    parPolicyAssignmentScopeName: varPolicyAssignmentScopeName
-    parPolicyDefinitionReferenceIds: ['AllowedLocationsForResourceGroups', 'AllowedLocations']
-    parPolicyAssignmentName: varSlzGlobalAssignmentName
-    parExemptionName: 'Confidential-Corp-Location-Exemption'
-    parExemptionDisplayName: 'Confidential Corp Location Exemption'
-    parDescription: 'Exempt the confidential corp management group from the SLZ Global Policies location policies. The confidential management groups have their own location restrictions and this may result in a conflict if both sets are included.'
-  }
-  dependsOn: [modAlzPolicyAssignments]
 }

@@ -116,14 +116,20 @@ param parSubnets array = [
   {
     name: 'AzureBastionSubnet'
     ipAddressRange: '10.20.15.0/24'
+    networkSecurityGroupId: ''
+    routeTableId: ''
   }
   {
     name: 'GatewaySubnet'
     ipAddressRange: '10.20.252.0/24'
+    networkSecurityGroupId: ''
+    routeTableId: ''
   }
   {
     name: 'AzureFirewallSubnet'
     ipAddressRange: '10.20.254.0/24'
+    networkSecurityGroupId: ''
+    routeTableId: ''
   }
 ]
 
@@ -192,6 +198,12 @@ param parVpnGatewayClientConfiguration object = {}
 
 @description('Enable Firewall. Default:True')
 param parEnableFirewall bool = true
+
+@description('Switch to enable/disable Azure Firewall Policies deployment.')
+param parAzFirewallPoliciesEnabled bool = true
+
+@sys.description('Optional List of Custom Public IPs, which are assigned to firewalls ipConfigurations.')
+param parAzFirewallCustomPublicIps array = []
 
 @description('Define outbound destination ports or ranges for SSH or RDP that you want to access from Azure Bastion.')
 param parBastionOutboundSshRdpPorts array = [ '22', '3389' ]
@@ -303,6 +315,7 @@ module modHubNetworking '../../dependencies/infra-as-code/bicep/modules/hubNetwo
   params: {
     parAzFirewallEnabled: parEnableFirewall
     parAzFirewallName: '${parDeploymentPrefix}-afw-${parDeploymentLocation}${parDeploymentSuffix}'
+    parAzFirewallPoliciesEnabled: parAzFirewallPoliciesEnabled
     parAzFirewallTier: parUsePremiumFirewall ? 'Premium' : 'Standard'
     parAzBastionEnabled: parDeployBastion
     parAzBastionName: '${parDeploymentPrefix}-bas-${parDeploymentLocation}${parDeploymentSuffix}'
@@ -394,6 +407,7 @@ module modHubNetworking '../../dependencies/infra-as-code/bicep/modules/hubNetwo
     parPrivateDnsZonesResourceGroup: '${parDeploymentPrefix}-rg-hub-network-${parDeploymentLocation}${parDeploymentSuffix}'
     parPublicIpSku: 'Standard'
     parPublicIpSuffix: '-PublicIP${parDeploymentSuffix}'
+    parAzFirewallCustomPublicIps: parAzFirewallCustomPublicIps
     parSubnets: parSubnets
     parTags: parTags
     parTelemetryOptOut: true
@@ -431,3 +445,7 @@ output outLogAnalyticsWorkspaceId string = parDeployLogAnalyticsWorkspace ? modL
 output outAutomationAccountName string = parDeployLogAnalyticsWorkspace ? modLogging.outputs.outAutomationAccountName : ''
 output outPrivateDNSZones array = parDeployHubNetwork ? modHubNetworking.outputs.outPrivateDnsZones : []
 output outHubVirtualNetworkId string = parDeployHubNetwork ? modHubNetworking.outputs.outHubVirtualNetworkId : ''
+output outHubRouteTableId string = parDeployHubNetwork ? modHubNetworking.outputs.outHubRouteTableId : ''
+output outHubRouteTableName string = parDeployHubNetwork ? modHubNetworking.outputs.outHubRouteTableName : ''
+output outBastionNsgId string = parDeployHubNetwork ? modHubNetworking.outputs.outBastionNsgId : ''
+output outBastionNsgName string = parDeployHubNetwork ? modHubNetworking.outputs.outBastionNsgName : ''

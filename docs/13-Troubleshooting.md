@@ -63,11 +63,11 @@ Once valid values are provided for the hub VNET and subnets, rerun the SLZ deplo
 
 This error means that the SLZ Global Defaults policy assignment has been configured to block the `parDeploymentLocation`. This commonly occurs when trying to update an existing SLZ deployment. You will need to review the `parAllowedLocations` array to ensure it contains the `parDeploymentLocation` value.
 
-Once a valid value is provided, run the SLZ compliance deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
+Once a valid value is provided, run the SLZ `compliance` deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
 
 ### Put on Firewall Policy [AFW POLICY] Failed with 1 faulted referenced firewalls
 
-This error occurs when the SLZ orchestration is ran a second time after post-deployment modifications have been made to the AFW Policy. While we are working on a resolution, users can mitigate this by setting the `parEnableFirewall` to `false` in the parameter file. This will not cause the SLZ orchestration to delete any firewall resources, but will instead instruct the orchestration to not modify any existing firewall resources.
+This error occurs when the SLZ orchestration is ran a second time after post-deployment modifications have been made to the AFW Policy. The SLZ orchestration will attempt to revert these changes to a null state, causing the error. It is necessary to set the `parAzFirewallPoliciesEnabled` parameter within the parameter file to disable this action.
 
 ## Dashboard Errors
 
@@ -75,6 +75,6 @@ This error occurs when the SLZ orchestration is ran a second time after post-dep
 
 This error means that the SLZ Global Defaults policy assignment has been configured to block the `parDeploymentLocation`. This commonly occurs when trying to create a new SLZ deployment. You will need to review the `parAllowedLocations` array to ensure it contains the `parDeploymentLocation` value.
 
-Once a valid value is provided, run the SLZ compliance deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
+Once a valid value is provided, run the SLZ `compliance` deployment step to update the policy assignment, then rerun the SLZ deployment. This error is related to the other ones where policy is blocking the resource.
 
 ### [Microsoft Legal Notice](./NOTICE.md)

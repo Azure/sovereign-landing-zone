@@ -2,8 +2,8 @@ PolicyResources
 | where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
 | extend policyDefinitionId = tolower(properties.policyDefinitionId), policyGroups = properties.policyDefinitionGroupNames, policySetDefinitionName = tolower(properties.policySetDefinitionName)
 | mv-expand parsed_policy_groups = policyGroups
-| where parsed_policy_groups hasprefix "dashboard-"
-| extend parsed_policy_groups = trim('dashboard-',tostring(parsed_policy_groups))
+| where parsed_policy_groups hasprefix "so."
+| extend parsed_policy_groups = trim('so.',tostring(parsed_policy_groups))
 | project properties, policyDefinitionId, parsed_policy_groups
 | extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), stateWeight = tolong(properties.stateWeight)
 | summarize max(stateWeight) by resourceId, tostring(parsed_policy_groups)
