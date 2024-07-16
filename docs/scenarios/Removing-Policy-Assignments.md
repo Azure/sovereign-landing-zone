@@ -24,21 +24,23 @@ Navigate to the [Management Group](https://portal.azure.com/#view/Microsoft_Azur
 
 Navigate to the **Assignments** blade, then for each policy listed below perform the following:
 
-1) Search for the assignment name
+1) Search for the assignment name:
 
   ![alz-find-initiative-assignments](../images/removing-policy-assignments-02-search-filter.png)
 
-2) Select the ellipsis for the assignment
+2) Select the ellipsis for the assignment:
 
   ![alz-select-initiative-assignments](../images/removing-policy-assignments-03-select-ellipsis.png)
 
-3) Delete the assignment
+3) Delete the assignment:
 
   ![alz-delete-initiative-assignments](../images/removing-policy-assignments-04-select-delete-assignment.png)
 
 For further details refer to the [ALZ Assignment Deletion](https://github.com/Azure/ALZ-Bicep/blob/da0af7a5a1f21825b497017f52264df2d29aa0a6/docs/wiki/PolicyDeepDive.md) docs, and for design consideration refer to the [ALZ Policies](https://github.com/Azure/Enterprise-Scale/wiki/ALZ-Policies) doc.
 
-## ALZ Policy Assignments
+You can find the full list of ALZ Policy Assignment Names below that will need to be removed.
+
+### ALZ Policy Assignments
 
 | **Assignment Name**          | **Definition Name**           |
 |--------------------------|---------------------------|

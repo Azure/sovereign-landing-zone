@@ -63,7 +63,7 @@ This could be due to a left mouse click in the PowerShell window, causing the wi
 
 It may take several hours for billing permissions required to setup or use a billing scope to go into effect, during which point the SLZ will not be deployable. Please run the `Confirm-SovereignLandingZonePrerequisites.ps1` script, and wait around 4 hours before retrying the deployment.
 
-### When running the deployment script, I get a "DeploymentFailed" error with the description "The aggregated deployment error is too large. Please list deployment operations to get the deployment details. Please see `https://aka.ms/DeployOperations` for usage details." How do I fix this?**
+### When running the deployment script, I get a "DeploymentFailed" error with the description "The aggregated deployment error is too large. Please list deployment operations to get the deployment details. Please see `https://aka.ms/DeployOperations` for usage details." How do I fix this?
 
 Please re-try running the script to fix this error. Log an Issue if the problem persists.
 
@@ -106,14 +106,14 @@ Under `/modules/util/Get-FailedDeploymentDetails.ps1` is a PowerShell script tha
 
 This script may capture some information that you should consider removing before sending to Microsoft based on the parameters provided. Below we explain where this information can be surfaced so that you know what text from the JSON file you can consider removing before sending to Microsoft.
 
-  **tenantlogs.json considerations**
+#### tenantlogs.json considerations
 
 In the generated `tenantlogs.json` consider the following. If you enter your name, like `ABC`, as a deployment prefix, your name may appear in a few areas of the log file:
 
 * In any `targetResource.id` you may see the following `"id": "/providers/Microsoft.Subscription/aliases/ABC-identity"`.
 * In `targetResource.resourceName` you may see the following `"resourceName": "ABC-identity"`, for example.
 
-  **managementgrouplogs.json considerations**
+#### managementgrouplogs.json considerations
 
 In the generated `managementgrouplogs.json` consider the following. If you enter your company name, like `xbox`, as a deployment prefix, the company name may appear in a few areas of the log file:
 
@@ -215,9 +215,7 @@ Reference our [pipeline deployments](./scenarios/Pipeline-Deployments.md) docume
 
 ### Why are my Route Tables and NSGs Being Removed?
 
-It is common for customers to make changes to resources deployed by the SLZ orchestration as post-deployment steps. However, when the SLZ orchestration is executed a second time it will attempt to reset these resources back to the original state inadvertently changing routing and network security groups. 
-
-While we are working on a resolution, users can mitigate this by setting the `parDeployHubNetwork` to `false` in the parameter file. This will not cause the SLZ orchestration to delete any networking resources, but will instead instruct the orchestration to not modify any existing networking resources.
+This was originally an issue in earlier versions of the SLZ. Currently, the SLZ supports a variety of [BYO resources](./scenarios/Using-Existing-Resources.md) including Route Tables and NSGs. When configured, the SLZ will not attempt to modify these resources but will ensure they are assigned to the specified subnets.
 
 ## Compliance Dashboard
 

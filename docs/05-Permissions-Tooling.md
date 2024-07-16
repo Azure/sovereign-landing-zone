@@ -1,6 +1,6 @@
 # Permissions and Tooling
 
-This article will walk through the required Azure permissions, setting up local tooling, and the validation steps needed for a successful deployment of the Sovereign Landing Zone.
+This article will walk through the required Azure permissions, setting up your local workspace, and the validation steps needed for a successful deployment of the Sovereign Landing Zone.
 
 ## Permissions
 

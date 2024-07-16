@@ -8,9 +8,9 @@ The Sovereign Landing Zone consists of several components that are deployed as p
 
 2. **Platform**: Sets up the hub network and logging resources used by the SLZ platform and workloads.
 
-3. **Compliance**: Creates definitions and assigns the [default policy sets](scenarios/Sovereignty-Baseline-Policy-Initiatives.md) and provided custom policies to be enforced in the environment. For information on how to provide custom policies to the SLZ read [here.](09-Customize-Policies.md)
+3. **Compliance**: Creates definitions and assigns the [default policy sets](scenarios/Sovereignty-Baseline-Policy-Initiatives.md) and provided custom policies to be enforced in the environment. For information on how to fully customize policies in the SLZ review our [customize policies](09-Customize-Policies.md) doc.
 
-4. **Dashboard**: Provides customers with a visual representation of their Azure policy compliance. For additional information about the dashboard please read [here.](10-Compliance-Dashboard.md)
+4. **Dashboard**: Provides customers with a visual representation of their Azure policy compliance. For additional information about the dashboard review our [compliance dashboard](10-Compliance-Dashboard.md) doc.
 
 Once the deployment is complete, the customer will have the Sovereign Landing Zone setup for their use, with a base set of policies applied. Customers can then begin to migrate workloads and apply additional policies as necessary. For more information about how these deployment steps can be ran individually or how a deployment can be automated, checkout the [SLZ Pipeline Deployments](scenarios/Pipeline-Deployments.md) doc.
 

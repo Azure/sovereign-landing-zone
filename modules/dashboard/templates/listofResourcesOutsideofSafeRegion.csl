@@ -3,7 +3,7 @@ policyResources
 | extend  complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType),   resourceLocation = tolower(properties.resourceLocation), policySetDefinitionName = tostring(properties.policySetDefinitionName), policyGroups = tolower(properties.policyDefinitionGroupNames)
 | where (complianceState == 'NonCompliant' or complianceState == 'Exempt')
 | mv-expand parsed_policy_groups = parse_json(policyGroups)
-| where tostring(parsed_policy_groups) == "dashboard-data residency"
+| where tostring(parsed_policy_groups) == "so.1 - data residency"
 | join kind=leftouter (
    resources
    | project resourceId=tolower(id), resourceName=name, resourceGroup

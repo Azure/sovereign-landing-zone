@@ -37,13 +37,12 @@ param parDescription string
 param parPolicyExemptionManagementGroup string
 
 // Deploy policy exemptions
-module modPolicyExemptions '../../modules/compliance/policyExemptions.bicep' = {
+module modPolicyExemptions '../../dependencies/infra-as-code/bicep/modules/policy/exemptions/policyExemptions.bicep'= {
   scope: managementGroup(parPolicyExemptionManagementGroup)
   name: take('${parDeploymentPrefix}-policy-exemptions${parDeploymentSuffix}', 64)
   params: {
     parPolicyDefinitionReferenceIds: parPolicyDefinitionReferenceIds
-    parPolicyAssignmentName: parPolicyAssignmentName
-    parPolicyAssignmentScopeName: parPolicyAssignmentScopeName
+    parPolicyAssignmentId: '/providers/microsoft.management/managementgroups/${parPolicyAssignmentScopeName}/providers/microsoft.authorization/policyassignments/${parPolicyAssignmentName}'
     parExemptionName: parPolicyExemptionName
     parExemptionDisplayName: parPolicyExemptionDisplayName
     parDescription: parDescription

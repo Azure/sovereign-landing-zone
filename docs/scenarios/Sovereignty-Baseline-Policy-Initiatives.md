@@ -20,7 +20,7 @@ The following parameters are useful for configuring the policy baseline:
 
 **Customer data must be stored and processed entirely in data centers that reside in approved geopolitical regions based upon customer-defined requirements.**
 
-The related policies are in the `dashboard-Data Residency` group within these files:
+The related policies are in the `SO.1 - Data Residency` group within these files:
 
 * [SLZ Global Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-global#so1---data-residency)
 * [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so1---data-residency)
@@ -35,7 +35,7 @@ There is no policy in the baseline that supports this and it is intended to be a
 
 **Customer-defined sensitive customer data must only be accessible in an encrypted manner to cloud and managed service operators.**
 
-The related policies are in the `dashboard-Confidential Computing` group within these files:
+The related policies are in the `SO.3 - Customer-Managed Keys` group within these files:
 
 * [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so3---customer-managed-keys)
 
@@ -45,9 +45,17 @@ The related policies are in the `dashboard-Confidential Computing` group within 
 
 **The customer must have exclusive control over deciding which identities can access keys used to decrypt customer-defined sensitive data.**
 
-The related policies are in the `dashboard-Key Management` group within these files:
+The related policies are in the `SO.4 - Azure Confidential Computing` group within these files:
 
 * [SLZ Confidential Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-confidential#so4---azure-confidential-computing)
+
+### SO-5
+
+**The customer must have assurance that the supply chain for VM disk images has not been altered.**
+
+The related policies are in the `SO.5 - Trusted Launch` group within these files:
+
+* [SLZ Global Defaults](https://learn.microsoft.com/azure/governance/policy/samples/mcfs-baseline-global#so5---trusted-launch)
 
 ## Improvement Ideas
 

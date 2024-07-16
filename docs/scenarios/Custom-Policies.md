@@ -37,12 +37,12 @@ This capability can be used in a deployment through the following:
     * `slzOnlineCustom.json` -> Online and Confidential Online Management Groups
     * `slzPlatformCustom.json` -> Platform Management Group
     * `slzSandboxCustom.json` -> Sandbox Management Group
-3. Select the file for management group scope that you want custom policies to apply to and if you want to apply custom policies to all application workloads then select `slzLandingZoneCustom.json`
-4. If custom policies have not been added yet, then the custom policy file will look like the screenshot below. Do NOT edit the `policyType`, `id`, `type`, or `name` fields. You will update the `parameters`, `policyDefinitions`, and `policyDefinitionGroups` as described by the [initiative definition structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure)
-5. Grouping policies together on the [SLZ dashboard](./Extending-Compliance-Dashboard.md) is accomplished by adding `dashboard-` to the beginning of the policy definition group name, but any name can be used. The documentation for the [policy set definition group structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure#policy-definition-groups) describes the group structure further. A valid policy definition group can be found below:
+3. Select the file for management group scope that you want custom policies to apply to. For instance, if you want to apply custom policies to all application workloads then select `slzLandingZoneCustom.json`
+4. Custom policies policies can be added to the selected custom initiative by updating the `parameters`, `policyDefinitions`, and `policyDefinitionGroups` as described by the [initiative definition structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure). Do NOT edit the `policyType`, `id`, `type`, or `name` fields.
+5. Grouping policies together on the [SLZ dashboard](./Extending-Compliance-Dashboard.md) is accomplished by adding `so.` to the beginning of the policy definition group name, but any name can be used. The documentation for the [policy set definition group structure](https://learn.microsoft.com/azure/governance/policy/concepts/initiative-definition-structure#policy-definition-groups) describes the group structure further. An excerpt of a valid policy group name can be found below:
 ```
     {
-        "name": "dashboard-NIST_SP_800-171_R2",
+        "name": "so.NIST_SP_800-171_R2",
         "category": "Regulatory Compliance",
         "description": "NIST 800-171 rev2"
     }
@@ -72,6 +72,6 @@ For customers that aren't using the ALZ or the SLZ, they may still use the SLZ c
     * `[PREFIX]`-platform-management`[SUFFIX]`
   * `[PREFIX]`-sandbox`[SUFFIX]`
 
-Then the [compliance deployment step](./Pipeline-Deployments.md#individual-deployment-steps) can be executed directly to create the relevant definitions and assignments.
+Then the [compliance deployment step](./Pipeline-Deployments.md#individual-deployment-steps) can be executed directly to create the relevant definitions and assignments, provided a valid parameter file is created with the required parameters specified in the previous link.
 
 ### [Microsoft Legal Notice](../NOTICE.md)

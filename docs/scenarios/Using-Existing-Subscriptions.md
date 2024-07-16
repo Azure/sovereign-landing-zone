@@ -17,6 +17,10 @@ Although any naming convention can be used. To configure the SLZ to use these su
 3. `parManagementSubscriptionId`.value
    * The ID of the `{parDeploymentPrefix}-management{parDeploymentSuffix}` subscription.
 
+## Using Existing Resources
+
+Occasionally, it is useful for the SLZ to also use existing resources that have been deployed alongside these existing subscriptions. Review the [using existing resources](./Using-Existing-Resources.md) doc for details about which resource have BYO support.
+
 ## Deployments in a Singular Subscription
 
 While it is technically possible to use the same subscription ID for all 3 default subscriptions to effectively deploy the SLZ into one subscription, this is not a supported scenario and there may be unexpected conflicts such as the incorrect set of Azure policies influencing the resources.
