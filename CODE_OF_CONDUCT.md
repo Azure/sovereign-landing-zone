@@ -1,9 +1,4 @@
-# Microsoft Open Source Code of Conduct
+# Code of Conduct
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-
-Resources:
-
-- [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/)
-- [Microsoft Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-- Contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with questions or concerns
+* [Node.js Code of Conduct](https://github.com/nodejs/admin/blob/HEAD/CODE_OF_CONDUCT.md)
+* [Node.js Moderation Policy](https://github.com/nodejs/admin/blob/HEAD/Moderation-Policy.md)
