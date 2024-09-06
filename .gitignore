@@ -27,12 +27,3 @@ dependencies/infra-as-code/bicep/modules/policy/definitions/slz-*.bicep
 dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_definitions/_*.txt
 dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_set_definitions/_*.txt
 dependencies/infra-as-code/bicep/modules/policy/definitions/lib/policy_set_definitions/slz*.json
-
-# Ignore slz-test files
-internal/slz-test/SLZTestOrchestrator/bin/*
-internal/slz-test/SLZTestOrchestrator/obj/*
-internal/slz-test/SLZTestOrchestrator.Tests/bin/*
-internal/slz-test/SLZTestOrchestrator.Tests/obj/*
-internal/slz-test/SLZTestOrchestrator/Properties/*
-internal/slz-test/SLZPublishResults/bin/*
-internal/slz-test/SLZPublishResults/obj/*
