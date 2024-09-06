@@ -61,7 +61,7 @@ resource resRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' 
   name: guid(resUserMsi.id, principalId, parRoleDefinitionIdOrName)
   properties: {
     description: parDescription
-    roleDefinitionId: contains(varBuiltInRoleNames, parRoleDefinitionIdOrName) ? varBuiltInRoleNames[parRoleDefinitionIdOrName] : parRoleDefinitionIdOrName
+    roleDefinitionId: varBuiltInRoleNames[?parRoleDefinitionIdOrName] ?? parRoleDefinitionIdOrName
     principalId: principalId
     principalType: !empty(parPrincipalType) ? any(parPrincipalType) : null
     condition: !empty(parCondition) ? parCondition : null

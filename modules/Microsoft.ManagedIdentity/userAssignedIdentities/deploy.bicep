@@ -24,22 +24,6 @@ param parRoleAssignments array = []
 @description('Optional. Tags of the resource.')
 param parTags object = {}
 
-@description('Optional. Enable telemetry via the Customer Usage Attribution ID (GUID).')
-param parEnableDefaultTelemetry bool = true
-
-// Create default telemetry deployment
-resource resDefaultTelemetry 'Microsoft.Resources/deployments@2022-09-01' = if (parEnableDefaultTelemetry) {
-  name: 'pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-${uniqueString(deployment().name, parLocation)}'
-  properties: {
-    mode: 'Incremental'
-    template: {
-      '$schema': 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
-      contentVersion: '1.0.0.0'
-      resources: []
-    }
-  }
-}
-
 //  Create user assigned identity
 resource resUserMsi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: parName
@@ -61,12 +45,12 @@ resource resUserMsiLock 'Microsoft.Authorization/locks@2020-05-01' = if (!empty(
 module modUserMsiRoleAssignments '.bicep/nested_roleAssignments.bicep' = [for (roleAssignment, index) in parRoleAssignments: {
   name: '${uniqueString(deployment().name, parLocation)}-UserMSI-Rbac-${index}'
   params: {
-    parDescription: contains(roleAssignment, 'description') ? roleAssignment.description : ''
+    parDescription: roleAssignment.?description ?? ''
     parPrincipalIds: roleAssignment.principalIds
-    parPrincipalType: contains(roleAssignment, 'principalType') ? roleAssignment.principalType : ''
+    parPrincipalType: roleAssignment.?principalType ?? ''
     parRoleDefinitionIdOrName: roleAssignment.roleDefinitionIdOrName
-    parCondition: contains(roleAssignment, 'condition') ? roleAssignment.condition : ''
-    parDelegatedManagedIdentityResourceId: contains(roleAssignment, 'delegatedManagedIdentityResourceId') ? roleAssignment.delegatedManagedIdentityResourceId : ''
+    parCondition: roleAssignment.?condition ?? ''
+    parDelegatedManagedIdentityResourceId: roleAssignment.?delegatedManagedIdentityResourceId ?? ''
     parResourceId: resUserMsi.id
   }
 }]
