@@ -1,0 +1,6 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), stateWeight = tolong(properties.stateWeight)
+| summarize max(stateWeight) by resourceId
+| project resourceId, complianceState = iff(max_stateWeight == 300, 'NonCompliant', iff(max_stateWeight == 200, 'Compliant', iff(max_stateWeight == 100 , 'Conflict', iff(max_stateWeight == 50, 'Exempt', 'Unknown'))))
+| summarize counts = count() by complianceState

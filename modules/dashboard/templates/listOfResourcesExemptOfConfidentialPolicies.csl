@@ -1,0 +1,15 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and tostring(properties.complianceState)  == "Exempt" and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend  policyDefinitionId = tolower(properties.policyDefinitionId),complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType), policySetDefinitionName = tostring(properties.policySetDefinitionName),subscriptionId = tostring(properties.subscriptionId), policyGroups = tolower(properties.policyDefinitionGroupNames)
+| mv-expand parsed_policy_groups = parse_json(policyGroups)
+| where tostring(parsed_policy_groups) in ("so.3 - customer-managed keys","so.4 - azure confidential computing")
+| join kind=leftouter (
+   resources
+   | project resourceId=tolower(id), resourceName=name, resourceGroup
+  ) on resourceId
+| join kind=inner (
+    resourcecontainers
+    | where type == 'microsoft.resources/subscriptions'
+    | project subscriptionId, subscriptionName = name
+  ) on subscriptionId
+| project ['Compliance State']=complianceState, ['Policy initiative']=policySetDefinitionName, ['Policy definition id']=policyDefinitionId, ['Resource type']=resourceType, ['Resource name']=resourceName, ['Subscription id']=subscriptionId, ['Policy group']=tostring(parsed_policy_groups)
