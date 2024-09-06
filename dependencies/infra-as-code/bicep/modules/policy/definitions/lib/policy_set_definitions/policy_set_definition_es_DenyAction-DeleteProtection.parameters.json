@@ -1,8 +1,0 @@
-{
-  "DenyActionDelete-ActivityLogSettings": {
-    "parameters": {}
-  },
-  "DenyActionDelete-DiagnosticSettings": {
-    "parameters": {}
-  }
-}
