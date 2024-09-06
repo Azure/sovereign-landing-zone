@@ -1,0 +1,578 @@
+{
+  "contentVersion": "1.0.0.0",
+  "description": "",
+  "parameters": {
+    "parDeploymentPrefix": {
+      "type": "string",
+      "usedBy": "all, bootstrap, compliance, platform, and dashboard",
+      "minLength": 2,
+      "maxLength": 5,
+      "defaultValue": "mcfs",
+      "value": null,
+      "description": "Prefix added to all Azure resources created by the SLZ."
+    },
+    "parTopLevelManagementGroupName": {
+      "type": "string",
+      "usedBy": "all and bootstrap",
+      "defaultValue": "Microsoft Cloud for Sovereignty",
+      "value": null,
+      "description": "The name of the top-level management group for the SLZ."
+    },
+    "parDeploymentSuffix": {
+      "type": "string",
+      "usedBy": "all, bootstrap, compliance, platform, dashboard",
+      "maxLength": 5,
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional suffix that will be added to all Azure resources created by the the SLZ. Use a '-' at the start of the suffix value if a dash is needed."
+    },
+    "parTopLevelManagementGroupParentId": {
+      "type": "string",
+      "usedBy": "all and bootstrap",
+      "sampleValue": "/providers/Microsoft.Management/managementGroups/replace_with_parent_management_group_id",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional parent for Management Group hierarchy, used as intermediate root Management Group parent, if specified. If empty (default) will deploy beneath Tenant Root Management Group."
+    },
+    "parSubscriptionBillingScope": {
+      "type": "string",
+      "usedBy": "all and bootstrap",
+      "sampleValue": "Format for EA - /providers/Microsoft.Billing/BillingAccounts/{BillingAccountId}/enrollmentAccounts/{EnrollmentAccountId}",
+      "defaultValue": null,
+      "value": null,
+      "description": "The full resource ID of billing scope associated to the EA, MCA or MPA account you wish to create the subscription in."
+    },
+    "parCustomer": {
+      "type": "string",
+      "usedBy": "all and dashboard",
+      "defaultValue": "Country/Region",
+      "value": null,
+      "description": "The name of the organization deploying the SLZ to brand the compliance dashboard appropriately."
+    },
+    "parDeploymentLocation": {
+      "type": "string",
+      "usedBy": "all, platform, and dashboard",
+      "defaultValue": null,
+      "value": null,
+      "allowedValues": [
+        "australiacentral",
+        "australiacentral2",
+        "australiaeast",
+        "australiasoutheast",
+        "brazilsouth",
+        "brazilsoutheast",
+        "brazilus",
+        "canadacentral",
+        "canadaeast",
+        "centralindia",
+        "centralus",
+        "centraluseuap",
+        "eastasia",
+        "eastus",
+        "eastus2",
+        "eastus2euap",
+        "eastusstg",
+        "francecentral",
+        "francesouth",
+        "germanynorth",
+        "germanywestcentral",
+        "israelcentral",
+        "italynorth",
+        "japaneast",
+        "japanwest",
+        "jioindiacentral",
+        "jioindiawest",
+        "koreacentral",
+        "koreasouth",
+        "northcentralus",
+        "northeurope",
+        "norwayeast",
+        "norwaywest",
+        "polandcentral",
+        "qatarcentral",
+        "southafricanorth",
+        "southafricawest",
+        "southcentralus",
+        "southcentralusstg",
+        "southeastasia",
+        "southindia",
+        "swedencentral",
+        "switzerlandnorth",
+        "switzerlandwest",
+        "uaecentral",
+        "uaenorth",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westeurope",
+        "westindia",
+        "westus",
+        "westus2",
+        "westus3"
+      ],
+      "description": "Location used for deploying Azure resources."
+    },
+    "parAllowedLocations": {
+      "type": "array",
+      "usedBy": "all and compliance",
+      "defaultValue": [],
+      "value": [],
+      "allowedValues": [
+        "australiacentral",
+        "australiacentral2",
+        "australiaeast",
+        "australiasoutheast",
+        "brazilsouth",
+        "brazilsoutheast",
+        "brazilus",
+        "canadacentral",
+        "canadaeast",
+        "centralindia",
+        "centralus",
+        "centraluseuap",
+        "eastasia",
+        "eastus",
+        "eastus2",
+        "eastus2euap",
+        "eastusstg",
+        "francecentral",
+        "francesouth",
+        "germanynorth",
+        "germanywestcentral",
+        "israelcentral",
+        "italynorth",
+        "japaneast",
+        "japanwest",
+        "jioindiacentral",
+        "jioindiawest",
+        "koreacentral",
+        "koreasouth",
+        "northcentralus",
+        "northeurope",
+        "norwayeast",
+        "norwaywest",
+        "polandcentral",
+        "qatarcentral",
+        "southafricanorth",
+        "southafricawest",
+        "southcentralus",
+        "southcentralusstg",
+        "southeastasia",
+        "southindia",
+        "swedencentral",
+        "switzerlandnorth",
+        "switzerlandwest",
+        "uaecentral",
+        "uaenorth",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westeurope",
+        "westindia",
+        "westus",
+        "westus2",
+        "westus3"
+      ],
+      "description": "Full list of Azure regions allowed by policy where resources can be deployed that should include at least the parDeploymentLocation."
+    },
+    "parAllowedLocationsForConfidentialComputing": {
+      "type": "array",
+      "usedBy": "all and compliance",
+      "defaultValue": [],
+      "value": [],
+      "allowedValues": [
+        "australiacentral",
+        "australiacentral2",
+        "australiaeast",
+        "australiasoutheast",
+        "brazilsouth",
+        "brazilsoutheast",
+        "brazilus",
+        "canadacentral",
+        "canadaeast",
+        "centralindia",
+        "centralus",
+        "centraluseuap",
+        "eastasia",
+        "eastus",
+        "eastus2",
+        "eastus2euap",
+        "eastusstg",
+        "francecentral",
+        "francesouth",
+        "germanynorth",
+        "germanywestcentral",
+        "israelcentral",
+        "italynorth",
+        "japaneast",
+        "japanwest",
+        "jioindiacentral",
+        "jioindiawest",
+        "koreacentral",
+        "koreasouth",
+        "northcentralus",
+        "northeurope",
+        "norwayeast",
+        "norwaywest",
+        "polandcentral",
+        "qatarcentral",
+        "southafricanorth",
+        "southafricawest",
+        "southcentralus",
+        "southcentralusstg",
+        "southeastasia",
+        "southindia",
+        "swedencentral",
+        "switzerlandnorth",
+        "switzerlandwest",
+        "uaecentral",
+        "uaenorth",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westeurope",
+        "westindia",
+        "westus",
+        "westus2",
+        "westus3"
+      ],
+      "description": "Full list of Azure regions allowed by policy where Confidential computing resources can be deployed. This may be a completely different list from parAllowedLocations."
+    },
+    "parDeployDdosProtection": {
+      "type": "bool",
+      "usedBy": "all, platform and compliance",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles deployment of Azure DDOS protection. True to deploy, otherwise false."
+    },
+    "parDeployHubNetwork": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles deployment of the hub VNET. True to deploy, otherwise false."
+    },
+    "parEnableFirewall": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles deployment of Azure Firewall. True to deploy, otherwise false if don't want to change the existing firewall policies."
+    },
+    "parUsePremiumFirewall": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles deployment of the Premium SKU for Azure Firewall and only used if parEnableFirewall is enabled. True to use Premium SKU, otherwise false."
+    },
+    "parAzFirewallPoliciesEnabled": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Set this to true for the initial deployment as one firewall policy is required. Set this to false in subsequent deployments if using custom policies."
+    },
+    "parAzFirewallCustomPublicIps": {
+      "type": "array",
+      "usedBy": "all and platform",
+      "sampleValue": [
+        "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/publicIPAddresses/REPLACE_WITH_PUBLIC_IP_ID"
+      ],
+      "defaultValue": [],
+      "value": [],
+      "description": "Optional List resource ids of Custom Public IPs, which are assigned to firewalls ipConfigurations."
+    },
+    "parHubNetworkAddressPrefix": {
+      "type": "string",
+      "usedBy": "all and platform",
+      "defaultValue": "10.20.0.0/16",
+      "value": null,
+      "description": "CIDR range for the hub VNET."
+    },
+    "parAzureBastionSubnet": {
+      "type": "string",
+      "usedBy": "all and platform",
+      "defaultValue": "10.20.15.0/24",
+      "value": null,
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Azure Bastion subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
+    },
+    "parGatewaySubnet": {
+      "type": "string",
+      "usedBy": "all and platform",
+      "defaultValue": "10.20.252.0/24",
+      "value": null,
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Gateway subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
+    },
+    "parAzureFirewallSubnet": {
+      "type": "string",
+      "usedBy": "all and platform",
+      "defaultValue": "10.20.254.0/24",
+      "value": null,
+      "description": "DEPRECATED: Will be superseded the parCustomSubnets parameter in a future release. CIDR range for the Azure Firewall subnet. This parameter is deprecated soon, please use parameter parCustomSubnets instead."
+    },
+    "parCustomSubnets": {
+      "type": "array",
+      "usedBy": "all and platform",
+      "sampleValue": [
+        {
+          "name": "AzureBastionSubnet",
+          "ipAddressRange": "10.20.15.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        },
+        {
+          "name": "GatewaySubnet",
+          "ipAddressRange": "10.20.252.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        },
+        {
+          "name": "AzureFirewallSubnet",
+          "ipAddressRange": "10.20.254.0/24",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        },
+        {
+          "name": "CustomSubnet1",
+          "ipAddressRange": "xx.xx.xx.xx/xx",
+          "networkSecurityGroupId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/networkSecurityGroups/REPLACE_WITH_NETWORK_SECURITY_GROUP_ID",
+          "routeTableId": "/subscriptions/REPLACE_WITH_SUBSCRIPTION_ID/resourceGroups/REPLACE_WITH_RESOURCE_GROUP_ID/providers/Microsoft.Network/routeTables/REPLACE_WITH_ROUTE_TABLE_ID"
+        }
+      ],
+      "defaultValue": [],
+      "value": [],
+      "description": "List of other subnets to deploy on the hub VNET and their CIDR ranges."
+    },
+    "parLogRetentionInDays": {
+      "type": "int",
+      "usedBy": "all, compliance, and platform",
+      "minValue": 30,
+      "maxValue": 730,
+      "defaultValue": 365,
+      "value": null,
+      "description": "Length of time, in days, to retain log files with usage enforced by ALZ policies."
+    },
+    "parManagementSubscriptionId": {
+      "type": "string",
+      "usedBy": "bootstrap, platform and dashboard",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional management subscription ID when using an existing subscription."
+    },
+    "parIdentitySubscriptionId": {
+      "type": "string",
+      "usedBy": "bootstrap and platform",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional identity subscription ID when using an existing subscription."
+    },
+    "parConnectivitySubscriptionId": {
+      "type": "string",
+      "usedBy": "bootstrap and platform",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional connectivity subscription ID when using an existing subscription."
+    },
+    "parDdosProtectionResourceId": {
+      "type": "string",
+      "usedBy": "platform",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional resource ID for an existing DDoS plan with usage enforced by ALZ policies."
+    },
+    "parLogAnalyticsWorkspaceId": {
+      "type": "string",
+      "usedBy": "compliance",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional resource ID for an existing Log Analytics Workspace with usage enforced by ALZ policies."
+    },
+    "parRequireOwnerRolePermission": {
+      "type": "bool",
+      "usedBy": "all and compliance",
+      "defaultValue": false,
+      "value": null,
+      "description": "Set this to true if any policies in the initiative include a modify effect."
+    },
+    "parPolicyExemptions": {
+      "type": "array of objects",
+      "usedBy": "policyexemptions",
+      "valueFormat": [
+        {
+          "parPolicyExemptionManagementGroup": null,
+          "parPolicyAssignmentName": null,
+          "parPolicyAssignmentScopeName": null,
+          "parPolicyDefinitionReferenceIds": [],
+          "parPolicyExemptionName": null,
+          "parPolicyExemptionDisplayName": null,
+          "parPolicyExemptionDescription": null
+        }
+      ],
+      "defaultValue": [],
+      "value": [],
+      "description": "Optional list of policy exemptions."
+    },
+    "parExpressRouteGatewayConfig": {
+      "type": "Object",
+      "usedBy": "all and platform",
+      "sampleValue": {
+        "sku": "standard",
+        "vpntype": "RouteBased",
+        "vpnGatewayGeneration": null,
+        "enableBgp": false,
+        "activeActive": false,
+        "enableBgpRouteTranslationForNat": false,
+        "enableDnsForwarding": false,
+        "asn": 65515,
+        "bgpPeeringAddress": "",
+        "peerWeight": 5
+      },
+      "value": null,
+      "description": "Optional configuration options for the ExpressRoute Gateway."
+    },
+    "parVpnGatewayConfig": {
+      "type": "Object",
+      "usedBy": "all and platform",
+      "sampleValue": {
+        "sku": "VpnGw1",
+        "vpntype": "RouteBased",
+        "generation": "Generation1",
+        "enableBgp": false,
+        "activeActive": false,
+        "enableBgpRouteTranslationForNat": false,
+        "enableDnsForwarding": false,
+        "asn": 65515,
+        "bgpPeeringAddress": "",
+        "peerWeight": 5,
+        "vpnClientConfiguration": null
+      },
+      "value": null,
+      "description": "Optional configuration options for the VPN Gateway."
+    },
+    "parDeployBastion": {
+      "type": "bool",
+      "usedBy": "all and platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles deployment of Azure Bastion. True to deploy, otherwise false."
+    },
+    "parLandingZoneMgChildren": {
+      "type": "array of objects",
+      "usedBy": "all and bootstrap",
+      "sampleValue": [
+        {
+          "id": "MG1",
+          "displayName": "Child MG 1"
+        },
+        {
+          "id": "MG2",
+          "displayName": "Child MG 2"
+        }
+      ],
+      "defaultValue": [],
+      "value": [],
+      "description": "Optional array of child management groups to deploy under the SLZ Landing Zones management group."
+    },
+    "parDeployAlzDefaultPolicies": {
+      "type": "bool",
+      "usedBy": "all and compliance",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles assignment of ALZ policies. True to deploy, otherwise false."
+    },
+    "parAutomationAccountName": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional resource name for an existing Azure Automation account with usage enforced by ALZ policies."
+    },
+    "parPrivateDnsResourceGroupId": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": null,
+      "value": null,
+      "description": "Optional resource ID of the Azure Resource Group that contains the Private DNS Zones with usage enforced by ALZ policies."
+    },
+    "parMsDefenderForCloudEmailSecurityContact": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": null,
+      "value": null,
+      "description": "An e-mail address that you want Microsoft Defender for Cloud alerts to be sent to."
+    },
+    "parBastionOutboundSshRdpPorts": {
+      "type": "array",
+      "usedBy": "all and platform",
+      "defaultValue": ["22", "3389"],
+      "value": [],
+      "description": "Array of outbound destination ports and ranges for Azure Bastion."
+    },
+    "parInvokePolicyScanSync": {
+      "type": "bool",
+      "usedBy": "all and compliance",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles executing the policy scan in synchronous mode. True to run policy scan in synchronous mode, False for asynchronous. When set to false, policy remediation needs to be manually triggered once the scan is complete. Note that when policy scan is run asynchronously, there isn't a way to track its progress."
+    },
+    "parInvokePolicyRemediationSync": {
+      "type": "bool",
+      "usedBy": "all and compliance",
+      "defaultValue": true,
+      "value": null,
+      "description": "Toggles executing the policy scan in synchronous mode. True to run policy remediation in synchronous mode, False for asynchronous."
+    },
+    "parPolicyEffect": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": "Deny",
+      "value": null,
+      "allowedValues": ["Audit", "Deny", "Disabled"],
+      "description": "The policy effect used in all assignments for the Sovereignty Baseline policy initiatives."
+    },
+    "parPolicyAssignmentEnforcementMode": {
+      "type": "string",
+      "usedBy": "all and compliance",
+      "defaultValue": "Default",
+      "value": null,
+      "allowedValues": ["Default", "DoNotEnforce"],
+      "description": "The enforcement mode used in all policy and initiative assignments."
+    },
+    "parDeployLogAnalyticsWorkspace": {
+      "type": "bool",
+      "usedBy": "all, platform",
+      "defaultValue": true,
+      "value": null,
+      "description": "True to deploy LogAnalyticsWorkspace, otherwise false."
+    },
+    "parCustomerPolicySets": {
+      "type": "array of objects",
+      "usedBy": "all and compliance",
+      "defaultValue": [],
+      "sampleValue": [
+        {
+          "policySetDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/179d1daa-458f-4e47-8086-2a68d0d6c38f",
+          "policySetAssignmentName": "NIST-SP-800-53-Rev.-5",
+          "policySetAssignmentDisplayName": "NIST 800-53 Initiative",
+          "policySetAssignmentDescription": "NIST 800-53 Initiative",
+          "policySetManagementGroupAssignmentScope": "/providers/Microsoft.Management/managementGroups/REPLACE_WITH_MANAGEMENT_GROUP_ID",
+          "policyParameterFilePath": "./parameters/policyParameters/nist800Parameter.json"
+        }
+      ],
+      "value": [],
+      "description": "Optional array of customer specified policy assignments to the mentioned scope with the optional input parameter file. If scope is empty assigned at root."
+    },
+    "parTags": {
+      "type": "object",
+      "usedBy": "all, bootstrap, platform, and dashboard",
+      "sampleValue": {
+        "tag1": "value1",
+        "tag2": "value2"
+      },
+      "value": null,
+      "defaultValue": null,
+      "description": "Tags that will be assigned to subscription and resources created by this deployment script."
+    }
+  }
+}

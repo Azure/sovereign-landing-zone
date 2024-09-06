@@ -1,0 +1,13 @@
+policyResources
+| where type == 'microsoft.policyinsights/policystates'
+| extend resourceId = tolower(properties.resourceId), policyAssignmentScope = tolower(properties.policyAssignmentScope), complianceState = tostring(properties.complianceState)
+| where policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER' and complianceState == 'NonCompliant'
+| mv-expand parsed_policy_groups = parse_json(tolower(properties.policyDefinitionGroupNames))
+| where tostring(parsed_policy_groups) == "so.1 - data residency"
+| join kind=inner  (
+   resources
+   | where isnotnull(location)
+   | project resourceId=tolower(id), resourceName=name, resourceGroup, resourcelocation = location
+  ) on resourceId
+| project resourcelocation, complianceState
+| summarize counts = count() by resourcelocation

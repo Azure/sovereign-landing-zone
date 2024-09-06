@@ -1,0 +1,13 @@
+PolicyResources
+|where type == 'microsoft.policyinsights/policystates'  and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend  policyDefinitionId = tolower(properties.policyDefinitionId), policyGroups = tolower(properties.policyDefinitionGroupNames), policySetDefinitionName = tolower(properties.policySetDefinitionName)
+| mv-expand parsed_policy_groups = parse_json(policyGroups)
+| where tostring(parsed_policy_groups) in ("so.4 - azure confidential computing")
+| extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tolower(properties.resourceType), stateWeight = tolong(properties.stateWeight)
+| summarize max(stateWeight) by resourceId, resourceType
+| project resourceId, resourceType, complianceState = iff(max_stateWeight == 300, 'NonCompliant', iff(max_stateWeight == 200, 'Compliant', iff(max_stateWeight == 100 , 'Conflict', iff(max_stateWeight == 50, 'Exempt', 'UnknownResource'))))
+| summarize counts = count() by complianceState
+| summarize compliantCount = sumif(counts, complianceState == 'Compliant' or complianceState == 'Exempt'), nonCompliantCount = sumif(counts, complianceState == 'Conflict' or complianceState == 'NonCompliant')
+| extend totalNum = toint(compliantCount + nonCompliantCount)
+| extend compliancePercentageVal = iff(totalNum == 0, todouble(100), 100 * todouble(compliantCount) / totalNum)
+| project ['Confidentiality compliance percentage (includes compliant and exempt)'] = strcat(tostring(round(compliancePercentageVal, 1)), '% (', tostring(compliantCount),' out of ', tostring(totalNum), ')')

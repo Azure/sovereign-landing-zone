@@ -1,0 +1,16 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend policyDefinitionId = tolower(properties.policyDefinitionId), policyGroups = properties.policyDefinitionGroupNames, policySetDefinitionName = tolower(properties.policySetDefinitionName)
+| mv-expand parsed_policy_groups = policyGroups
+| where parsed_policy_groups hasprefix "so."
+| extend parsed_policy_groups = trim('so.',tostring(parsed_policy_groups))
+| project properties, policyDefinitionId, parsed_policy_groups
+| extend complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), stateWeight = tolong(properties.stateWeight)
+| summarize max(stateWeight) by resourceId, tostring(parsed_policy_groups)
+| summarize counts = count() by tostring(parsed_policy_groups), max_stateWeight
+| summarize nonCompliantCount = sumif(counts, max_stateWeight == 300), compliantCount = sumif(counts, max_stateWeight == 200), conflictCount = sumif(counts, max_stateWeight == 100), exemptCount = sumif(counts, max_stateWeight == 50) by tostring(parsed_policy_groups)
+| extend totalResources = todouble(nonCompliantCount + compliantCount + conflictCount + exemptCount)
+| extend totalCompliantResources = todouble(compliantCount + exemptCount)
+| extend compliancePercentage = iff(totalResources == 0 or (totalCompliantResources == 0 and nonCompliantCount == 0), todouble(100), 100 * totalCompliantResources / totalResources)
+| project toupper(parsed_policy_groups), compliancePercentageEx = toint(round(compliancePercentage, 1))
+| order by compliancePercentageEx asc

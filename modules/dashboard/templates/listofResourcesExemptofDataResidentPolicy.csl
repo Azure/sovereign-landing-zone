@@ -1,0 +1,15 @@
+PolicyResources
+| where type == 'microsoft.policyinsights/policystates' and tostring(properties.complianceState)  == "Exempt" and properties.policyAssignmentScope startswith '/providers/Microsoft.Management/managementGroups/RootPrefix_PLACEHOLDER' and properties.policyAssignmentScope endswith 'RootSuffix_PLACEHOLDER'
+| extend policyAssignmentScope = tolower(properties.policyAssignmentScope), complianceState = tostring(properties.complianceState), resourceId = tolower(properties.resourceId), resourceType = tostring(properties.resourceType), subscriptionId = tostring(properties.subscriptionId), policyDefinitionId = tostring(properties.policyDefinitionId), resourceLocation = tolower(properties.resourceLocation), policySetDefinitionName = tostring(properties.policySetDefinitionName), policyGroups = tolower(properties.policyDefinitionGroupNames)
+| mv-expand parsed_policy_groups = parse_json(policyGroups)
+| where tostring(parsed_policy_groups) == "so.1 - data residency"
+| join kind=leftouter (
+   resources
+   | project resourceId=tolower(id), resourceName=name, resourceGroup
+  ) on resourceId
+| join kind=inner (
+    resourcecontainers
+    | where type == 'microsoft.resources/subscriptions'
+    | project subscriptionId, subscriptionName = name
+  ) on subscriptionId
+| project ['Compliance state']=complianceState, ['Policy initiative']=policySetDefinitionName, ['Resource type']=resourceType, ['Resource name']=resourceName, ['Resource location']=resourceLocation
