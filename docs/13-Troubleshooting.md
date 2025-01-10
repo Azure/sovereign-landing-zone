@@ -69,6 +69,23 @@ Once a valid value is provided, run the SLZ `compliance` deployment step to upda
 
 This error occurs when the SLZ orchestration is ran a second time after post-deployment modifications have been made to the AFW Policy. The SLZ orchestration will attempt to revert these changes to a null state, causing the error. It is necessary to set the `parAzFirewallPoliciesEnabled` parameter within the parameter file to disable this action.
 
+### Error: Code=; Message=Received unexpected type Newtonsoft.Json.Linq.JObject
+
+This error occurs when using Azure PowerShell version 13.0.0 which lead to the SLZ deployment failure, where the latest version is specified.
+
+The following error is encountered during deployment:
+Error: Code=; Message=Received unexpected type Newtonsoft.Json.Linq.JObject.
+
+Note: For the failing deployment, we do load in a json file using the Bicep function: loadJsonContent
+
+Workaround:
+Pinning Azure PowerShell to version 12.5.0 or 12.4.0 resolves the issue.
+
+Steps:
+
+- Uninstall-Module -Name Az -AllVersions -Force
+- Install-Module -Name Az -RequiredVersion 12.5.0 -AllowClobber -Force
+
 ## Dashboard Errors
 
 ### Resource [DASHBOARD RESOURCE GROUP NAME] was disallowed by policy.
