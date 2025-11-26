@@ -1,5 +1,16 @@
 # Understanding the Sovereign Landing Zone (SLZ)
 
+> [!IMPORTANT]
+> For the latest Sovereign landing zone reference architecture, guidance, and implementation tooling please go to:
+> 
+> - [Sovereign landing zone | Overview | Microsoft Learn](https://aka.ms/sovereign/slz)
+> - [Sovereign landing zone | Implementation options | Microsoft Learn](https://learn.microsoft.com/industry/sovereign-cloud/sovereign-public-cloud/sovereign-landing-zone/implementation-options)
+
+> [!CAUTION]
+> This repository and its contents will be archived in the first half of 2026!
+
+---
+
 ## The Sovereign Landing Zone (SLZ)
 
 The [Sovereign Landing Zone](https://learn.microsoft.com/industry/sovereignty/slz-overview) is a [Microsoft Cloud for Sovereignty](https://microsoft.com/sovereignty) offering that is an opinionated variant of the [Azure Landing Zone](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/), which provides an enterprise scale cloud infrastructure designed to help an organization meet their sovereignty requirements such as those related to operational control of data at rest, in transit, and in use.

@@ -1,5 +1,16 @@
 # Troubleshooting
 
+> [!IMPORTANT]
+> For the latest Sovereign landing zone reference architecture, guidance, and implementation tooling please go to:
+> 
+> - [Sovereign landing zone | Overview | Microsoft Learn](https://aka.ms/sovereign/slz)
+> - [Sovereign landing zone | Implementation options | Microsoft Learn](https://learn.microsoft.com/industry/sovereign-cloud/sovereign-public-cloud/sovereign-landing-zone/implementation-options)
+
+> [!CAUTION]
+> This repository and its contents will be archived in the first half of 2026!
+
+---
+
 If you are running into issues with your SLZ deployment, review the common troubleshooting topic here or common questions in the [FAQ](./12-FAQ.md). If neither of these resolve your issue, please reach out for assistance through your standard support process or file a [GitHub issue](https://github.com/Azure/sovereign-landing-zone/issues) with us. 
 
 ## Determining Deployment Steps

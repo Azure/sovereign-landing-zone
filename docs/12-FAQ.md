@@ -1,5 +1,16 @@
 # Sovereign Landing Zone - Frequently Asked Questions
 
+> [!IMPORTANT]
+> For the latest Sovereign landing zone reference architecture, guidance, and implementation tooling please go to:
+> 
+> - [Sovereign landing zone | Overview | Microsoft Learn](https://aka.ms/sovereign/slz)
+> - [Sovereign landing zone | Implementation options | Microsoft Learn](https://learn.microsoft.com/industry/sovereign-cloud/sovereign-public-cloud/sovereign-landing-zone/implementation-options)
+
+> [!CAUTION]
+> This repository and its contents will be archived in the first half of 2026!
+
+---
+
 This document answers the most common questions related to the Sovereign Landing Zone deployment and modules.
 
 To report issues or get support, please submit a ticket through [GitHub Issues](https://github.com/Azure/sovereign-landing-zone/issues) or review the [troubleshooting docs](./13-Troubleshooting.md).
